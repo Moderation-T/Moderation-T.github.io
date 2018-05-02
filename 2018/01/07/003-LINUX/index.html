@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Linux基本使用｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/07/003-LINUX/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/works/">works</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Linux基本使用</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-01-07
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#linux"
+                           title="linux">linux</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Linux基本使用
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="关于根目录介绍"><a href="#关于根目录介绍" class="headerlink" title="关于根目录介绍"></a>关于根目录介绍</h2><pre><code>1. /bin  //许多指令对应的可执行程序文件目录  例如，ls pwd init 等等
+2./sbin        //改目录下的指令都是root可指令 init
+3./usr         //Unix system resource （Unix系统资源文件目录）常用于安装各种软件    
+4./dev         // 系统硬件设备目录  
+        cdrom 光驱硬件    
+5./home     //用户的家目录 创建的用户目录
+        //~ 表示处于自己家目录  
+        //cd ~ 快速切换到家目录    
+6./root        //改目录是root管理员的家目录，root用户登录系统后首先进入该目录下    
+7./proc        //内存映射目录，该目录可以查看系统的相关硬件信息
+8./var        //该目录存储的文件经常会发生变动，经常用于不熟项目程序文件
+9./boot        //系统启动核心文件目录，用于存储系统启动的文件
+10./etc     //系统主要配置文件目录    
+11./lib        //library 系统资源文件类库目录
+12.selinux    //安全增强型Linux
+</code></pre><h2 id="目录的操作"><a href="#目录的操作" class="headerlink" title="目录的操作"></a>目录的操作</h2><pre><code>1.创建 make directory
+  &gt; mkdir 目录名字
+  &gt; mkdir -p sheng/shi/qu 表示通过递归的方式来创建多级目录    
+2.移动（move）
+  &gt; mv dir1 dir2  //将dir1移动到dir2目录下
+  &gt; mv dir1 dir2/dir3  //将dir1移动到dir2目录下
+3.改名字
+  &gt; mv dir1 newdir  //将dir1名字改为newdir    
+2,3的合并写法
+  &gt; mv dir1 ./newdir    //将dir1移动到当前目录下并改名为newdir
+  &gt; mv dir1 dir3    //将dir1移动到dir3并保持原名
+  &gt; mv dir2 dir2/newdir //将dir1移动到dir2下并改名为newdir    
+4.复制（copy）
+  文件的复制
+  &gt; cp file1 dir3    //将file1复制到dir3并保持原名
+  &gt; cp file2 dir2/newfile //将file1复制到dir2下并改名为newfile    
+  目录的复制（需要-r参数  无视目录的层次）
+  &gt; cp -r dir1 dir3    //将dir1复制到dir3并保持原名
+  &gt; cp -r dir2 dir2/newdir //将dir1复制到dir2下并改名为newdir
+5.删除(remove)
+  &gt; rm 文件
+  &gt; rm -r 目录
+  &gt; rm -rf 文件/目录  // 递归强制方式删除文件
+</code></pre><h2 id="文件的操作"><a href="#文件的操作" class="headerlink" title="文件的操作"></a>文件的操作</h2><pre><code>1.查看文件内容
+  &gt; cat filename  //打印文件内容到终端
+  &gt; more filename // 通过敲回车方式逐行查看文件的各个行内容
+          // 不支持回看  直接按q可以退出查看
+  &gt; less filename // 通过上下左右键查看文件的各个部分内容
+          // 支持回看 
+  &gt; head -n filename    // 查看前n行内容
+  &gt; tail -n filename    // 查看后n行内容
+  &gt; wc    filename    //查看文件的行数    
+2.创建文件
+  &gt; touch filename
+  &gt; touch dir/filename    
+3.给文件追加内容
+  &gt; echo 内容 &gt; 文件名称   //把内容以覆盖写的方式追加给文件 
+              //如果文件不存在，将创建该文件
+  &gt; echo 内容 &gt;&gt; 文件名称  //追加内容到文件中
+</code></pre><h2 id="用户和组的操作-在root级别操作"><a href="#用户和组的操作-在root级别操作" class="headerlink" title="用户和组的操作(#在root级别操作)"></a>用户和组的操作(#在root级别操作)</h2><pre><code>- 用户操作 /etc/passwd
+    1.创建用户 user add  
+      &gt;#useradd
+      &gt;#useradd xiaoming  //创建xiaoming用户的同事，会创建一个同名的组出来
+      &gt;#useradd -g gid组别编号 username //把用户的组别设置好，避免创建同名的组出来
+      &gt;#-g 组编号  -u 用户编号  -d 家目录  username
+    2.修改用户 user modify
+      &gt;#usermod
+      &gt;#usermod -g 组别号 -u 用户编号 -d 家目录 -l 新名字 username
+      （修改家目录时需要手动创建）
+    3.删除用户 user delete
+      &gt;#userdel
+      &gt;#userdel -r username        //删除用户同时删除家目录
+    4.给用户设置密码，使其登录系统
+      &gt;#password username
+- 组别操作 /etc/group
+    1.创建组 group add
+      &gt;#groupadd
+    2.修改组 group modfiy
+      &gt;#groupmod
+      &gt;#groupmod -g gid -n 新名字 groupname 
+    3.删除组 group delete
+      &gt;#groupdel groupname //如果组别下有用户是不可以删除的除非把用户移动到别的组中
+</code></pre><h2 id="查看指令可设置的参数"><a href="#查看指令可设置的参数" class="headerlink" title="查看指令可设置的参数"></a>查看指令可设置的参数</h2><pre><code>&gt; man 指令
+&gt; man useradd 显示useradd可执行的指令
+</code></pre><h2 id="常用基础命令"><a href="#常用基础命令" class="headerlink" title="常用基础命令"></a>常用基础命令</h2><pre><code>&gt; ls         //展示目录文件 （list缩写）
+&gt; ls -l 或ll    //以详细信息展示目录文件（list -list）
+&gt; ls -a     //查看目录全部文件,就是包括隐藏文件 （list -all）
+&gt; ls -al     //以详细信息展示全部文件目录，包括隐藏文件
+&gt; ls 目录     //查看指定目录下文件
+&gt; ls -i     //查看文件的索引号码
+</code></pre><hr>
+<pre><code>&gt; cd         //切换路径
+&gt; cd ..     //向上一级目录切换
+</code></pre><hr>
+<pre><code>&gt; pwd         //查看完整操作位置
+</code></pre><hr>
+<pre><code>&gt; su - 或 su -root      //从普通用户切换到root用户
+&gt; su 用户名        // 切换普通用户
+&gt; exit         //退回到原用户
+</code></pre><hr>
+<pre><code>&gt; whoami     //查看当前用户是谁
+</code></pre><hr>
+<pre><code>&gt; init 3 命令界面    
+&gt; init 5 图形界面    //root用户才能切换、图形界面 与 命令界面的切换
+</code></pre><hr>
+<pre><code>&gt;# which 指令     //查看一个指令对应的执行程序文件在哪里
+        //例如 which ls
+</code></pre><hr>
+<pre><code>&gt; clear      //清屏操作
+</code></pre><hr>
+<pre><code>&gt;# ps -A     //查看系统活跃进程
+</code></pre><hr>
+<pre><code>&gt;# kill -9 pid     //杀死指定进程
+</code></pre><hr>
+<pre><code>&gt;# du -h 文件名    //查看文件占据空间大小  默认最小空间是4kb 超出4kb 就是8kb 占据空间大小比文件本身大小大
+</code></pre><hr>
+<pre><code>&gt;# date -s &quot;2018-3-25 12:34:45&quot; //给系统设置时间
+</code></pre><hr>
+<pre><code>&gt;# date     //查看时间
+</code></pre><hr>
+<pre><code>&gt;# df -lh    //查看系统分区情况
+</code></pre><h2 id="操作vi（vi是个编辑器）"><a href="#操作vi（vi是个编辑器）" class="headerlink" title="操作vi（vi是个编辑器）"></a>操作vi（vi是个编辑器）</h2><pre><code>&gt; vi .txt 进入编辑器命令模式
+&gt; :q 退出编辑器
+- 进入编辑模式：
+    &gt; a        //光标和所在字不发生变化
+    &gt; i        //光标和所在字符不发生变化
+    &gt; o        //光标另起一行
+    &gt; s        //删除光标所在字符
+    &gt; esc     //退出编辑模式进入命令模式
+- 进入尾行模式(有两种方式）
+    &gt; :
+    &gt; /
+    &gt; esc     //退出尾行模式
+    &gt; esc(按两次） //快速退出尾行模式
+    &gt; 删除所有尾行内容  也会退出尾行模式       
+- 尾行模式下操作命令
+    &gt; :q        //quit 退出编辑器
+    &gt; :w        //write  对修改的内容进行保存
+    &gt; :wq     //write quit 保存并退出 
+    &gt; :q!         //不保存强制退出编辑器
+    &gt; :w!    //强制保存
+    &gt; :wq!    //强制保存并退出编辑器
+    &gt; :set number 或nu  //设置行号
+    &gt; :set nonumber 或nonu    //取消行号
+    &gt; :/内容/ 或 /内容    //查找指定内容
+    &gt; n            //查找内容时n表示下一个
+    &gt; N            //查找内容时N表示上一个
+     &gt; :数字        //光标跳转到第几行
+    &gt; s/cont1/cont2/    //将cont1替换成cont2 替换光标所在行的第一个目标
+    &gt; s/cont1/cont2/g    //替换光标所在行的所有目标
+    &gt; %s/cont1/cont2/g    //替换文本中所有的目标
+</code></pre><h2 id="命令模式操作"><a href="#命令模式操作" class="headerlink" title="命令模式操作"></a>命令模式操作</h2><pre><code>1.移动光标  
+字符级
+&gt; 上下左右移动  还可以对应jkhl移动
+单词级
+&gt; w （word）移动到下个单词的首字母
+&gt; e （end）移动到下个单词的尾字母
+&gt; b （before）移动到上个单词的首字母
+行级
+&gt; $ 移动到到行尾
+&gt; 0 移动到行首
+段落级（翻屏）
+&gt; {  移动到上个段落或本段落的首部
+&gt; }  移动到下个段落或本段落的尾部
+屏幕级（不翻屏）
+&gt; H  移动到屏幕首部
+&gt; L  移动到屏幕尾部
+文档级
+&gt; G  移动到文档尾部
+&gt; 1G 移动到第一行
+&gt; nG 移动到文档的第n行
+2.内容删除
+&gt; dd  删除光标当前行
+&gt; 2dd 包括当前行向后删除2行内容
+&gt; ndd 包括当前行向后删除n行
+&gt; x 删除光标所在字符
+&gt; c+w 删除光标所在字母到单词结尾并进入编辑模式
+3.内容复制
+&gt; yy  复制光标当前行
+&gt; 2yy 包括当前行向后复制2行内容
+&gt; nyy 包括当前行向后复制n行
+&gt; p 对复制好或者删除的内容进行粘贴 粘贴到光标所在的下一行
+4.相关快捷操作
+&gt; u   undo撤销
+&gt; J   合并上下两行 
+&gt; r   单个字符替换
+&gt; .   重复执行上次最近的指令 
+</code></pre><h2 id="权限操作-（用户针对文件是否拥有读、写、执行的权利）"><a href="#权限操作-（用户针对文件是否拥有读、写、执行的权利）" class="headerlink" title="权限操作 （用户针对文件是否拥有读、写、执行的权利）"></a>权限操作 （用户针对文件是否拥有读、写、执行的权利）</h2><pre><code>权限设置
+  chmod命令
+ 1.字母相对方式设置权限
+  1）每个单元+、- 只能使用一个
+  2) 可以同时给多个组同时设置权限
+  3）都可以设置rwx相关权限
+    &gt;chmod u+rwx filename    //给filename文件的主人增加读、写、执行权限
+    &gt;chmod g-rx filename    //给filename文件的同族用户 删除读 执行权限
+    &gt; chmod u+/-rwx,g+/-rwx,o+/-rwx filename
+    &gt; chmod u+rwx,g-rx,o+rw filename  //给filename主人增加rwx权限 给同组用户删除rx权限 给其他组增加rw权限
+    &gt; chmod u+w,u-x filename    //给filename主人增加w权限删除x权限
+    &gt; chmod +/- filename        //无视组别，统一给全部的组设置权限
+    &gt; chmod +rw filename     //给filename的全部用户增加读、写的权限 
+ 2.数字绝对方式设置权限
+  r读：4  w写：2  x执行：1
+    0：没有权限
+    1：执行权限
+    2：写权限
+    3：写，执行权限
+    4：读权限
+    5：读，执行权限
+    6：读，写权限
+    7：读，写，执行权限
+    &gt;chmod ABC filename     //ABC 分别代表主人，同组用户，其他用户
+    &gt; chmod 753 filename        //主人权限7  同组用户权限5  其他用户权限3权限使用
+ 文件的使用权限
+  读：是否可以查看
+  写：是否可以编辑
+  执行：是否可以执行二进制文件和shell脚本文件
+ 目录的使用权限
+  读：是否可以查看该目录内部的文件信息
+  写：是否可以给该目录创建、删除文件
+  执行：指定用户是否可以cd进入该目录
+</code></pre><h2 id="权限针对文件强制操作"><a href="#权限针对文件强制操作" class="headerlink" title="权限针对文件强制操作"></a>权限针对文件强制操作</h2><pre><code>！强制操作
+1，对文件有w权限，没有r权限，强制写保存会覆盖文件原内容
+2，对文件米有w权限，可以强制写保存
+3，非主人用户，没有w权限，强行写保存或许成功，或许不成功
+  1）该文件的上级目录针对该修改者没有开放w权限，强行写保存不成功
+  2）该文件的上级目录针对该修改者有开放w权限，强行写保存成功
+  3）强制修改成功后，文件的主人，组别变为修改者的主人和组别
+</code></pre><h2 id="在文件中查找内容"><a href="#在文件中查找内容" class="headerlink" title="在文件中查找内容"></a>在文件中查找内容</h2><pre><code>&gt;# grep 被搜索内容 文件        //在passwd文件中搜索被搜索内容 会把被搜索内容所在行的内容打印到终端  
+&gt;# grep hello passwd
+&gt;# grep jinnan /etc/group 
+</code></pre><h2 id="管道（前者的输出是后者的输入参数）"><a href="#管道（前者的输出是后者的输入参数）" class="headerlink" title="管道（前者的输出是后者的输入参数）"></a>管道（前者的输出是后者的输入参数）</h2><pre><code>可以作为管道指令的命令
+grep head tail wc ls
+ 查看文件内容操作命令
+  &gt; head -n filename    // 查看前n行内容
+  &gt; tail -n filename    // 查看后n行内容
+  &gt; wc    filename    //查看文件的行数
+
+ &gt; ls -l | head -5  //查看ls -l信息的前五行
+ &gt; grep hello passwd | wc //查看grep hello passwd 打印出的信息中的文件行数
+ &gt; ls -l | head -10 | tail -6  //ls -l结果就是查看4-10行的结果
+ &gt;grep hello passwd | grep world  在passwd中查找hello行然后在这个数据中查找world
+</code></pre><h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2><pre><code>find 查找目录 选项 选项值 选项 选项值 ...
+1）-name 根据名字进行查找
+&gt; find / -name passwd        //递归遍历系统 目录极其内部深层目录，寻找passwd文件
+&gt; find / -name &quot;p*&quot;        //模糊查找名字是p开头的文件
+&gt; find / -name &quot;*p&quot;        //模糊查找名字是p结尾的文件
+&gt; find / -name &quot;*p*&quot;        //模糊查找名字中间有p的文件
+2）限制查找的目录层次  -maxdepath  -mindepath
+   -maxdepath  限制查找的最深目录
+   -mindepath 限制查找的最浅目录
+&gt; find / -maxdepath 4 -name passwd     //寻找名字为passwd 层次在4个以下的文件
+3）-size 根据大小为条件进行查找
+  -size +/-数字
++：表示大小大于某个范围
+      -：表示大小小于某个范围
+      什么也不加表示等于某个范围
+  大小单位： -size 5  //单位是512字节 5*512字节
+       -size 5c //单位是字节 5字节
+       -size 3k //单位是千字节 3*1024字节
+             -size 2m //单位是1024*千字节 2M兆字节
+4）根据文件权限进行查找
+  &gt; find ./ -perm 764    //查找权限为764的文件
+5)根据文件类型进行查找
+  &gt; find ./ -type f  //查找文件类型
+  &gt; find ./ -type d  //查找目录类型
+6）根据主人查找
+  &gt; find ./ -user zhoudong  //查找主人为zhoudong的文件
+7）根据组别查找
+  &gt; find ./ -group root     //查找组别为root的文件
+</code></pre><h2 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h2><pre><code>1.软连接 
+1）类似windows系统的快捷方式，作用就是可以对硬盘空间进行合理分配
+2）如果软连接文件与源文件不在同一级目录，则源文件需要设置为“觉得路径”，否则为无效的软连 接文件
+3）软连接文件要占据一点空间大小，具体大小根据路源文件路径长度决定
+&gt; ln -s 源文件 软连接文件  //创建软连接
+&gt; ln -s an.txt a.txt        //在当前文件下为an.txt创建软连接文件a.txt
+2.硬链接 
+1）系统里面文件的名称（引用）就是硬链接
+2）给文件增加名称（引用）的过程就是创建硬链接（一个文件有多个名称，他们都是同一个文件实体的硬链接）
+3)创建硬链接不用设置绝对路径
+4)只有文件可以设置硬链接目录不可以，目录的硬链接是系统自动设置的
+5）同一个源文件的所有硬链接文件必须在同一个硬盘，同一个分区里边
+&gt; ln [-d] 源文件 硬链接
+</code></pre><h2 id="任务调度指令"><a href="#任务调度指令" class="headerlink" title="任务调度指令"></a>任务调度指令</h2><pre><code>规定系统在指定的时间完成指定的任务过程
+可以同时设置多个任务调用指令
+&gt; crontab -e    //编辑任务调度指令
+&gt; crontab -l     //查看任务调度指令
+</code></pre><h2 id="文件主人，组别设置"><a href="#文件主人，组别设置" class="headerlink" title="文件主人，组别设置"></a>文件主人，组别设置</h2><pre><code>change owner
+ 针对文件操作
+ &gt; chown 主人 filename  
+ &gt; chown tang tiancai.txt    //修改tiancai.txt的主人为tang
+ &gt; chown .tang tiancai.txt    //修改tiancai.txt的组别为tang
+ &gt; chown tagn.tang tiancai.txt   //前两个综合
+ 针对目录操作
+ &gt; chown -R 主人.组别 dir    //通过递归方式设置属组信息
+</code></pre><h2 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h2><pre><code>1.进入后修改相关配置，参考截图网络配置
+  &gt; cd /etc/sysconfig/network-scripts
+  &gt; cp ifcfg-eth0 ./ifcfg-eth0.bak  网卡修改前先做备份
+2.修改配置后需要重新启动网络
+  &gt;service network restart
+3.修改虚拟机网卡桥接模式 （参考截图网卡桥接）
+4.Linux可以ping通本机 （ping通之后可以互相进行通讯）
+  &gt; ping 192.168.0.56(本机的ip地址)
+</code></pre><h2 id="关于SecureCRT-连接配置"><a href="#关于SecureCRT-连接配置" class="headerlink" title="关于SecureCRT 连接配置"></a>关于SecureCRT 连接配置</h2><pre><code>端口22
+协议是ssh
+（类apache走80端口 协议是http）
+</code></pre><h2 id="光驱的挂载"><a href="#光驱的挂载" class="headerlink" title="光驱的挂载"></a>光驱的挂载</h2><pre><code>光驱使用，其挂载是手动的
+1）创建一个普通目录
+2）找到光驱硬件设备（/dev/cdrom）
+3) 使得普通目录与光驱硬件设备进行联系（挂载）
+准备：
+在光驱里边放入光盘
+找到光驱设备文件 /dev/cdrom
+具体的挂载指令：
+ &gt; mount 硬件 挂载点目录（普通目录）    //挂载动作
+ &gt; mount /dev/cdrom /home/tang/rom    //把光驱挂载到rom目录
+ &gt; umount 硬件或挂载点            //卸载动作
+ &gt; umount /dev/cdrom            //硬件卸载光驱
+ &gt; umount /home/tang/rom        //挂载点卸载光驱
+ &gt; eject                //弹出光盘
+</code></pre><h1 id="Linux系统软件的安装"><a href="#Linux系统软件的安装" class="headerlink" title="Linux系统软件的安装"></a>Linux系统软件的安装</h1><h2 id="1-二进制码软件安装："><a href="#1-二进制码软件安装：" class="headerlink" title="1.二进制码软件安装："></a>1.二进制码软件安装：</h2><pre><code>1）方式1：rpm方式
+ 进入挂载点rom文件  进入其中的Package目录中
+  安装vsftp
+  &gt; rpm -i[vh] 软件包全名  //安装rpm软件
+  &gt; rpm -q 软件包名        //query查看rpm安装情况
+  &gt; rpm -qa 软件包名        //查看系统里边全部rpm安装的软件
+  &gt; rpm -e 软件包名       //卸载软件
+  &gt; rpm -qa |grep ftpd（部分名）//模糊查找指定ftpd是否有安装
+2）方式2：yum智能方式  
+</code></pre><h2 id="使用ftp软件"><a href="#使用ftp软件" class="headerlink" title="使用ftp软件"></a>使用ftp软件</h2><pre><code>走ftp协议 占用21端口
+  &gt; service vsftpd start    //启动ftp软件
+  &gt; service vsftpd stop    //关闭ftp软件
+  &gt; service vsftpd restart //重启ftp软件
+  &gt; ps -A |grep ftp    //查看ftp的服务进程
+
+ 使用ftp之前测试本机与Linux的ftp端口21是否通畅
+  在Windows dos命令行中输入
+   &gt; telnet 192.168.0.13 21检测21号端口是否正常使用 如果窗口没有提示 220（vsftpd）则不通畅
+ 不通畅的解决方法：
+  关闭系统防火墙
+   &gt; setup  进入将防火墙关闭
+
+ 使用ftp 需要安装一个客户端 winscp 
+  安装连接服务器 （登录提示失败）
+  解决登录失败：关闭selinux
+   &gt;vi /etc/selinux/config  完成编辑并reboot重启系统，并启动ftp服务
+  selinux：安全增强型Linux 对系统起着安全保护作用
+  编辑/etc/selinux/config 把enforcing改为disabled  禁用selinux
+
+ 创建tar目录将安装包文件导入tar中  并给tar创建其他组用户创建w权限才可以向里面复制东西
+</code></pre><h2 id="ftp两个优化"><a href="#ftp两个优化" class="headerlink" title="ftp两个优化"></a>ftp两个优化</h2><pre><code>1，ftp服务可以在配置文件中做设置，设置用户对ftp的使用权限
+  两个文件对用户进行了限制  在这两个文件中设置权限默认root用户是不能访问htp服务的 
+  /etc/vsftpd/user_list
+  /etc/vsftpd/ftpusers
+  配置文件修改后要重启ftp服务
+2，限制普通用户访问根目录
+  /etc/vsftpd/vsftpd.conf
+  修改97,99行  将97行打开  将99行打开再修改
+  /etc/vsftpd/chroot_list 这个文件需要创建，将只允许访问自己家目录的用户添加进这个文件
+</code></pre><h2 id="2-源码编译方式安装软件"><a href="#2-源码编译方式安装软件" class="headerlink" title="2.源码编译方式安装软件"></a>2.源码编译方式安装软件</h2><pre><code>1）首先安装gcc编译软件
+gcc编译器安装（翻译c语言为二进制码内容）
+在挂载磁盘的rom文件夹中找到gcc
+使用rpm的方式安装 
+安装失败原因，需要安装额外的依赖（软件依赖或者软件内部功能模块的依赖）
+ 2)安装步骤
+先解压安装包 在解压出的文件夹中配置configure文件
+1，设置./configure    //在解压软件目录内部执行
+        //相关参数配置，软件安装位置，依赖软件设置，软件依赖检查等        
+        //例如--prefix是设置软件的安装位置
+  &gt;#./configure --help //查看当前软件可以设置的各种参数
+2，make    //编译，根据configure的配置信息生成二进制文件
+3，make install  //把生成的二进制文件复制到系统指定目录（本质与rpm安装软件一致）    
+make &amp;&amp; make install 合并执行2、3
+</code></pre><h2 id="安装包放置于tar文件目录中了（按顺序安装所需软件）"><a href="#安装包放置于tar文件目录中了（按顺序安装所需软件）" class="headerlink" title="安装包放置于tar文件目录中了（按顺序安装所需软件）"></a>安装包放置于tar文件目录中了（按顺序安装所需软件）</h2><pre><code>  1，zlib（对许多其他软件的编译代码起着优化、压缩的作用）\
+    &gt;# ./configure
+  2，apache
+    &gt;# ./configure --prefix=/usr/local/http2 \
+    &gt; --enable-modules=all \
+    &gt; --enable-mods-shared=all \
+    &gt; --enable-so（可以识别so后缀的模块文件）
+    开启apache（第一次启动有服务提示）
+    进入/usr/local/apache2/bin
+    &gt;# ./apachectl start
+    解决服务提示的方法：修改apache配置文件httpd.conf ，找到ServerName去除前面的#即可
+
+enable-mods-shared=all //模块共享型 要把全部的功能模块代码内容都编译到apache本身软件内部 特点：apache本身软件会稍显臃肿，但是在调用相关模块的时候速度回很快
+相对应类型：static 静态类型 apache内部要被编译进许多模块代码，其他模块代码都独立存在，需要什么模块，就立即include引入值 特点：apache软件本身会非常小巧，其运行速度回很快
+3，安装PHP前安装依赖  xml
+  &gt;# ./configure --prefix=/usr/local/libxml2 \
+  &gt; --without-zlib
+4，jpeg8
+  &gt;# ./configure --prefix=/usr/local/jpeg \
+  &gt; --enable-shared --enable-static 
+5，png
+  &gt;# ./configure 
+6,freetype
+  &gt;# ./configure --prefix=/usr/local/freetype
+7,GD库
+  &gt;# ./configure --prefix=/usr/local/gd \
+  &gt; --with-jpeg=/usr/local/jpeg \
+  &gt; --with-png --with-zlib \
+  &gt; --with-freetype=/usr/local/freetype
+8,php
+  &gt; ./configure --prefix=/usr/local/php \
+  &gt; --with-apxs2=/usr/local/http2/bin/apxs \
+    apache的支持，其作用：
+1，给apache生成php模块
+2，修改/usr/local/apache2/bin/httpd.conf的配置文件，使其引入php模块
+
+  &gt; --with-mysql=mysqlnd \
+  &gt; --with-pdo-mysql=mysqlnd \
+  &gt; --with-mysqli=mysqlnd \
+mysqlnd表示会激活本地的mysql驱动
+
+  &gt; --with-freetype-dir=/usr/local/freetype \
+  &gt; --with-gd=/usr/local/gd \
+  &gt; --with-zlib --with-libxml-dir=/urs/local/libxml2 \
+  &gt; --with-jpeg-dir=/usr/local/jpeg \
+  &gt; --with-png-dir \
+
+  &gt; --enable-mbsting=all \
+表示宽字节函数库对php的支持
+
+  &gt; --enable-mbregex \
+正则表达对php的支持
+
+  &gt; --enable-shared
+</code></pre><h3 id="配置PHP"><a href="#配置PHP" class="headerlink" title="配置PHP"></a>配置PHP</h3><pre><code> 复制php.ini指定文件到指定目录
+ &gt;# cp php.ini-development /usr/local/php/lib/php.ini
+PHP安装完成， 会使得/usr/local/apache2/conf/httpd.conf把对应的php模块给引入进来
+文件修改后重启apache
+</code></pre><h3 id="配置apahce使其支持PHP"><a href="#配置apahce使其支持PHP" class="headerlink" title="配置apahce使其支持PHP"></a>配置apahce使其支持PHP</h3><pre><code>1，在httpd.conf中增加如下语句，是apache遇到PHP文件对齐进行解析
+ ： AddType application/x-httpd-php .php (见图文件配置修改）    
+2，修改usr/local/php/lib/php.ini 配置时区（见图配置时区）
+
+
+9.mysql
+    1,安装cmake（更先进的configure）
+      &gt;# ./bootstrap(这是源码编译方式，不要用这种方式）
+      &gt;rpm -ivh cmake(用rpm方式安装) 
+
+    2,编译安装mysql
+          &gt;# cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+    -DMYSQL_DATADIR=/usr/local/mysql/data \
+    -DDEFAULT_CHARSET=utf8 \
+    -DDEFAULT_COLLATION=utf8_general_ci
+</code></pre><h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><pre><code>1,复制一个配置文件    
+&gt;cp support-files/my-medium.cnf  /etc/my.cnf //给mysql
+2,配置并初始化mysql
+  &gt;# useradd mysql //创建一个mysql用户
+ &gt;# chmod +x /usr/local/mysql
+
+如果数据库用户不小心删光了：
+ 1）删除/usr/local/mysql/data目录
+ 2)同时删除旧的mysql服务
+  &gt;ps -A | grep mysql
+  killall mysqld 或 kill -9 mysql进程号码
+ 3）从这开始再执行一遍下边的指令
+
+ &gt;shown -R mysql.mysql/usr/local/mysql //为mysql设置组名和组别
+
+初始化mysql数据库（创建系统默认数据mysql/test等）
+ &gt;# /usr/local/mysql/script/scripts/mysql_install_db \
+ &gt; --user=mysql \
+ &gt; --basedir=/usr/local/mysql \
+ &gt; --datadir=/usr/local/mysql/data &amp;    
+
+把mysql安装文件（除了data）的主人都改为root，避免数据库恢复为出厂设置
+ &gt;# chown -R root /usr/local/mysql
+ &gt;# chown -R mysql/usr/local/mysql/data
+
+后台运行mysql
+ &gt;# /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;
+
+查看mysql是否有启动
+ &gt;# ps -A | grep mysql
+
+ 测试数据库
+ &gt;# /usr/local/mysql/bin/mysql -u root
+ mysql&gt;show databases
+</code></pre><h3 id="设置mysql账号密码"><a href="#设置mysql账号密码" class="headerlink" title="设置mysql账号密码"></a>设置mysql账号密码</h3><pre><code>mysql&gt;use mysql;
+mysql&gt;UPDATE user SET Password=password(&apos;123456&apos;) WHERE user=&apos;root&apos;;
+mysql&gt;flush privileges;
+</code></pre><h3 id="解压压缩包命令"><a href="#解压压缩包命令" class="headerlink" title="解压压缩包命令"></a>解压压缩包命令</h3><pre><code>&gt; tar zxvf 压缩包.tar.gz  //解压.tar.gz格式
+&gt; tar jxvf 压缩包.tar.bz2 //解压.tar.bz2格式
+</code></pre><h3 id="删除安装后的文件"><a href="#删除安装后的文件" class="headerlink" title="删除安装后的文件"></a>删除安装后的文件</h3><pre><code>1，删除安装后的文件（有指定安装目录情况/usr/local/http2）
+2, 删除解压后的目录
+3，重新解压，重新configure，重新make，重新make install
+</code></pre><h3 id="二进制码和源码安装的取舍"><a href="#二进制码和源码安装的取舍" class="headerlink" title="二进制码和源码安装的取舍"></a>二进制码和源码安装的取舍</h3><pre><code>1.软件安装后使用的用户非常少，（如ftp，gcc）则使用二进制码安装
+2.软件安装后使用的用户非常多，（如php，apache，mysql）则使用源码安装
+</code></pre>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/05/002-MARKDOWN/" data-toggle="tooltip" data-placement="top"
+                           title="markdown基本使用">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于根目录介绍"><span class="toc-text">关于根目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录的操作"><span class="toc-text">目录的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的操作"><span class="toc-text">文件的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户和组的操作-在root级别操作"><span class="toc-text">用户和组的操作(#在root级别操作)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看指令可设置的参数"><span class="toc-text">查看指令可设置的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用基础命令"><span class="toc-text">常用基础命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作vi（vi是个编辑器）"><span class="toc-text">操作vi（vi是个编辑器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令模式操作"><span class="toc-text">命令模式操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限操作-（用户针对文件是否拥有读、写、执行的权利）"><span class="toc-text">权限操作 （用户针对文件是否拥有读、写、执行的权利）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限针对文件强制操作"><span class="toc-text">权限针对文件强制操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在文件中查找内容"><span class="toc-text">在文件中查找内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管道（前者的输出是后者的输入参数）"><span class="toc-text">管道（前者的输出是后者的输入参数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件查找"><span class="toc-text">文件查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软链接和硬链接"><span class="toc-text">软链接和硬链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#任务调度指令"><span class="toc-text">任务调度指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件主人，组别设置"><span class="toc-text">文件主人，组别设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置网络"><span class="toc-text">配置网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于SecureCRT-连接配置"><span class="toc-text">关于SecureCRT 连接配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#光驱的挂载"><span class="toc-text">光驱的挂载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux系统软件的安装"><span class="toc-text">Linux系统软件的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-二进制码软件安装："><span class="toc-text">1.二进制码软件安装：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用ftp软件"><span class="toc-text">使用ftp软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp两个优化"><span class="toc-text">ftp两个优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-源码编译方式安装软件"><span class="toc-text">2.源码编译方式安装软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装包放置于tar文件目录中了（按顺序安装所需软件）"><span class="toc-text">安装包放置于tar文件目录中了（按顺序安装所需软件）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置PHP"><span class="toc-text">配置PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置apahce使其支持PHP"><span class="toc-text">配置apahce使其支持PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置mysql"><span class="toc-text">配置mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置mysql账号密码"><span class="toc-text">设置mysql账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解压压缩包命令"><span class="toc-text">解压压缩包命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除安装后的文件"><span class="toc-text">删除安装后的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制码和源码安装的取舍"><span class="toc-text">二进制码和源码安装的取舍</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#linux"
+                           title="linux">linux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>
