@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        yizhiyu
+        tags｜yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/tags/web/">
+    <link rel="canonical" href="http://Moderation-T.github.io/tags/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -166,8 +166,8 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+                    <h1>tags</h1>
+                    <span class="subheading"></span>
                 </div>
             </div>
         </div>
@@ -178,83 +178,55 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
+            <!-- 标签云 -->
+            <div id='tag_cloud' class="tags">
+                
+                <a href="#web" title="web" rel="1">web</a>
+                
+                <a href="#markdown" title="markdown" rel="1">markdown</a>
+                
+            </div>
+
+            <!-- 标签列表 -->
             
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2018">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2018">2018</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201805">
-						<h3 class="archive-title">
-							<a href="/archives/2018/05">05</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/05/01/003-CSS/">
-                        <h4 class="post-title">
-                            CSS
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-					
-					</div><!--month-->
-					
-					
-					<div class="archive archive-month" data-date="201801">
-						<h3 class="archive-title">
-							<a href="/archives/2018/01">01</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/01/05/002-MARKDOWN/">
-                        <h4 class="post-title">
-                            markdown基本使用
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="web">
+                    <span class="tag-text">web</span>
+                </span>
+                
                 <div class="post-preview">
                     <a href="/2018/01/03/001-CONCEPTS/">
-                        <h4 class="post-title">
+                        <h2 class="post-title">
                             概念性知识
-                        </h4>
+                        </h2>
                         
                     </a>
                 </div>
-				<hr>
-				</div>
+                <hr>
+                
+            </div>
             
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="markdown">
+                    <span class="tag-text">markdown</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/2018/01/05/002-MARKDOWN/">
+                        <h2 class="post-title">
+                            markdown基本使用
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+
         </div>
     </div>
+</div>
 
 <!-- Footer -->
 <!-- Footer -->
