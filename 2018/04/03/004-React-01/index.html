@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        webpack &amp;&amp; React 之 Hello World｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/04/03/004-React-01/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/works/">works</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>webpack &amp;&amp; React 之 Hello World</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-04-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#webpack"
+                           title="webpack">webpack</a>
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            webpack && React 之 Hello World
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="一、MVVM框架"><a href="#一、MVVM框架" class="headerlink" title="一、MVVM框架"></a>一、MVVM框架</h2><p>在说react之前，我认为有必要先简单的了解一下MVVM框架。提一嘴，建议百度进行跟深入的了解。</p>
+<ul>
+<li>什么是MVVM？<ul>
+<li>MVVM主要包括三个部分 Model View VIewModel<ul>
+<li>Models是数据部分对应前端js对象</li>
+<li>View指的是视图部分</li>
+<li>VIewModel是链接数据和试图的中间件<br><code>数据与视图之间无法直接通讯，而是通过ViewModel进行通信</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>说说我对MVVM框架的理解<br>  在我看来，无论是react还是vue或者是angular都基于这个原理。想要确认自己是否真的理解这些个框架，就问问自己是否理解数据是视图的本质，视图是数据的表现这句话。也就是说数据变化；视图就会自动变化，视图变化的原因一定是因为数据的变化，这就是MVVM框架。</li>
+</ul>
+<h2 id="二、webpack初识"><a href="#二、webpack初识" class="headerlink" title="二、webpack初识"></a>二、webpack初识</h2><h3 id="webpack-做什么用的？"><a href="#webpack-做什么用的？" class="headerlink" title="webpack 做什么用的？"></a>webpack 做什么用的？</h3><ul>
+<li>先来整体感知一下（就看！不动手！），我现在code文件夹下有三个文件:<br>test<br> |- index.html<br> |- main.js<br> |- area.js</li>
+</ul>
+<p>index.html代码如下：</p>
+<pre><code class="html">    <span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>    &gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"all.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+</code></pre>
+<p>main.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> {area} <span class="keyword">from</span> <span class="string">"./area.js"</span>
+
+alert(area(<span class="number">20</span>));
+</code></pre>
+<p>area.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> area = <span class="function"><span class="keyword">function</span>(<span class="params">r</span>) </span>{
+    <span class="keyword">return</span> <span class="number">3.14</span> * r * r;
+}
+</code></pre>
+<p>在test文件夹下打开命令行输入命令：</p>
+<blockquote>
+<p>   <code>webpack main.js -o all.js</code></p>
+</blockquote>
+<p>这个命令执行后会生成all.js 文件 可以看到我在index.html中引入了all.js文件，打开index.html执行结果如下：<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/1.png" alt="1" title="执行结果"></p>
+<p> 再看一眼all.js是个什么：<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/2.png" alt="2" title="all.js看不懂？无所谓好吧"></p>
+<pre><code>总结：捋一下webpack都干了些什么事：
+1. 可以看到webpack从main.js出发，顺着import链儿寻找每一个js文件
+2. 将顺着import找到的js文件整合打包为all.js
+3. 如果我的code文件中还有个area2.js文件其中暴露了函数，但我没有在main.js中，area2.js将不会一起被打包
+4. 也可以看到在all.js中去import、export化，也就是说，它是IE8兼容的。
+</code></pre><h2 id="三、webpack安装及基本使用"><a href="#三、webpack安装及基本使用" class="headerlink" title="三、webpack安装及基本使用"></a>三、webpack安装及基本使用</h2><ol>
+<li>-g 全局安装webpack和webpack-cli<blockquote>
+<p>   <code>npm install -g webpack</code><br>   <code>npm install -g webpack-cli</code></p>
+</blockquote>
+</li>
+<li><p>检查是否安装成功</p>
+<blockquote>
+<p>   <code>webpack -v</code></p>
+</blockquote>
+<p> <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/4.png" alt="4" title="检查版本命令"></p>
+</li>
+<li><p>想要webpack的工作，需要使用webpack.config.js文件来指导</p>
+<ul>
+<li><p>我们要在项目的根，创建一个webpack.config.js文件，就能指导webpack工作</p>
+<pre>
+  此时目录如下
+  test
+    |-node_modules
+    |-app    
+       |-main.js
+       |-area.js 
+    |-index.html
+    |-webpack.config.js
+    |-package.json
+</pre>
+
+<p>webpack.config.js最基本的配置如下：</p>
+<pre><code class="javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);    
+<span class="built_in">module</span>.exports = {
+    entry: <span class="string">"./app/main.js"</span>,     <span class="comment">//入口文件</span>
+    output: {                   <span class="comment">//出口文件</span>
+        path: path.resolve(__dirname, <span class="string">"dist"</span>),  <span class="comment">//打包到哪个文件夹中</span>
+        filename: <span class="string">"bundle.js"</span>                   <span class="comment">//打包到哪个文件</span>
+    },
+    watch : <span class="literal">true</span> , <span class="comment">//实现实时监控</span>
+    mode: <span class="string">"development"</span>    <span class="comment">//要求写的，表示当前正在开发模式</span>
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>配置完成后 在命令行输入webpack命令</p>
+<blockquote>
+<p>   <code>webpack</code></p>
+</blockquote>
+<p> <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/5.png" alt="5" title="执行webpack实现打包"></p>
+<ul>
+<li>此时就将js文件打包成了bundle.js 就相当于之前的all.js,所以index.html里script的src要改成dist/bundle.js</li>
+<li>此时就能够实时的监控文件变化，自动打包。</li>
+<li>那个自动打包的CMD不能关闭！！</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、webpack-——-babel-loader"><a href="#四、webpack-——-babel-loader" class="headerlink" title="四、webpack —— babel loader"></a>四、webpack —— babel loader</h2><p>webpack提供了叫做loader（加载器）的东西，可以让webpack在打包的时候顺便再进行一些其他操作。<br>比如babel的翻译，这个loader叫做babel-loader。接下来我们就要安装babel loader。<br>babel是干什么的？babel用来翻译高级语法的。</p>
+<ol>
+<li>三装<blockquote>
+<p>   <code>npm install --save-dev babel-core</code><br>   <code>npm install --save-dev babel-loader</code><br>   <code>npm install --save-dev babel-preset-env</code></p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>babel-core:表示babel核心，</li>
+<li>babel-loader表示babel的加载器</li>
+<li>babel-preset-env表示babel的预处理器，让babel对ecmascript new version进行翻译。</li>
+</ul>
+<ol start="2">
+<li><p>配置webpack.config.js：</p>
+<p> 进一步配置webpack.config.js：</p>
+<pre><code class="javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+
+<span class="built_in">module</span>.exports = {
+    entry: <span class="string">"./app/main.js"</span>,     <span class="comment">//入口文件</span>
+    output: {                   <span class="comment">//出口文件</span>
+        path: path.resolve(__dirname, <span class="string">"dist"</span>),  <span class="comment">//打包到哪个文件夹中</span>
+        filename: <span class="string">"bundle.js"</span>                   <span class="comment">//打包到哪个文件</span>
+    },
+    watch : <span class="literal">true</span>,
+    mode: <span class="string">"development"</span>,
+    <span class="built_in">module</span> : {
+        rules: [
+            {
+                test: <span class="regexp">/\.js$/</span>,                      <span class="comment">//以.js结尾的文件</span>
+                include: [
+                    path.resolve(__dirname, <span class="string">"app"</span>)  <span class="comment">//包括什么文件夹</span>
+                ],
+                exclude: [
+                    path.resolve(__dirname, <span class="string">"node_modules"</span>)   <span class="comment">//不包括</span>
+                ],
+                loader: <span class="string">"babel-loader"</span>,
+                options: {
+                    presets: [<span class="string">"env"</span>]
+                }
+            }
+        ]
+    }
+}
+</code></pre>
+<p> <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/6.png" alt="6" title="进一步配置webpack.config.js"></p>
+</li>
+</ol>
+<ul>
+<li>module是模块的意思，表示我们需要运行哪些外置的模块，也就是说babel-loader属于外置模块。</li>
+<li>rules表示规则，我们测试（test）所有以.js文件结尾的文件，include、exclude表示包括哪些文件夹、不包括哪些文件夹。</li>
+<li>使用babel-loader、选线格式presets:[“env”]</li>
+<li>再次运行webpack，此时就发现ES6的语法进行了翻译，我们的程序能够兼容到IE8了。</li>
+</ul>
+<h2 id="五、webpack-dev-server"><a href="#五、webpack-dev-server" class="headerlink" title="五、webpack-dev-server"></a>五、webpack-dev-server</h2><p>###webpack-dev-server是做什么的？</p>
+<ul>
+<li>咱们先配好再告诉你</li>
+</ul>
+<ol>
+<li>-g 全局安装webpack-dev-server <blockquote>
+<p>   <code>npm install -g webpack-dev-server</code></p>
+</blockquote>
+</li>
+<li><p>检查一下是否安装成功</p>
+<blockquote>
+<p>   <code>webpack-dev-server --version</code></p>
+</blockquote>
+<p> <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/7.png" alt="7" title="版本检测"></p>
+</li>
+<li>改变文件结构 </li>
+</ol>
+<ul>
+<li>我们将项目的app文件夹和index.html文件放入www文件夹中，整个项目的结构：  <pre>
+  test
+   |-node_modules
+   |-www     
+       |-app    
+         |-main.js
+         |-area.js 
+       |-index.html
+   |-webpack.config.js
+   |-package.json
+  </pre>
+</li>
+</ul>
+<ol start="4">
+<li><p>再次修改webpack.config.js</p>
+<p> 修改配置webpack.config.js：</p>
+<pre><code class="javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+
+<span class="built_in">module</span>.exports = {
+    entry: <span class="string">"./www/app/main.js"</span>,     <span class="comment">//入口文件</span>
+    output: {                   <span class="comment">//出口文件</span>
+        path: path.resolve(__dirname, <span class="string">"www/dist"</span>),  <span class="comment">//打包到哪个文件夹中</span>
+        filename: <span class="string">"bundle.js"</span>                   <span class="comment">//打包到哪个文件</span>
+        publicPath : <span class="string">"/xuni"</span> <span class="comment">//虚拟文件夹</span>
+    },
+    watch : <span class="literal">true</span>,
+    mode: <span class="string">"development"</span>,
+    <span class="built_in">module</span> : {
+        rules: [
+            {
+                test: <span class="regexp">/\.js$/</span>,                      <span class="comment">//以.js结尾的文件</span>
+                include: [
+                    path.resolve(__dirname, <span class="string">"www/app"</span>)  <span class="comment">//包括什么文件夹</span>
+                ],
+                exclude: [
+                    path.resolve(__dirname, <span class="string">"node_modules"</span>)   <span class="comment">//不包括</span>
+                ],
+                loader: <span class="string">"babel-loader"</span>,
+                options: {
+                    presets: [<span class="string">"env"</span>]
+                }
+            }
+        ]
+    }
+}
+</code></pre>
+<p> <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/8.png" alt="8" title="修改配置"></p>
+</li>
+<li><p>启动项目</p>
+<blockquote>
+<p>   <code>webpack-dev-server --content-base ./www --port 8080</code></p>
+</blockquote>
+</li>
+</ol>
+<p>成功界面：<br>    <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/9.png" alt="9" title="启动成功"></p>
+<ul>
+<li>content-base表示以www文件夹作为一个根目录</li>
+<li>port表示端口号。</li>
+</ul>
+<pre><code>总结webpack-dev-server在干什么：
+执行webpack-dev-server --content-base ./www --port 8080命令后他干了两件事：
+1）在打包js文件（就是上边的webpack命令）
+2）静态化www文件夹，说白了，就是说帮我们写了一个app.use(express.static(&quot;www&quot;));
+最重要的作用其实是：项目中物理磁盘上没有xuni文件夹！！但是webpack-dev-server将/xuni/bundle.js文件路由到了打包的文件，这样不会损坏硬盘！！
+所以我们的index.html文件，要改变script的src为：xuni/bundle.js
+</code></pre><ol start="6">
+<li>配置npm run dev<br>我们以后起项目输入：<br>webpack-dev-server –content-base ./www –port 8080<br> <br> 太长了，此时我们可以在package.json（身份证）文件中，进行配置：<pre><code class="javascript">{
+  <span class="string">"name"</span>: <span class="string">"test"</span>,
+  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,
+  <span class="string">"description"</span>: <span class="string">""</span>,
+  <span class="string">"main"</span>: <span class="string">"webpack.config.js"</span>,
+  <span class="string">"scripts"</span>: {
+      <span class="string">"dev"</span> : <span class="string">"webpack-dev-server --content-base ./www --port 8080"</span>
+  },
+  <span class="string">"author"</span>: <span class="string">""</span>,
+  <span class="string">"license"</span>: <span class="string">"ISC"</span>,
+  <span class="string">"devDependencies"</span>: {
+    <span class="string">"babel-core"</span>: <span class="string">"^6.26.0"</span>,
+    <span class="string">"babel-loader"</span>: <span class="string">"^7.1.4"</span>,
+    <span class="string">"babel-preset-env"</span>: <span class="string">"^1.6.1"</span>
+  }
+}        
+</code></pre>
+ <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/10.png" alt="10" title="修改处"></li>
+</ol>
+<ul>
+<li>以后起项目，就直接使用 npm run dev</li>
+</ul>
+<h2 id="六、react-之-Hello-World"><a href="#六、react-之-Hello-World" class="headerlink" title="六、react 之 Hello World"></a>六、react 之 Hello World</h2><ul>
+<li><p>React需要建立在webpack + babel-loader上，然后补充安装</p>
+<blockquote>
+<p>   <code>npm install --save react</code><br>   <code>npm install --save react-dom</code><br>   <code>npm install --save-dev babel-preset-react</code></p>
+</blockquote>
+<p>  更改webpack.config.js</p>
+<pre><code class="javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+
+<span class="built_in">module</span>.exports = {
+    entry: <span class="string">"./www/app/main.js"</span>,     <span class="comment">//入口文件</span>
+    output: {                   <span class="comment">//出口文件</span>
+        path: path.resolve(__dirname, <span class="string">"www/dist"</span>),  <span class="comment">//打包到哪个文件夹中</span>
+        filename: <span class="string">"bundle.js"</span>                   <span class="comment">//打包到哪个文件</span>
+        publicPath : <span class="string">"/xuni"</span> <span class="comment">//虚拟文件夹</span>
+    },
+    watch : <span class="literal">true</span>,
+    mode: <span class="string">"development"</span>,
+    <span class="built_in">module</span> : {
+        rules: [
+            {
+                test: <span class="regexp">/\.js$/</span>,                      <span class="comment">//以.js结尾的文件</span>
+                include: [
+                    path.resolve(__dirname, <span class="string">"www/app"</span>)  <span class="comment">//包括什么文件夹</span>
+                ],
+                exclude: [
+                    path.resolve(__dirname, <span class="string">"node_modules"</span>)   <span class="comment">//不包括</span>
+                ],
+                loader: <span class="string">"babel-loader"</span>,
+                options: {
+                    presets: [<span class="string">"env"</span>,<span class="string">"react"</span>]
+                }
+            }
+        ]
+    }
+}
+</code></pre>
+<p>  <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/11.png" alt="11" title="修改处"></p>
+</li>
+<li><p>接下来就开始react的起步啦！！现在我们先来删东西，出来main.js以外其他js就可以删啦。我们从头来过。<br>  目录结构如下：</p>
+  <pre>
+      test
+       |-node_modules
+       |-www     
+           |-app    
+             |-main.js
+           |-index.html
+       |-webpack.config.js
+       |-package.json
+      </pre>
+
+<p>  index.html里增加挂载点：</p>
+<pre><code class="html">    <span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>    &gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> //增加挂载点
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"all.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+</code></pre>
+<p>  main.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;    <span class="comment">// 引入react</span>
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>; <span class="comment">// 引入react-dom</span>
+
+ReactDOM.render(
+    <span class="comment">// jsx语法，最简单的HTML与js结合的方式，没有任何引号</span>
+    <span class="comment">// jsx语法必须包裹在唯一的一个封闭标签中，就是最外层只能有一个标签存在不能    没有div两个h1挂在外边</span>
+    &lt;div&gt;
+        &lt;h1&gt;你好！我是React！&lt;<span class="regexp">/h1&gt;</span>
+<span class="regexp">        &lt;h1&gt;你好！我是React！&lt;/</span>h1&gt;
+    &lt;<span class="regexp">/div&gt;</span>
+<span class="regexp">    ,</span>
+<span class="regexp">    /</span><span class="regexp">/ 挂载到哪里，还记得index.html里我们设置的挂载点吗，注意不要在这个语句后边加分号“;”</span>
+<span class="regexp">    document.getElementById("app")</span>
+<span class="regexp">)</span>
+</code></pre>
+<ul>
+<li>react-dom这个包提供了你的app的最高等级的API，提供了元素的挂载和上树的方法。</li>
+<li>Render方法接收两个参数，第二个参数是挂载点，第一个参数是react元素，用来让react元素进行挂载。</li>
+</ul>
+</li>
+<li><p>运行项目：</p>
+<blockquote>
+<p>   <code>npm run dev</code><br>  打开8080端口可见：</p>
+</blockquote>
+<p>  <img src="http://p82ue350h.bkt.clouddn.com/image/react/helloworld/12.png" alt="12" title="运行结果"></p>
+</li>
+</ul>
+<p>最简单的hello world 就跑起来了<br>总结一下所装的依赖（不包含-g安装的全局依赖）：</p>
+<pre><code class="javascript"><span class="string">"devDependencies"</span>: {
+    <span class="string">"babel-core"</span>: <span class="string">"^6.26.0"</span>,
+    <span class="string">"babel-loader"</span>: <span class="string">"^7.1.4"</span>,
+    <span class="string">"babel-preset-env"</span>: <span class="string">"^1.6.1"</span>,
+    <span class="string">"babel-preset-react"</span>: <span class="string">"^6.24.1"</span>
+  },
+  <span class="string">"dependencies"</span>: {
+    <span class="string">"react"</span>: <span class="string">"^16.2.0"</span>,
+    <span class="string">"react-dom"</span>: <span class="string">"^16.2.0"</span>
+  }        
+</code></pre>
+<blockquote>
+<p>react相关未完，待续……</p>
+</blockquote>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/04/005-React-02/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 组件与语法">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/07/003-LINUX/" data-toggle="tooltip" data-placement="top"
+                           title="Linux基本使用">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、MVVM框架"><span class="toc-text">一、MVVM框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、webpack初识"><span class="toc-text">二、webpack初识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack-做什么用的？"><span class="toc-text">webpack 做什么用的？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、webpack安装及基本使用"><span class="toc-text">三、webpack安装及基本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、webpack-——-babel-loader"><span class="toc-text">四、webpack —— babel loader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、webpack-dev-server"><span class="toc-text">五、webpack-dev-server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、react-之-Hello-World"><span class="toc-text">六、react 之 Hello World</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#webpack"
+                           title="webpack">webpack</a>
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>
