@@ -94,7 +94,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/works/">works</a>
                         </li>
 							
 						
@@ -102,7 +102,7 @@
                         
 							
                         <li>
-                            <a href="/works/">works</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -202,7 +202,7 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="关于根目录介绍"><a href="#关于根目录介绍" class="headerlink" title="关于根目录介绍"></a>关于根目录介绍</h2><pre><code>1. /bin  //许多指令对应的可执行程序文件目录  例如，ls pwd init 等等
+                <h2 id="一、关于根目录介绍"><a href="#一、关于根目录介绍" class="headerlink" title="一、关于根目录介绍"></a>一、关于根目录介绍</h2><pre><code>1. /bin  //许多指令对应的可执行程序文件目录  例如，ls pwd init 等等
 2./sbin        //改目录下的指令都是root可指令 init
 3./usr         //Unix system resource （Unix系统资源文件目录）常用于安装各种软件    
 4./dev         // 系统硬件设备目录  
@@ -217,7 +217,7 @@
 10./etc     //系统主要配置文件目录    
 11./lib        //library 系统资源文件类库目录
 12.selinux    //安全增强型Linux
-</code></pre><h2 id="目录的操作"><a href="#目录的操作" class="headerlink" title="目录的操作"></a>目录的操作</h2><pre><code>1.创建 make directory
+</code></pre><h2 id="二、目录的操作"><a href="#二、目录的操作" class="headerlink" title="二、目录的操作"></a>二、目录的操作</h2><pre><code>1.创建 make directory
   &gt; mkdir 目录名字
   &gt; mkdir -p sheng/shi/qu 表示通过递归的方式来创建多级目录    
 2.移动（move）
@@ -240,7 +240,7 @@
   &gt; rm 文件
   &gt; rm -r 目录
   &gt; rm -rf 文件/目录  // 递归强制方式删除文件
-</code></pre><h2 id="文件的操作"><a href="#文件的操作" class="headerlink" title="文件的操作"></a>文件的操作</h2><pre><code>1.查看文件内容
+</code></pre><h2 id="三、文件的操作"><a href="#三、文件的操作" class="headerlink" title="三、文件的操作"></a>三、文件的操作</h2><pre><code>1.查看文件内容
   &gt; cat filename  //打印文件内容到终端
   &gt; more filename // 通过敲回车方式逐行查看文件的各个行内容
           // 不支持回看  直接按q可以退出查看
@@ -256,7 +256,7 @@
   &gt; echo 内容 &gt; 文件名称   //把内容以覆盖写的方式追加给文件 
               //如果文件不存在，将创建该文件
   &gt; echo 内容 &gt;&gt; 文件名称  //追加内容到文件中
-</code></pre><h2 id="用户和组的操作-在root级别操作"><a href="#用户和组的操作-在root级别操作" class="headerlink" title="用户和组的操作(#在root级别操作)"></a>用户和组的操作(#在root级别操作)</h2><pre><code>- 用户操作 /etc/passwd
+</code></pre><h2 id="四、用户和组的操作-在root级别操作"><a href="#四、用户和组的操作-在root级别操作" class="headerlink" title="四、用户和组的操作(#在root级别操作)"></a>四、用户和组的操作(#在root级别操作)</h2><pre><code>- 用户操作 /etc/passwd
     1.创建用户 user add  
       &gt;#useradd
       &gt;#useradd xiaoming  //创建xiaoming用户的同事，会创建一个同名的组出来
@@ -279,9 +279,9 @@
       &gt;#groupmod -g gid -n 新名字 groupname 
     3.删除组 group delete
       &gt;#groupdel groupname //如果组别下有用户是不可以删除的除非把用户移动到别的组中
-</code></pre><h2 id="查看指令可设置的参数"><a href="#查看指令可设置的参数" class="headerlink" title="查看指令可设置的参数"></a>查看指令可设置的参数</h2><pre><code>&gt; man 指令
+</code></pre><h2 id="五、查看指令可设置的参数"><a href="#五、查看指令可设置的参数" class="headerlink" title="五、查看指令可设置的参数"></a>五、查看指令可设置的参数</h2><pre><code>&gt; man 指令
 &gt; man useradd 显示useradd可执行的指令
-</code></pre><h2 id="常用基础命令"><a href="#常用基础命令" class="headerlink" title="常用基础命令"></a>常用基础命令</h2><pre><code>&gt; ls         //展示目录文件 （list缩写）
+</code></pre><h2 id="六、常用基础命令"><a href="#六、常用基础命令" class="headerlink" title="六、常用基础命令"></a>六、常用基础命令</h2><pre><code>&gt; ls         //展示目录文件 （list缩写）
 &gt; ls -l 或ll    //以详细信息展示目录文件（list -list）
 &gt; ls -a     //查看目录全部文件,就是包括隐藏文件 （list -all）
 &gt; ls -al     //以详细信息展示全部文件目录，包括隐藏文件
@@ -318,7 +318,7 @@
 <pre><code>&gt;# date     //查看时间
 </code></pre><hr>
 <pre><code>&gt;# df -lh    //查看系统分区情况
-</code></pre><h2 id="操作vi（vi是个编辑器）"><a href="#操作vi（vi是个编辑器）" class="headerlink" title="操作vi（vi是个编辑器）"></a>操作vi（vi是个编辑器）</h2><pre><code>&gt; vi .txt 进入编辑器命令模式
+</code></pre><h2 id="七、操作vi（vi是个编辑器）"><a href="#七、操作vi（vi是个编辑器）" class="headerlink" title="七、操作vi（vi是个编辑器）"></a>七、操作vi（vi是个编辑器）</h2><pre><code>&gt; vi .txt 进入编辑器命令模式
 &gt; :q 退出编辑器
 - 进入编辑模式：
     &gt; a        //光标和所在字不发生变化
@@ -348,7 +348,7 @@
     &gt; s/cont1/cont2/    //将cont1替换成cont2 替换光标所在行的第一个目标
     &gt; s/cont1/cont2/g    //替换光标所在行的所有目标
     &gt; %s/cont1/cont2/g    //替换文本中所有的目标
-</code></pre><h2 id="命令模式操作"><a href="#命令模式操作" class="headerlink" title="命令模式操作"></a>命令模式操作</h2><pre><code>1.移动光标  
+</code></pre><h2 id="八、命令模式操作"><a href="#八、命令模式操作" class="headerlink" title="八、命令模式操作"></a>八、命令模式操作</h2><pre><code>1.移动光标  
 字符级
 &gt; 上下左右移动  还可以对应jkhl移动
 单词级
@@ -384,7 +384,7 @@
 &gt; J   合并上下两行 
 &gt; r   单个字符替换
 &gt; .   重复执行上次最近的指令 
-</code></pre><h2 id="权限操作-（用户针对文件是否拥有读、写、执行的权利）"><a href="#权限操作-（用户针对文件是否拥有读、写、执行的权利）" class="headerlink" title="权限操作 （用户针对文件是否拥有读、写、执行的权利）"></a>权限操作 （用户针对文件是否拥有读、写、执行的权利）</h2><pre><code>权限设置
+</code></pre><h2 id="九、权限操作-（用户针对文件是否拥有读、写、执行的权利）"><a href="#九、权限操作-（用户针对文件是否拥有读、写、执行的权利）" class="headerlink" title="九、权限操作 （用户针对文件是否拥有读、写、执行的权利）"></a>九、权限操作 （用户针对文件是否拥有读、写、执行的权利）</h2><pre><code>权限设置
   chmod命令
  1.字母相对方式设置权限
   1）每个单元+、- 只能使用一个
@@ -417,17 +417,17 @@
   读：是否可以查看该目录内部的文件信息
   写：是否可以给该目录创建、删除文件
   执行：指定用户是否可以cd进入该目录
-</code></pre><h2 id="权限针对文件强制操作"><a href="#权限针对文件强制操作" class="headerlink" title="权限针对文件强制操作"></a>权限针对文件强制操作</h2><pre><code>！强制操作
+</code></pre><h2 id="十、权限针对文件强制操作"><a href="#十、权限针对文件强制操作" class="headerlink" title="十、权限针对文件强制操作"></a>十、权限针对文件强制操作</h2><pre><code>！强制操作
 1，对文件有w权限，没有r权限，强制写保存会覆盖文件原内容
 2，对文件米有w权限，可以强制写保存
 3，非主人用户，没有w权限，强行写保存或许成功，或许不成功
   1）该文件的上级目录针对该修改者没有开放w权限，强行写保存不成功
   2）该文件的上级目录针对该修改者有开放w权限，强行写保存成功
   3）强制修改成功后，文件的主人，组别变为修改者的主人和组别
-</code></pre><h2 id="在文件中查找内容"><a href="#在文件中查找内容" class="headerlink" title="在文件中查找内容"></a>在文件中查找内容</h2><pre><code>&gt;# grep 被搜索内容 文件        //在passwd文件中搜索被搜索内容 会把被搜索内容所在行的内容打印到终端  
+</code></pre><h2 id="十一、在文件中查找内容"><a href="#十一、在文件中查找内容" class="headerlink" title="十一、在文件中查找内容"></a>十一、在文件中查找内容</h2><pre><code>&gt;# grep 被搜索内容 文件        //在passwd文件中搜索被搜索内容 会把被搜索内容所在行的内容打印到终端  
 &gt;# grep hello passwd
 &gt;# grep jinnan /etc/group 
-</code></pre><h2 id="管道（前者的输出是后者的输入参数）"><a href="#管道（前者的输出是后者的输入参数）" class="headerlink" title="管道（前者的输出是后者的输入参数）"></a>管道（前者的输出是后者的输入参数）</h2><pre><code>可以作为管道指令的命令
+</code></pre><h2 id="十二、管道（前者的输出是后者的输入参数）"><a href="#十二、管道（前者的输出是后者的输入参数）" class="headerlink" title="十二、管道（前者的输出是后者的输入参数）"></a>十二、管道（前者的输出是后者的输入参数）</h2><pre><code>可以作为管道指令的命令
 grep head tail wc ls
  查看文件内容操作命令
   &gt; head -n filename    // 查看前n行内容
@@ -438,7 +438,7 @@ grep head tail wc ls
  &gt; grep hello passwd | wc //查看grep hello passwd 打印出的信息中的文件行数
  &gt; ls -l | head -10 | tail -6  //ls -l结果就是查看4-10行的结果
  &gt;grep hello passwd | grep world  在passwd中查找hello行然后在这个数据中查找world
-</code></pre><h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2><pre><code>find 查找目录 选项 选项值 选项 选项值 ...
+</code></pre><h2 id="十三、文件查找"><a href="#十三、文件查找" class="headerlink" title="十三、文件查找"></a>十三、文件查找</h2><pre><code>find 查找目录 选项 选项值 选项 选项值 ...
 1）-name 根据名字进行查找
 &gt; find / -name passwd        //递归遍历系统 目录极其内部深层目录，寻找passwd文件
 &gt; find / -name &quot;p*&quot;        //模糊查找名字是p开头的文件
@@ -466,7 +466,7 @@ grep head tail wc ls
   &gt; find ./ -user zhoudong  //查找主人为zhoudong的文件
 7）根据组别查找
   &gt; find ./ -group root     //查找组别为root的文件
-</code></pre><h2 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h2><pre><code>1.软连接 
+</code></pre><h2 id="十四、软链接和硬链接"><a href="#十四、软链接和硬链接" class="headerlink" title="十四、软链接和硬链接"></a>十四、软链接和硬链接</h2><pre><code>1.软连接 
 1）类似windows系统的快捷方式，作用就是可以对硬盘空间进行合理分配
 2）如果软连接文件与源文件不在同一级目录，则源文件需要设置为“觉得路径”，否则为无效的软连 接文件
 3）软连接文件要占据一点空间大小，具体大小根据路源文件路径长度决定
@@ -479,11 +479,11 @@ grep head tail wc ls
 4)只有文件可以设置硬链接目录不可以，目录的硬链接是系统自动设置的
 5）同一个源文件的所有硬链接文件必须在同一个硬盘，同一个分区里边
 &gt; ln [-d] 源文件 硬链接
-</code></pre><h2 id="任务调度指令"><a href="#任务调度指令" class="headerlink" title="任务调度指令"></a>任务调度指令</h2><pre><code>规定系统在指定的时间完成指定的任务过程
+</code></pre><h2 id="十五、任务调度指令"><a href="#十五、任务调度指令" class="headerlink" title="十五、任务调度指令"></a>十五、任务调度指令</h2><pre><code>规定系统在指定的时间完成指定的任务过程
 可以同时设置多个任务调用指令
 &gt; crontab -e    //编辑任务调度指令
 &gt; crontab -l     //查看任务调度指令
-</code></pre><h2 id="文件主人，组别设置"><a href="#文件主人，组别设置" class="headerlink" title="文件主人，组别设置"></a>文件主人，组别设置</h2><pre><code>change owner
+</code></pre><h2 id="十六、文件主人，组别设置"><a href="#十六、文件主人，组别设置" class="headerlink" title="十六、文件主人，组别设置"></a>十六、文件主人，组别设置</h2><pre><code>change owner
  针对文件操作
  &gt; chown 主人 filename  
  &gt; chown tang tiancai.txt    //修改tiancai.txt的主人为tang
@@ -491,7 +491,7 @@ grep head tail wc ls
  &gt; chown tagn.tang tiancai.txt   //前两个综合
  针对目录操作
  &gt; chown -R 主人.组别 dir    //通过递归方式设置属组信息
-</code></pre><h2 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h2><pre><code>1.进入后修改相关配置，参考截图网络配置
+</code></pre><h2 id="十七、配置网络"><a href="#十七、配置网络" class="headerlink" title="十七、配置网络"></a>十七、配置网络</h2><pre><code>1.进入后修改相关配置，参考截图网络配置
   &gt; cd /etc/sysconfig/network-scripts
   &gt; cp ifcfg-eth0 ./ifcfg-eth0.bak  网卡修改前先做备份
 2.修改配置后需要重新启动网络
@@ -499,10 +499,10 @@ grep head tail wc ls
 3.修改虚拟机网卡桥接模式 （参考截图网卡桥接）
 4.Linux可以ping通本机 （ping通之后可以互相进行通讯）
   &gt; ping 192.168.0.56(本机的ip地址)
-</code></pre><h2 id="关于SecureCRT-连接配置"><a href="#关于SecureCRT-连接配置" class="headerlink" title="关于SecureCRT 连接配置"></a>关于SecureCRT 连接配置</h2><pre><code>端口22
+</code></pre><h2 id="十八、关于SecureCRT-连接配置"><a href="#十八、关于SecureCRT-连接配置" class="headerlink" title="十八、关于SecureCRT 连接配置"></a>十八、关于SecureCRT 连接配置</h2><pre><code>端口22
 协议是ssh
 （类apache走80端口 协议是http）
-</code></pre><h2 id="光驱的挂载"><a href="#光驱的挂载" class="headerlink" title="光驱的挂载"></a>光驱的挂载</h2><pre><code>光驱使用，其挂载是手动的
+</code></pre><h2 id="十九、光驱的挂载"><a href="#十九、光驱的挂载" class="headerlink" title="十九、光驱的挂载"></a>十九、光驱的挂载</h2><pre><code>光驱使用，其挂载是手动的
 1）创建一个普通目录
 2）找到光驱硬件设备（/dev/cdrom）
 3) 使得普通目录与光驱硬件设备进行联系（挂载）
@@ -516,7 +516,7 @@ grep head tail wc ls
  &gt; umount /dev/cdrom            //硬件卸载光驱
  &gt; umount /home/tang/rom        //挂载点卸载光驱
  &gt; eject                //弹出光盘
-</code></pre><h1 id="Linux系统软件的安装"><a href="#Linux系统软件的安装" class="headerlink" title="Linux系统软件的安装"></a>Linux系统软件的安装</h1><h2 id="1-二进制码软件安装："><a href="#1-二进制码软件安装：" class="headerlink" title="1.二进制码软件安装："></a>1.二进制码软件安装：</h2><pre><code>1）方式1：rpm方式
+</code></pre><h2 id="二十、Linux系统软件的安装"><a href="#二十、Linux系统软件的安装" class="headerlink" title="二十、Linux系统软件的安装"></a>二十、Linux系统软件的安装</h2><h3 id="1-二进制码软件安装："><a href="#1-二进制码软件安装：" class="headerlink" title="1.二进制码软件安装："></a>1.二进制码软件安装：</h3><pre><code>1）方式1：rpm方式
  进入挂载点rom文件  进入其中的Package目录中
   安装vsftp
   &gt; rpm -i[vh] 软件包全名  //安装rpm软件
@@ -525,7 +525,7 @@ grep head tail wc ls
   &gt; rpm -e 软件包名       //卸载软件
   &gt; rpm -qa |grep ftpd（部分名）//模糊查找指定ftpd是否有安装
 2）方式2：yum智能方式  
-</code></pre><h2 id="使用ftp软件"><a href="#使用ftp软件" class="headerlink" title="使用ftp软件"></a>使用ftp软件</h2><pre><code>走ftp协议 占用21端口
+</code></pre><h4 id="使用ftp软件"><a href="#使用ftp软件" class="headerlink" title="使用ftp软件"></a>使用ftp软件</h4><pre><code>走ftp协议 占用21端口
   &gt; service vsftpd start    //启动ftp软件
   &gt; service vsftpd stop    //关闭ftp软件
   &gt; service vsftpd restart //重启ftp软件
@@ -546,7 +546,7 @@ grep head tail wc ls
   编辑/etc/selinux/config 把enforcing改为disabled  禁用selinux
 
  创建tar目录将安装包文件导入tar中  并给tar创建其他组用户创建w权限才可以向里面复制东西
-</code></pre><h2 id="ftp两个优化"><a href="#ftp两个优化" class="headerlink" title="ftp两个优化"></a>ftp两个优化</h2><pre><code>1，ftp服务可以在配置文件中做设置，设置用户对ftp的使用权限
+</code></pre><h4 id="ftp两个优化"><a href="#ftp两个优化" class="headerlink" title="ftp两个优化"></a>ftp两个优化</h4><pre><code>1，ftp服务可以在配置文件中做设置，设置用户对ftp的使用权限
   两个文件对用户进行了限制  在这两个文件中设置权限默认root用户是不能访问htp服务的 
   /etc/vsftpd/user_list
   /etc/vsftpd/ftpusers
@@ -555,7 +555,7 @@ grep head tail wc ls
   /etc/vsftpd/vsftpd.conf
   修改97,99行  将97行打开  将99行打开再修改
   /etc/vsftpd/chroot_list 这个文件需要创建，将只允许访问自己家目录的用户添加进这个文件
-</code></pre><h2 id="2-源码编译方式安装软件"><a href="#2-源码编译方式安装软件" class="headerlink" title="2.源码编译方式安装软件"></a>2.源码编译方式安装软件</h2><pre><code>1）首先安装gcc编译软件
+</code></pre><h3 id="2-源码编译方式安装软件"><a href="#2-源码编译方式安装软件" class="headerlink" title="2.源码编译方式安装软件"></a>2.源码编译方式安装软件</h3><pre><code>1）首先安装gcc编译软件
 gcc编译器安装（翻译c语言为二进制码内容）
 在挂载磁盘的rom文件夹中找到gcc
 使用rpm的方式安装 
@@ -569,7 +569,7 @@ gcc编译器安装（翻译c语言为二进制码内容）
 2，make    //编译，根据configure的配置信息生成二进制文件
 3，make install  //把生成的二进制文件复制到系统指定目录（本质与rpm安装软件一致）    
 make &amp;&amp; make install 合并执行2、3
-</code></pre><h2 id="安装包放置于tar文件目录中了（按顺序安装所需软件）"><a href="#安装包放置于tar文件目录中了（按顺序安装所需软件）" class="headerlink" title="安装包放置于tar文件目录中了（按顺序安装所需软件）"></a>安装包放置于tar文件目录中了（按顺序安装所需软件）</h2><pre><code>  1，zlib（对许多其他软件的编译代码起着优化、压缩的作用）\
+</code></pre><h4 id="安装包放置于tar文件目录中了（按顺序安装所需软件）"><a href="#安装包放置于tar文件目录中了（按顺序安装所需软件）" class="headerlink" title="安装包放置于tar文件目录中了（按顺序安装所需软件）"></a>安装包放置于tar文件目录中了（按顺序安装所需软件）</h4><pre><code>  1，zlib（对许多其他软件的编译代码起着优化、压缩的作用）\
     &gt;# ./configure
   2，apache
     &gt;# ./configure --prefix=/usr/local/http2 \
@@ -623,11 +623,11 @@ mysqlnd表示会激活本地的mysql驱动
 正则表达对php的支持
 
   &gt; --enable-shared
-</code></pre><h3 id="配置PHP"><a href="#配置PHP" class="headerlink" title="配置PHP"></a>配置PHP</h3><pre><code> 复制php.ini指定文件到指定目录
+</code></pre><h4 id="配置PHP"><a href="#配置PHP" class="headerlink" title="配置PHP"></a>配置PHP</h4><pre><code> 复制php.ini指定文件到指定目录
  &gt;# cp php.ini-development /usr/local/php/lib/php.ini
 PHP安装完成， 会使得/usr/local/apache2/conf/httpd.conf把对应的php模块给引入进来
 文件修改后重启apache
-</code></pre><h3 id="配置apahce使其支持PHP"><a href="#配置apahce使其支持PHP" class="headerlink" title="配置apahce使其支持PHP"></a>配置apahce使其支持PHP</h3><pre><code>1，在httpd.conf中增加如下语句，是apache遇到PHP文件对齐进行解析
+</code></pre><h4 id="配置apahce使其支持PHP"><a href="#配置apahce使其支持PHP" class="headerlink" title="配置apahce使其支持PHP"></a>配置apahce使其支持PHP</h4><pre><code>1，在httpd.conf中增加如下语句，是apache遇到PHP文件对齐进行解析
  ： AddType application/x-httpd-php .php (见图文件配置修改）    
 2，修改usr/local/php/lib/php.ini 配置时区（见图配置时区）
 
@@ -643,7 +643,7 @@ PHP安装完成， 会使得/usr/local/apache2/conf/httpd.conf把对应的php模
     -DMYSQL_DATADIR=/usr/local/mysql/data \
     -DDEFAULT_CHARSET=utf8 \
     -DDEFAULT_COLLATION=utf8_general_ci
-</code></pre><h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><pre><code>1,复制一个配置文件    
+</code></pre><h4 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h4><pre><code>1,复制一个配置文件    
 &gt;cp support-files/my-medium.cnf  /etc/my.cnf //给mysql
 2,配置并初始化mysql
   &gt;# useradd mysql //创建一个mysql用户
@@ -677,15 +677,15 @@ PHP安装完成， 会使得/usr/local/apache2/conf/httpd.conf把对应的php模
  测试数据库
  &gt;# /usr/local/mysql/bin/mysql -u root
  mysql&gt;show databases
-</code></pre><h3 id="设置mysql账号密码"><a href="#设置mysql账号密码" class="headerlink" title="设置mysql账号密码"></a>设置mysql账号密码</h3><pre><code>mysql&gt;use mysql;
+</code></pre><h4 id="设置mysql账号密码"><a href="#设置mysql账号密码" class="headerlink" title="设置mysql账号密码"></a>设置mysql账号密码</h4><pre><code>mysql&gt;use mysql;
 mysql&gt;UPDATE user SET Password=password(&apos;123456&apos;) WHERE user=&apos;root&apos;;
 mysql&gt;flush privileges;
-</code></pre><h3 id="解压压缩包命令"><a href="#解压压缩包命令" class="headerlink" title="解压压缩包命令"></a>解压压缩包命令</h3><pre><code>&gt; tar zxvf 压缩包.tar.gz  //解压.tar.gz格式
+</code></pre><h2 id="二十一、解压压缩包命令"><a href="#二十一、解压压缩包命令" class="headerlink" title="二十一、解压压缩包命令"></a>二十一、解压压缩包命令</h2><pre><code>&gt; tar zxvf 压缩包.tar.gz  //解压.tar.gz格式
 &gt; tar jxvf 压缩包.tar.bz2 //解压.tar.bz2格式
-</code></pre><h3 id="删除安装后的文件"><a href="#删除安装后的文件" class="headerlink" title="删除安装后的文件"></a>删除安装后的文件</h3><pre><code>1，删除安装后的文件（有指定安装目录情况/usr/local/http2）
+</code></pre><h2 id="二十二、删除安装后的文件"><a href="#二十二、删除安装后的文件" class="headerlink" title="二十二、删除安装后的文件"></a>二十二、删除安装后的文件</h2><pre><code>1，删除安装后的文件（有指定安装目录情况/usr/local/http2）
 2, 删除解压后的目录
 3，重新解压，重新configure，重新make，重新make install
-</code></pre><h3 id="二进制码和源码安装的取舍"><a href="#二进制码和源码安装的取舍" class="headerlink" title="二进制码和源码安装的取舍"></a>二进制码和源码安装的取舍</h3><pre><code>1.软件安装后使用的用户非常少，（如ftp，gcc）则使用二进制码安装
+</code></pre><h2 id="二十三、二进制码和源码安装的取舍"><a href="#二十三、二进制码和源码安装的取舍" class="headerlink" title="二十三、二进制码和源码安装的取舍"></a>二十三、二进制码和源码安装的取舍</h2><pre><code>1.软件安装后使用的用户非常少，（如ftp，gcc）则使用二进制码安装
 2.软件安装后使用的用户非常多，（如php，apache，mysql）则使用源码安装
 </code></pre>
                 <hr>
@@ -694,7 +694,7 @@ mysql&gt;flush privileges;
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/04/03/004-React-01/" data-toggle="tooltip" data-placement="top"
+                        <a href="/2018/03/21/004-React-01/" data-toggle="tooltip" data-placement="top"
                            title="webpack && React 之 Hello World">&larr; Previous Post</a>
                     </li>
                     
@@ -736,7 +736,7 @@ mysql&gt;flush privileges;
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于根目录介绍"><span class="toc-text">关于根目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录的操作"><span class="toc-text">目录的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件的操作"><span class="toc-text">文件的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户和组的操作-在root级别操作"><span class="toc-text">用户和组的操作(#在root级别操作)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看指令可设置的参数"><span class="toc-text">查看指令可设置的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用基础命令"><span class="toc-text">常用基础命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作vi（vi是个编辑器）"><span class="toc-text">操作vi（vi是个编辑器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令模式操作"><span class="toc-text">命令模式操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限操作-（用户针对文件是否拥有读、写、执行的权利）"><span class="toc-text">权限操作 （用户针对文件是否拥有读、写、执行的权利）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限针对文件强制操作"><span class="toc-text">权限针对文件强制操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在文件中查找内容"><span class="toc-text">在文件中查找内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管道（前者的输出是后者的输入参数）"><span class="toc-text">管道（前者的输出是后者的输入参数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件查找"><span class="toc-text">文件查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软链接和硬链接"><span class="toc-text">软链接和硬链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#任务调度指令"><span class="toc-text">任务调度指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件主人，组别设置"><span class="toc-text">文件主人，组别设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置网络"><span class="toc-text">配置网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于SecureCRT-连接配置"><span class="toc-text">关于SecureCRT 连接配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#光驱的挂载"><span class="toc-text">光驱的挂载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux系统软件的安装"><span class="toc-text">Linux系统软件的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-二进制码软件安装："><span class="toc-text">1.二进制码软件安装：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用ftp软件"><span class="toc-text">使用ftp软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp两个优化"><span class="toc-text">ftp两个优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-源码编译方式安装软件"><span class="toc-text">2.源码编译方式安装软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装包放置于tar文件目录中了（按顺序安装所需软件）"><span class="toc-text">安装包放置于tar文件目录中了（按顺序安装所需软件）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置PHP"><span class="toc-text">配置PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置apahce使其支持PHP"><span class="toc-text">配置apahce使其支持PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置mysql"><span class="toc-text">配置mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置mysql账号密码"><span class="toc-text">设置mysql账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解压压缩包命令"><span class="toc-text">解压压缩包命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除安装后的文件"><span class="toc-text">删除安装后的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制码和源码安装的取舍"><span class="toc-text">二进制码和源码安装的取舍</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、关于根目录介绍"><span class="toc-text">一、关于根目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、目录的操作"><span class="toc-text">二、目录的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、文件的操作"><span class="toc-text">三、文件的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、用户和组的操作-在root级别操作"><span class="toc-text">四、用户和组的操作(#在root级别操作)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查看指令可设置的参数"><span class="toc-text">五、查看指令可设置的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、常用基础命令"><span class="toc-text">六、常用基础命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、操作vi（vi是个编辑器）"><span class="toc-text">七、操作vi（vi是个编辑器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、命令模式操作"><span class="toc-text">八、命令模式操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、权限操作-（用户针对文件是否拥有读、写、执行的权利）"><span class="toc-text">九、权限操作 （用户针对文件是否拥有读、写、执行的权利）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十、权限针对文件强制操作"><span class="toc-text">十、权限针对文件强制操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十一、在文件中查找内容"><span class="toc-text">十一、在文件中查找内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十二、管道（前者的输出是后者的输入参数）"><span class="toc-text">十二、管道（前者的输出是后者的输入参数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十三、文件查找"><span class="toc-text">十三、文件查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十四、软链接和硬链接"><span class="toc-text">十四、软链接和硬链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十五、任务调度指令"><span class="toc-text">十五、任务调度指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十六、文件主人，组别设置"><span class="toc-text">十六、文件主人，组别设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十七、配置网络"><span class="toc-text">十七、配置网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十八、关于SecureCRT-连接配置"><span class="toc-text">十八、关于SecureCRT 连接配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十九、光驱的挂载"><span class="toc-text">十九、光驱的挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二十、Linux系统软件的安装"><span class="toc-text">二十、Linux系统软件的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-二进制码软件安装："><span class="toc-text">1.二进制码软件安装：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用ftp软件"><span class="toc-text">使用ftp软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ftp两个优化"><span class="toc-text">ftp两个优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-源码编译方式安装软件"><span class="toc-text">2.源码编译方式安装软件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装包放置于tar文件目录中了（按顺序安装所需软件）"><span class="toc-text">安装包放置于tar文件目录中了（按顺序安装所需软件）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置PHP"><span class="toc-text">配置PHP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置apahce使其支持PHP"><span class="toc-text">配置apahce使其支持PHP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置mysql"><span class="toc-text">配置mysql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置mysql账号密码"><span class="toc-text">设置mysql账号密码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二十一、解压压缩包命令"><span class="toc-text">二十一、解压压缩包命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二十二、删除安装后的文件"><span class="toc-text">二十二、删除安装后的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二十三、二进制码和源码安装的取舍"><span class="toc-text">二十三、二进制码和源码安装的取舍</span></a></li></ol>
                 </div>
             </div>
         </div>

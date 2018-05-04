@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        React 之 组件与语法｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/03/25/005-React-02/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/works/">works</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>React 之 组件与语法</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-03-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            React 之 组件与语法
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="一、react组件"><a href="#一、react组件" class="headerlink" title="一、react组件"></a>一、react组件</h2><h3 id="1-壳子"><a href="#1-壳子" class="headerlink" title="1.壳子"></a>1.壳子</h3><p>创建App.js文件，必须按要求书写标准壳，这个壳子叫做rcc壳，react class component，react的类式组件。</p>
+<p><pre><br>    目录结构如下：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>           |-main.js<br>           |-App.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>App.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="comment">// return后边返回 jsx语法</span>
+        <span class="keyword">return</span> &lt;div&gt;
+            &lt;h1&gt;我是App组件，你好！！&lt;/h1&gt;
+        &lt;/div&gt;
+    }
+}
+</code></pre>
+<ul>
+<li>这个文件的默认暴露就是一个类，这个类的类名必须和文件名相同。</li>
+<li>文件名和类名的首字母必须大写！React中一个组件的合法名字的首字母必须是大写字母。</li>
+<li>这个类必须继承自React.Component类，也就是说，一个rcc壳必须有extends React.Component的写法。</li>
+<li>这个类必须有构造器constructor，构造器里面必须调用超类的构造器，super()；</li>
+<li>这个类必须有render函数，render函数中必须return一个jsx对象。同样的，这个jsx对象必须被唯一的标签包裹。</li>
+</ul>
+<h3 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h3><p>使用组件，比如我们现在在main.js中使用组件：<br>main.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;
+<span class="comment">// 引入App组件</span>
+<span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;
+
+ReactDOM.render(
+    <span class="comment">// 使用App组件</span>
+    <span class="comment">// 复制代码请删掉注释</span>
+    &lt;App&gt;&lt;/App&gt;
+    ,
+    <span class="built_in">document</span>.getElementById(<span class="string">"app"</span>)
+);
+</code></pre>
+<ul>
+<li>引入的组件必须路径以./开头</li>
+<li>你的组件要使用，就将这个组件的名字（类名、文件名）进行标签化即可。机理就是这个App类在被实例化。</li>
+</ul>
+<p>运行：npm run dev<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/component&amp;jsx/1.png" alt="1"></p>
+<blockquote>
+<p>react中允许组件套用组件，方法一样，写好rcc壳子，注意一些注意的问题。<br>然后组件中引入组件，用标签进行实例化。</p>
+</blockquote>
+<h2 id="二、jsx语法"><a href="#二、jsx语法" class="headerlink" title="二、jsx语法"></a>二、jsx语法</h2><h3 id="1-使用须知"><a href="#1-使用须知" class="headerlink" title="1.使用须知"></a>1.使用须知</h3><ul>
+<li>标签必须严格关闭</li>
+<li>标签必须合理嵌套</li>
+<li>所有的类名必须用className表示，for用htmlFor表示<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="2-关于插值"><a href="#2-关于插值" class="headerlink" title="2.关于插值"></a>2.关于插值</h3><p>我们可以在jsx的内部，用{}单大括号进行一些js表达式的插入，我们叫做插值。</p>
+<ul>
+<li>插值可以怎么写？如下：</li>
+</ul>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+
+         <span class="keyword">const</span> year = <span class="number">10000</span>;
+          <span class="keyword">const</span> pingfang = <span class="function">(<span class="params">n</span>) =&gt;</span> {
+        <span class="keyword">return</span> n * n;
+    }
+    <span class="keyword">const</span> arr = [<span class="number">1000</span> , <span class="number">2000</span> , <span class="number">3000</span> , <span class="number">4000</span>];
+
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我爱你{5000 * 2}年<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 可以是简单运算</span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我爱你{year}年<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 可以是变量</span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我爱你{pingfang(100)}年<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  // 可以是函数的调用</span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我爱你{pingfang(100)}年<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 可以是三元运算</span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我爱你{arr.reduce((a,b)=&gt;a + b)}年<span class="tag">&lt;/<span class="name">h1</span>&gt;</span> // 可以是表达式级别的函数</span>
+            &lt;img src={`/images/${imgtitle}.png`} alt=""/&gt; // 引号内的插值，去掉引号,变为{}，内部继续使用引号拼接字符串。
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="xml">    }</span>
+<span class="xml">}</span>
+</code></pre>
+<ul>
+<li><p>不能进行插值的是：</p>
+<p>  if语句、for循环、while循环、do……while循环都不行！JSON、数组(数组会自动展开)也不行。<br>  如果就是想在页面上显示json，要用JSON.stringify(obj)</p>
+</li>
+<li><p>内嵌样式要求有这样的语法插值：<br>style后面直接跟着双大括号，没有引号。<br>双大括号里面是标准json，所有的属性名都是驼峰命名法：</p>
+<pre><code class="javascript">&lt;div style=<span class="xml"><span class="comment">{{"width":"100px","height":"100px","backgroundColor" : "red"}}</span>&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+</code></pre>
+</li>
+</ul>
+<h3 id="3-关于数组的自动展开"><a href="#3-关于数组的自动展开" class="headerlink" title="3.关于数组的自动展开"></a>3.关于数组的自动展开</h3><ol>
+<li>数组自动展开演示</li>
+</ol>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">const</span> arr = [
+            &lt;li key=<span class="string">"0"</span>&gt;牛奶&lt;<span class="regexp">/li&gt;, </span>
+<span class="regexp">            &lt;li key="1"&gt;咖啡&lt;/</span>li&gt;, 
+            &lt;li key=<span class="string">"2"</span>&gt;奶茶&lt;<span class="regexp">/li&gt;, </span>
+<span class="regexp">            &lt;li key="3"&gt;可乐&lt;/</span>li&gt;
+        ];
+
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+           &lt;ul&gt;
+               {arr}
+<span class="xml">           <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+</code></pre>
+<pre><code>注意：
+1）数组有4项，每项都是jsx元素，不需要引号的；
+2）每一个项必须要有不同key属性，这是react要求可以不是数字；
+3）数组直接{arr}写就行了，不需要双大括号、也不需要遍历。
+</code></pre><p><img src="http://p82ue350h.bkt.clouddn.com/image/react/component&amp;jsx/2.png" alt="2"></p>
+<ol start="2">
+<li>结合map映射映射一个表格</li>
+</ol>
+<p>工作中不会有人给你一个带有标签的数组，都是给你一个数组装有各种数据如下：</p>
+<h4 id="一个简单的表格："><a href="#一个简单的表格：" class="headerlink" title="一个简单的表格："></a>一个简单的表格：</h4><pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">const</span> arr = [
+            {<span class="string">"id"</span> : <span class="number">1</span> , <span class="string">"name"</span> : <span class="string">"小明"</span> , <span class="string">"age"</span> : <span class="number">12</span> , <span class="string">"sex"</span> : <span class="string">"男"</span>},
+            {<span class="string">"id"</span> : <span class="number">2</span> , <span class="string">"name"</span> : <span class="string">"小红"</span> , <span class="string">"age"</span> : <span class="number">13</span> , <span class="string">"sex"</span> : <span class="string">"女"</span>},
+            {<span class="string">"id"</span> : <span class="number">3</span> , <span class="string">"name"</span> : <span class="string">"小刚"</span> , <span class="string">"age"</span> : <span class="number">11</span> , <span class="string">"sex"</span> : <span class="string">"男"</span>},
+            {<span class="string">"id"</span> : <span class="number">4</span> , <span class="string">"name"</span> : <span class="string">"小强"</span> , <span class="string">"age"</span> : <span class="number">9</span>  , <span class="string">"sex"</span> : <span class="string">"男"</span>}
+        ];
+
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+            &lt;table&gt;
+                &lt;tbody&gt;
+                    {
+                        arr.map(item =&gt; {
+                            return &lt;tr key={item.id}&gt;
+                                &lt;td&gt;{item.id}&lt;/td&gt;
+                                &lt;td&gt;{item.name}&lt;/td&gt;
+                                &lt;td&gt;{item.age}&lt;/td&gt;
+                                &lt;td&gt;{item.sex}&lt;/td&gt;
+                            &lt;/tr&gt;
+                        })
+                    }
+                &lt;/tbody&gt;
+<span class="xml">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+</code></pre>
+<h4 id="九九乘法表："><a href="#九九乘法表：" class="headerlink" title="九九乘法表："></a>九九乘法表：</h4><pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">const</span> multiplication = <span class="function"><span class="params">()</span> =&gt;</span> {
+            <span class="keyword">var</span> arr = [];
+            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span> ; i &lt;= <span class="number">9</span> ; i++){
+                <span class="keyword">var</span> temp = [];
+                <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">1</span>; j &lt;= <span class="number">9</span>; j++) {
+                    temp.push(<span class="xml"><span class="tag">&lt;<span class="name">td</span> <span class="attr">key</span>=<span class="string">{j}</span>&gt;</span>{j} * {i} = {i * j}<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span>)
+                }
+                arr.push(<span class="xml"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">key</span>=<span class="string">{i}</span>&gt;</span>{temp}<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span>)
+            }
+            <span class="keyword">return</span> arr;
+        }
+
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+            &lt;table&gt;
+                &lt;tbody&gt;
+                    {multiplication()}
+                &lt;/tbody&gt;
+<span class="xml">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+</code></pre>
+<p><img src="http://p82ue350h.bkt.clouddn.com/image/react/component&amp;jsx/3.png" alt="3" title="九九乘法表"></p>
+<h3 id="4-将一维数组转换为二维数组"><a href="#4-将一维数组转换为二维数组" class="headerlink" title="4.将一维数组转换为二维数组"></a>4.将一维数组转换为二维数组</h3><ul>
+<li>一个月的月历长成什么样，由三个要素决定：<ul>
+<li>本月1号星期几</li>
+<li>上月有几天</li>
+<li>本月有几天</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>小技巧：<br> 比如，我们想知道2018年3月有几天，直接让机器算2018年的4月的0号即可。<br> 计算机上月份是从0-11的对应真实月份的1-12月所以计算机上3就是四月<br> 四月的第0天就是三月的最后一天<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/component&amp;jsx/4.png" alt="4" title="得到3月有几天"></p>
+</blockquote>
+<h4 id="快速生成某月日历："><a href="#快速生成某月日历：" class="headerlink" title="快速生成某月日历："></a>快速生成某月日历：</h4><pre><code class="javascript"> <span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+
+    }
+
+    render(){
+        <span class="keyword">const</span> showrili = <span class="function"><span class="params">()</span> =&gt;</span> {
+            <span class="keyword">var</span> arr = [];
+            <span class="keyword">var</span> year = <span class="number">2018</span>;
+            <span class="keyword">var</span> month = <span class="number">3</span>;      <span class="comment">//真实月份，从一月开始的真实月份，我们想得到的三月的日历</span>
+            <span class="comment">//三要素</span>
+            <span class="comment">//本月1号星期几</span>
+            <span class="keyword">var</span> benyueyihaoxingqiji = <span class="keyword">new</span> <span class="built_in">Date</span>(year , month - <span class="number">1</span> , <span class="number">1</span>).getDay();  <span class="comment">//getDay()表示得到星期</span>
+            <span class="comment">//本月有几天</span>
+            <span class="keyword">var</span> benyueyoujitian = <span class="keyword">new</span> <span class="built_in">Date</span>(year , month - <span class="number">1</span> + <span class="number">1</span> , <span class="number">0</span>).getDate();
+            <span class="comment">//上月有几天</span>
+            <span class="keyword">var</span> shangyueyoujitian = <span class="keyword">new</span> <span class="built_in">Date</span>(year , month - <span class="number">1</span> , <span class="number">0</span>).getDate();
+
+            <span class="comment">//组建一个一维数组</span>
+            <span class="keyword">var</span> _arr = [];
+            <span class="comment">//本月1号星期几，就要往数组中放入几天上个月的尾巴。</span>
+            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; benyueyihaoxingqiji ; i++){
+                _arr.unshift(shangyueyoujitian - i);
+            }
+            <span class="comment">//本月有几天，数组中就要放入几天这个月</span>
+            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span> ; i &lt;= benyueyoujitian ; i++){
+                _arr.push(i);
+            }
+            <span class="comment">//凑满42项</span>
+            <span class="keyword">var</span> count = <span class="number">1</span>;
+            <span class="keyword">while</span>(_arr.length != <span class="number">42</span>){
+                _arr.push(count++);
+            }
+
+
+            <span class="comment">//将一个一维数组，变为二维数组</span>
+            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">6</span> ; i++){
+                arr.push(
+                    &lt;tr key={i}&gt;
+                        {
+                            _arr.slice(i * <span class="number">7</span> , i * <span class="number">7</span> + <span class="number">7</span>).map(<span class="function">(<span class="params">item,index</span>)=&gt;</span>{
+                                <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">td</span> <span class="attr">key</span>=<span class="string">{index}</span>&gt;</span>{item}<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span>
+                            })
+                        }
+                    &lt;<span class="regexp">/tr&gt;</span>
+<span class="regexp">                )</span>
+<span class="regexp">            }</span>
+<span class="regexp"></span>
+<span class="regexp">            return arr;</span>
+<span class="regexp">        }</span>
+<span class="regexp"></span>
+<span class="regexp">        return &lt;div&gt;</span>
+<span class="regexp"></span>
+<span class="regexp">            &lt;table&gt;</span>
+<span class="regexp">                &lt;tbody&gt;</span>
+<span class="regexp">                    {showrili()}</span>
+<span class="regexp">                &lt;/</span>tbody&gt;
+            &lt;<span class="regexp">/table&gt;</span>
+<span class="regexp">        &lt;/</span>div&gt;
+    }
+}
+</code></pre>
+<blockquote>
+<p>未完待续……</p>
+</blockquote>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/03/27/006-React-03/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 state 与 表单受控">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/03/21/004-React-01/" data-toggle="tooltip" data-placement="top"
+                           title="webpack && React 之 Hello World">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、react组件"><span class="toc-text">一、react组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-壳子"><span class="toc-text">1.壳子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用"><span class="toc-text">2.使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、jsx语法"><span class="toc-text">二、jsx语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用须知"><span class="toc-text">1.使用须知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-关于插值"><span class="toc-text">2.关于插值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-关于数组的自动展开"><span class="toc-text">3.关于数组的自动展开</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一个简单的表格："><span class="toc-text">一个简单的表格：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#九九乘法表："><span class="toc-text">九九乘法表：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-将一维数组转换为二维数组"><span class="toc-text">4.将一维数组转换为二维数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#快速生成某月日历："><span class="toc-text">快速生成某月日历：</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>

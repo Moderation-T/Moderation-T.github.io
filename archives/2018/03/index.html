@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        React 之 组件与语法｜yizhiyu
+        yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/2018/04/04/005-React-02/">
+    <link rel="canonical" href="http://Moderation-T.github.io/archives/2018/03/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -94,7 +94,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/works/">works</a>
                         </li>
 							
 						
@@ -102,7 +102,7 @@
                         
 							
                         <li>
-                            <a href="/works/">works</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -149,190 +149,160 @@
 </script>
 
 <!-- Main Content -->
-
-<!--only post-->
-
-
-<img class="wechat-title-img"
-     src="/img/post-default.jpg">
-
-
 <style>
+    .intro-header .site-heading {
+        margin: 50px;
+    }
     
     header.intro-header {
         background-image: url('/img/post-default.jpg')
     }
-
     
 </style>
 
+<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
-                <div class="post-heading">
-                    <h1>React 之 组件与语法</h1>
-                    
-                    <span class="meta">
-                         作者 糖一瓶
-                        <span>
-                          日期 2018-04-04
-                         </span>
-                    </span>
-                    <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#react"
-                           title="react">react</a>
-                        
-                    </div>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading text-center">
+                    <h1>archives</h1>
+                    <span class="subheading">可以根据归档日期检索所有文件</span>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="post-title-haojen">
-        <span>
-            React 之 组件与语法
-        </span>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Container -->
-            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="一、react组件"><a href="#一、react组件" class="headerlink" title="一、react组件"></a>一、react组件</h2><h3 id="1-壳子"><a href="#1-壳子" class="headerlink" title="1.壳子"></a>1.壳子</h3><p>创建App.js文件，必须按要求书写标准壳，这个壳子叫做rcc壳，react class component，react的类式组件。</p>
-<p><pre><br>    目录结构如下：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>           |-main.js<br>           |-app.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>App.js代码如下：</p>
-<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
-
-<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
-    <span class="keyword">constructor</span>(){
-        <span class="keyword">super</span>();
-    }
-
-    render(){
-        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
-<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我是App组件，你好！！<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
-<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
-    }
-}
-</code></pre>
-<ul>
-<li>这个文件的默认暴露就是一个类，这个类的类名必须和文件名相同。</li>
-<li>文件名和类名的首字母必须大写！React中一个组件的合法名字的首字母必须是大写字母。</li>
-<li>这个类必须继承自React.Component类，也就是说，一个rcc壳必须有extends React.Component的写法。</li>
-<li>这个类必须有构造器constructor，构造器里面必须调用超类的构造器，super()；</li>
-<li>这个类必须有render函数，render函数中必须return一个jsx对象。同样的，这个jsx对象必须被唯一的标签包裹。</li>
-</ul>
-<h3 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h3><p>使用组件，比如我们现在在main.js中使用组件：<br>main.js代码如下：</p>
-<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
-<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;
-<span class="comment">// 引入App组件</span>
-<span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;
-
-ReactDOM.render(
-    <span class="comment">// 使用App组件</span>
-    <span class="comment">// 复制代码请删掉注释</span>
-    &lt;App&gt;<span class="xml"><span class="tag">&lt;/<span class="name">App</span>&gt;</span></span>
-    ,
-    <span class="built_in">document</span>.getElementById(<span class="string">"app"</span>)
-);
-</code></pre>
-<ul>
-<li>引入的组件必须路径以./开头</li>
-<li>你的组件要使用，就将这个组件的名字（类名、文件名）进行标签化即可。机理就是这个App类在被实例化。</li>
-</ul>
-<p>运行：npm run dev<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/component&amp;jsx/1.png" alt="1"></p>
-<blockquote>
-<p>react中允许组件套用组件，方法一样，写好rcc壳子，注意一些注意的问题。<br>然后组件中引入组件，用标签进行实例化。</p>
-</blockquote>
-
-                <hr>
-                
-
-                <ul class="pager">
-                    
-                    
-                    <li class="next">
-                        <a href="/2018/04/03/004-React-01/" data-toggle="tooltip" data-placement="top"
-                           title="webpack && React 之 Hello World">Next Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-                
-
-                
-
-
-                <!--加入新的评论系统-->
-                
-                <!-- 来必力City版安装代码 -->
-                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
-                    <script type="text/javascript">
-                        (function(d, s) {
-                            var j, e = d.getElementsByTagName(s)[0];
-
-                            if (typeof LivereTower === 'function') { return; }
-
-                            j = d.createElement(s);
-                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                            j.async = true;
-
-                            e.parentNode.insertBefore(j, e);
-                        })(document, 'script');
-                    </script>
-                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-                </div>
-                <!-- City版安装代码已完成 -->
-                
-            </div>
-
-            <div class="hidden-xs col-sm-3 toc-col">
-                <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、react组件"><span class="toc-text">一、react组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-壳子"><span class="toc-text">1.壳子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用"><span class="toc-text">2.使用</span></a></li></ol></li></ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5 class="text-center">
-                        <a href="/tags/">FEATURED TAGS</a>
-                    </h5>
-                    <div class="tags">
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- archive list -->
+            
+				
+				
+				
+					
+					
+					<div class="archive archive-year" data-date="2018">
+						<h2 class="archive-title">
+						<span class="fa fa-archive">
+							<a href="/archives/2018">2018</a>
+						</span>
+						</h2>
+				
+				
+					
+					
+					<div class="archive archive-month" data-date="201803">
+						<h3 class="archive-title">
+							<a href="/archives/2018/03">03</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/03/27/006-React-03/">
+                        <h4 class="post-title">
+                            React 之 state 与 表单受控
+                        </h4>
                         
-                        <a class="tag" href="/tags/#react"
-                           title="react">react</a>
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/03/25/005-React-02/">
+                        <h4 class="post-title">
+                            React 之 组件与语法
+                        </h4>
                         
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/03/21/004-React-01/">
+                        <h4 class="post-title">
+                            webpack && React 之 Hello World
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+					
+					</div><!--month-->
+					
+					
+					<div class="archive archive-month" data-date="201801">
+						<h3 class="archive-title">
+							<a href="/archives/2018/01">01</a>
+						</h3>
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/01/07/003-LINUX/">
+                        <h4 class="post-title">
+                            Linux基本使用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/01/05/002-MARKDOWN/">
+                        <h4 class="post-title">
+                            markdown基本使用
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
+				
+				
+				
+				
+				<div class="one-tag-list">
+                <div class="post-preview">
+                    <a href="/2018/01/03/001-CONCEPTS/">
+                        <h4 class="post-title">
+                            概念性知识
+                        </h4>
+                        
+                    </a>
+                </div>
+				<hr>
+				</div>
+            
         </div>
-
     </div>
-</article>
-
-
-
-
-
-
 
 <!-- Footer -->
 <!-- Footer -->
