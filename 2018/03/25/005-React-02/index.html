@@ -79,14 +79,6 @@
                     
                         
 							
-                        <li>
-                            <a href="/tags/">tags</a>
-                        </li>
-							
-						
-                    
-                        
-							
 								
 							
 						
@@ -95,6 +87,14 @@
 							
                         <li>
                             <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -216,9 +216,9 @@
 
     render(){
         <span class="comment">// return后边返回 jsx语法</span>
-        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
-<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我是App组件，你好！！<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
-<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+        <span class="keyword">return</span> &lt;div&gt;
+            &lt;h1&gt;我是App组件，你好！！&lt;/h1&gt;
+        &lt;/div&gt;
     }
 }
 </code></pre>
@@ -238,7 +238,7 @@
 ReactDOM.render(
     <span class="comment">// 使用App组件</span>
     <span class="comment">// 复制代码请删掉注释</span>
-    &lt;App&gt;<span class="xml"><span class="tag">&lt;/<span class="name">App</span>&gt;</span></span>
+    &lt;App&gt;&lt;/App&gt;
     ,
     <span class="built_in">document</span>.getElementById(<span class="string">"app"</span>)
 );

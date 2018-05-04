@@ -79,14 +79,6 @@
                     
                         
 							
-                        <li>
-                            <a href="/tags/">tags</a>
-                        </li>
-							
-						
-                    
-                        
-							
 								
 							
 						
@@ -95,6 +87,14 @@
 							
                         <li>
                             <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -380,7 +380,7 @@ App.js中做的事：
 而现在使用了redux后：
 所有组件只对全局数据（store中的state）负责，不需要对其他组件负责。
 如果要改变全局数据，请dispatch一个action。
-</code></pre><h2 id="四、综上捋一下整个套路"><a href="#四、综上捋一下整个套路" class="headerlink" title="四、综上捋一下整个套路"></a>四、综上捋一下整个套路</h2><blockquote>
+</code></pre><h2 id="四、redux套路小结"><a href="#四、redux套路小结" class="headerlink" title="四、redux套路小结"></a>四、redux套路小结</h2><blockquote>
 <ol>
 <li>首先创建一个reducers文件夹 里边存数据</li>
 <li>在main.js 中创建store通过<provider>将store传递给所有的组件</provider></li>
@@ -573,7 +573,7 @@ App.js中做的事：
     })
 )(App);
 </code></pre>
-<h2 id="四、捋一下整个套路"><a href="#四、捋一下整个套路" class="headerlink" title="四、捋一下整个套路"></a>四、捋一下整个套路</h2><blockquote>
+<h2 id="六、最后再来捋一遍"><a href="#六、最后再来捋一遍" class="headerlink" title="六、最后再来捋一遍"></a>六、最后再来捋一遍</h2><blockquote>
 <ol>
 <li>首先创建一个reducers文件夹 里边存数据 将数据分类 然后用combineReducers 在reducers/index.js下进行综合管理</li>
 <li>在main.js 中创建store通过<provider>将store传递给所有的组件</provider></li>
@@ -630,7 +630,7 @@ App.js中做的事：
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是redux？"><span class="toc-text">一、什么是redux？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、react结合redux"><span class="toc-text">二、react结合redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在react中使用redux要先安装两个依赖："><span class="toc-text">1. 在react中使用redux要先安装两个依赖：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建reducers文件夹，创建index-js文件，这个文件向外暴露一个纯函数："><span class="toc-text">2. 创建reducers文件夹，创建index.js文件，这个文件向外暴露一个纯函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-改变main-js-和-App-js"><span class="toc-text">3.改变main.js 和 App.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-数据的改变"><span class="toc-text">4.数据的改变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、一点小改变"><span class="toc-text">三、一点小改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、综上捋一下整个套路"><span class="toc-text">四、综上捋一下整个套路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、combineReducers和bindActionCreators"><span class="toc-text">五、combineReducers和bindActionCreators</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combineReducers拆分reducers"><span class="toc-text">combineReducers拆分reducers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-创建reducers"><span class="toc-text">1.创建reducers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-main-js同上没有改变"><span class="toc-text">2.main.js同上没有改变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-组件要改变："><span class="toc-text">3.组件要改变：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提炼aciton文件"><span class="toc-text">提炼aciton文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、捋一下整个套路"><span class="toc-text">四、捋一下整个套路</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是redux？"><span class="toc-text">一、什么是redux？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、react结合redux"><span class="toc-text">二、react结合redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在react中使用redux要先安装两个依赖："><span class="toc-text">1. 在react中使用redux要先安装两个依赖：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建reducers文件夹，创建index-js文件，这个文件向外暴露一个纯函数："><span class="toc-text">2. 创建reducers文件夹，创建index.js文件，这个文件向外暴露一个纯函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-改变main-js-和-App-js"><span class="toc-text">3.改变main.js 和 App.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-数据的改变"><span class="toc-text">4.数据的改变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、一点小改变"><span class="toc-text">三、一点小改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、redux套路小结"><span class="toc-text">四、redux套路小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、combineReducers和bindActionCreators"><span class="toc-text">五、combineReducers和bindActionCreators</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combineReducers拆分reducers"><span class="toc-text">combineReducers拆分reducers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-创建reducers"><span class="toc-text">1.创建reducers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-main-js同上没有改变"><span class="toc-text">2.main.js同上没有改变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-组件要改变："><span class="toc-text">3.组件要改变：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提炼aciton文件"><span class="toc-text">提炼aciton文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、最后再来捋一遍"><span class="toc-text">六、最后再来捋一遍</span></a></li></ol>
                 </div>
             </div>
         </div>
