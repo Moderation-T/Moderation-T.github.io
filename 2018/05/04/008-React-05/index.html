@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        React 之 Redux｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/05/04/008-React-05/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/works/">works</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>React 之 Redux</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-05-04
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            React 之 Redux
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="一、什么是redux？"><a href="#一、什么是redux？" class="headerlink" title="一、什么是redux？"></a>一、什么是redux？</h2><p>之前写过react组件内部的state，react传参数是父亲传儿子，儿子再传他儿子这样一级一级的就跟办手续似的。超级麻烦还累。所以就用到了redux。</p>
+<p>官网上说：Redux is a predictable JavaScript state container。<br><a href="http://cn.redux.js.org/" title="Redux官网" target="_blank" rel="noopener">Redux</a> 是 JavaScript 状态容器，提供可预测化的状态管理。</p>
+<p>提供了“数据的单向流动”：<br>组件 → action → reducer → 其他组件<br>redux就是全局数据，采用了dispatch才能改变数据的这样的一个机制。</p>
+<p> 不懂？？？不懂就用一用嘛。用一用就懂了。</p>
+<h2 id="二、react结合redux"><a href="#二、react结合redux" class="headerlink" title="二、react结合redux"></a>二、react结合redux</h2><h3 id="1-在react中使用redux要先安装两个依赖："><a href="#1-在react中使用redux要先安装两个依赖：" class="headerlink" title="1. 在react中使用redux要先安装两个依赖："></a>1. 在react中使用redux要先安装两个依赖：</h3><blockquote>
+<p>   <code>npm install --save redux</code><br>   <code>npm install --save react-redux</code></p>
+</blockquote>
+<ul>
+<li>react-redux就是粘合剂，让redux可以和react共同使用的东西</li>
+</ul>
+<pre>
+    先来一份初始的目录结构：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
+
+<h3 id="2-创建reducers文件夹，创建index-js文件，这个文件向外暴露一个纯函数："><a href="#2-创建reducers文件夹，创建index-js文件，这个文件向外暴露一个纯函数：" class="headerlink" title="2. 创建reducers文件夹，创建index.js文件，这个文件向外暴露一个纯函数："></a>2. 创建reducers文件夹，创建index.js文件，这个文件向外暴露一个纯函数：</h3><p>目录改变如下：</p>
+<pre>
+    修改后如下：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+           |-reducers
+              |-index.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
+
+<p>reducers/index.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> (state = {<span class="string">"v"</span> : <span class="number">100</span>} , action) =&gt; {
+    <span class="comment">// 这个函数的第一个参数就是我们的数据了</span>
+    <span class="comment">// 第二个参数是干什么用的往下看就知道了</span>
+    <span class="comment">// 这个是必须写的！！</span>
+    <span class="keyword">return</span> state;
+}
+</code></pre>
+<ul>
+<li>开头就说了，react传个数据跟办手续似的，所以我们就用redux将数据放到全局去，让所有组件都可以去调用他。而我现在创建的reducers文件夹，说白了就是我们存放数据的地方。</li>
+</ul>
+<h3 id="3-改变main-js-和-App-js"><a href="#3-改变main-js-和-App-js" class="headerlink" title="3.改变main.js 和 App.js"></a>3.改变main.js 和 App.js</h3><pre><code>main.js中做的事情:
+①引入redux
+②创建store
+③通过Provider分发者，将store分发给所有的组件
+
+App.js中做的事：
+①从react-redux包中引入了{connect}
+②通过connect关联reducers中的数据
+③用this.props.**使用数据
+④通过this.props.**()事件发送dispatch指令
+</code></pre><p>main.js代码如下：</p>
+<pre><code class="javascript">    <span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+    <span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;
+
+    <span class="comment">//引入createStore和Provider</span>
+    <span class="keyword">import</span> {createStore} <span class="keyword">from</span> <span class="string">"redux"</span>;
+    <span class="keyword">import</span> {Provider} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+    <span class="comment">//引入子组件App</span>
+    <span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;
+    <span class="comment">//引入我们放数据的reducers</span>
+    <span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;
+
+    <span class="comment">// 创建store store就跟个传达室似的 将store传给组件之后</span>
+    <span class="comment">// 组件中才有使用this.store.props.**传达指令的权限</span>
+    <span class="comment">// 然后就可以通过store获取到与其关联子组件关联数据</span>
+    <span class="keyword">const</span> store = createStore(reducer);
+
+    ReactDOM.render(
+        <span class="comment">//通过Provider 将store传输给所有的组件 就是让所有的组件拥有了this.store.props这个技能</span>
+        &lt;Provider store={store}&gt;
+            &lt;App&gt;<span class="xml"><span class="tag">&lt;/<span class="name">App</span>&gt;</span></span>
+        &lt;<span class="regexp">/Provider&gt;</span>
+<span class="regexp">        ,</span>
+<span class="regexp">        document.getElementById("app")</span>
+<span class="regexp">)</span>
+</code></pre>
+<p>App.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+
+<span class="comment">// 从react-redux包中引入了{connect}，干什么用的？</span>
+<span class="comment">// 直接翻到最下边看connect怎么用</span>
+<span class="keyword">import</span> {connect} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="xml">        // 在这里用this.props.v </span>
+<span class="xml">        // 还记得我们在reducers文件夹中的index.js中暴露的纯函数不</span>
+<span class="xml">        // 就是那里的数据 所以这里就是<span class="tag">&lt;<span class="name">h1</span>&gt;</span>100<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
+<span class="xml">        // 这里应该是不能写注释的，用代码请删注释，下同</span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>{this.props.v}<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
+<span class="xml">            // 然后我们发送onClick事件，发送this.props.add()函数，接下来我们到最下边的connect中看</span>
+            &lt;button onClick={()=&gt;{
+                this.props.add()
+<span class="xml">            }}&gt;按我加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="xml">            // 这里发送了this.props.minus()函数</span>
+             &lt;button onClick={()=&gt;{
+                this.props.minus()
+<span class="xml">            }}&gt;按我减2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+
+
+<span class="comment">// 通过connect与reducers中的数据产生关联</span>
+<span class="comment">// 然后才能通过刚刚main.js分配过来的store使用this.store.props.**指令在render中使用数据</span>
+<span class="comment">//然后我们现在就去render里看看 </span>
+<span class="comment">// 注意默认暴露connect 一个组件中只能有一个暴露，所以App类前的暴露记得去掉！否则会报错！</span>
+<span class="comment">// connect写法：export default connect()(这里是组件的名称App里就是App)</span>
+<span class="keyword">export</span> <span class="keyword">default</span> connect(
+    <span class="comment">// 这里是你要用到的state数据</span>
+    (state) =&gt; ({
+        v : state.v
+    }),
+    <span class="comment">// 我们在connect中发送dispatch指令，这个指令的作用是修改数据的，type,n是载荷，可以看到载荷可以多个type必须有！</span>
+    <span class="comment">// 就是通过dispatch指令发送的载荷，可以在reducers中，就是放数据的地方，还记得不！！</span>
+    <span class="comment">// 可以在reducers中通过action.**来调用，比如action.type就是"ADD"</span>
+    <span class="comment">// action就是reducers中index.js里边的第二个参数，还有印象不！</span>
+    <span class="comment">// 具体是咋回事？往下看往下看</span>
+    (dispatch) =&gt; ({
+        add(){
+            dispatch({<span class="string">"type"</span> : <span class="string">"ADD"</span>})
+        },
+        minus(){
+            dispatch({<span class="string">"type"</span> : <span class="string">"MINUS"</span>,<span class="attr">n</span>:<span class="string">"2"</span>})
+        },
+    })
+)(App);
+</code></pre>
+<h3 id="4-数据的改变"><a href="#4-数据的改变" class="headerlink" title="4.数据的改变"></a>4.数据的改变</h3><p>我们不是发送了个dispatch吗，然后带了个type吗。有啥用呢？？？<br>我们回到reducers/index.js，并修改它，<br>reducers/index.js修改后代码如下：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> (state = {<span class="string">"v"</span> : <span class="number">100</span>} , action) =&gt; {
+    <span class="comment">// 当点击按我加1时发送this.props.add()函数，然后触发dispatch({"type" : "ADD"})</span>
+    <span class="comment">// 通过action.type得到之后进行如下判断，return了{"v" : state.v + 1}</span>
+
+    <span class="comment">// 当点击按我减2的发送this.props.minus()函数，dispatch({"type" : "MINUS",n:"2"})</span>
+    <span class="comment">//通过action.type得到之后进行如下判断，return了{ "v": state.v - action.n} action.n就是2</span>
+    <span class="keyword">if</span>(action.type == <span class="string">"ADD"</span>){
+        <span class="keyword">return</span> {
+            <span class="string">"v"</span> : state.v + <span class="number">1</span>
+        }
+    } <span class="keyword">else</span> <span class="keyword">if</span> (action.type == <span class="string">"MINUS"</span>) {
+        <span class="keyword">return</span> {
+            <span class="string">"v"</span>: state.v - action.n
+        }
+    }
+    <span class="keyword">return</span> state;
+}
+
+</code></pre>
+<ul>
+<li>现在感觉redux饶了好大一个弯，实际上是因为业务小。</li>
+<li>如果业务大了，真的简化了程序。</li>
+<li>而且你可在reducers里看到所有可能的数据改变 ，这就是最开始提到的提供可预测化的状态管理。</li>
+</ul>
+<h2 id="三、一点小改变"><a href="#三、一点小改变" class="headerlink" title="三、一点小改变"></a>三、一点小改变</h2><pre><code>之前我组件中的state时提过，react编程必须养成的思维：
+组件只有父子之间有关系，兄弟和兄弟之间没有任何关系！
+兄弟和兄弟之间不需要考虑彼此对彼此造成的任何的影响，只需要考虑对父亲的影响即可。
+
+而现在使用了redux后：
+所有组件只对全局数据（store中的state）负责，不需要对其他组件负责。
+如果要改变全局数据，请dispatch一个action。
+</code></pre><h2 id="四、综上捋一下整个套路"><a href="#四、综上捋一下整个套路" class="headerlink" title="四、综上捋一下整个套路"></a>四、综上捋一下整个套路</h2><blockquote>
+<ol>
+<li>首先创建一个reducers文件夹 里边存数据</li>
+<li>在main.js 中创建store通过<provider>将store传递给所有的组件</provider></li>
+<li>在组件中引入connect 并使用connect使组件与reducers里的数据产生关联 得到要用的数据</li>
+<li>通过this.props.** 使用数据</li>
+<li>发送事件，触发dispatch命令发送type，也可以携带多个载荷</li>
+<li>在reducers通过对action.type的值判断来对数据进行修改</li>
+</ol>
+</blockquote>
+<h2 id="五、combineReducers和bindActionCreators"><a href="#五、combineReducers和bindActionCreators" class="headerlink" title="五、combineReducers和bindActionCreators"></a>五、combineReducers和bindActionCreators</h2><p>combineReducers和bindActionCreators会使文件结构再次复杂，但是体系更完整。没什么好怕的。<br>从上边可以看出来套路都是很简短的。</p>
+<p>先说说为什么要用这俩东西。<br>在一个项目中会有许多组件，但是store只能有一个。不同的组件不可能数据都用一样的，或者累的一大堆。<br>所以虽然我们store不能拆，但是reducers是可以拆分的。<br>这样的好处就是让我们项目的数据结构更加清晰，这时候就用到了combineReducers。<br>同理，我们的dispatch也分门别类不是更好，于是就用到了bindActionCreators。<br>知道这些就可以开始下边的操作了。</p>
+<p>抛开上边的文件结构，我们重来一份。</p>
+<pre>
+    同样先来一份初始的目录结构：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
+
+<h3 id="combineReducers拆分reducers"><a href="#combineReducers拆分reducers" class="headerlink" title="combineReducers拆分reducers"></a>combineReducers拆分reducers</h3><h4 id="1-创建reducers"><a href="#1-创建reducers" class="headerlink" title="1.创建reducers"></a>1.创建reducers</h4><p>创建reducers文件，并创建index.js,counterReducer.js,shoppingReducer.js</p>
+<pre>
+    修改后的目录结构：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+           |-reducers
+               |-index.js
+               |-counterReducer.js
+               |-shoppingReducer.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
+
+<p>reducers/index.js代码如下：<br>这个时候，index.js不再是像上边一样的数据文件了<br>其实就变成了一个reducers中所有数据文件的一个中心管理处<br>都是固定的用法</p>
+<pre><code class="javascript"><span class="comment">// 引入combineReducers</span>
+<span class="keyword">import</span> {combineReducers} <span class="keyword">from</span> <span class="string">"redux"</span>;
+
+<span class="comment">// 引入数据</span>
+<span class="keyword">import</span> counterReducer <span class="keyword">from</span> <span class="string">"./counterReducer.js"</span>;
+<span class="keyword">import</span> shoppingReducer <span class="keyword">from</span> <span class="string">"./shoppingReducer.js"</span>;
+
+<span class="comment">//数据管理中心 就相当于state={counterReducer,shoppingReducer}</span>
+<span class="keyword">export</span> <span class="keyword">default</span> combineReducers({
+    counterReducer,
+    shoppingReducer
+});
+</code></pre>
+<p>reducers/counterReducer.js代码如下：<br>这里用了switch语句，跟if同理，别看不懂了</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> (state = { <span class="string">"v"</span>: <span class="number">100</span> }, action) =&gt; {
+    <span class="keyword">switch</span> (action.type) {
+        <span class="keyword">case</span> <span class="string">"ADD"</span>: {
+            <span class="keyword">return</span> {
+                <span class="string">"v"</span>: state.v + <span class="number">1</span>
+            }
+        }
+    }
+    <span class="keyword">return</span> state;
+}
+</code></pre>
+<p>reducers/counterReducer.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> (state = { <span class="string">"price"</span>: <span class="number">1000</span> }, action) =&gt; {
+    <span class="keyword">switch</span> (action.type) {
+        <span class="keyword">case</span> <span class="string">"UP"</span>: {
+            <span class="keyword">return</span> {
+                <span class="string">"price"</span>: state.price + <span class="number">1000</span>
+            }
+        }
+    }
+    <span class="keyword">return</span> state;
+}
+</code></pre>
+<h4 id="2-main-js同上没有改变"><a href="#2-main-js同上没有改变" class="headerlink" title="2.main.js同上没有改变"></a>2.main.js同上没有改变</h4><h4 id="3-组件要改变："><a href="#3-组件要改变：" class="headerlink" title="3.组件要改变："></a>3.组件要改变：</h4><p>App.js代码如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+<span class="keyword">import</span> {connect} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>{this.props.v}<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
+            &lt;button onClick={()=&gt;{
+                this.props.add();
+<span class="xml">            }}&gt;按我加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+
+<span class="keyword">export</span> <span class="keyword">default</span> connect(
+    <span class="comment">//这里原本是state，state现在不是变成state={counterReducer,shoppingReducer}</span>
+    <span class="comment">//所有这里是一种结构的写法，此时就可以调用counterReducer.js中的v</span>
+    <span class="comment">//注意写法！调用shoppingReducer也是同理了。</span>
+    ({counterReducer}) =&gt; ({
+        v : counterReducer.v
+    }),
+    (dispatch) =&gt; ({
+        add(){
+            dispatch({<span class="string">"type"</span> : <span class="string">"ADD"</span>})
+        }
+    })
+)(App);
+</code></pre>
+<p>这就实现了reducers的拆分了。接下来就要拆dispatch发送的action了。</p>
+<h3 id="提炼aciton文件"><a href="#提炼aciton文件" class="headerlink" title="提炼aciton文件"></a>提炼aciton文件</h3><p>具体操作：创建actions文件夹，创建actions/counter.js文件：</p>
+<pre>
+    修改后的目录结构：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+           |-reducers
+               |-index.js
+               |-counterReducer.js
+               |-shoppingReducer.js
+           |-actions
+                  |-counter.js
+                  |-shopping.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
+
+
+<p>actions/counter.js：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"ADD"</span>});            <span class="comment">//action creator</span>
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"MINUS"</span>});        <span class="comment">//action creator</span>
+</code></pre>
+<p>actions/shopping.js：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"UP"</span>});            <span class="comment">//action creator</span>
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"DOWN"</span>});        <span class="comment">//action creator</span>
+</code></pre>
+<ul>
+<li>这个文件向外暴露了两个函数，函数运行之后将返回action。返回action的函数我们称为action creator。</li>
+</ul>
+<p>组件要改变写法（刻意的背一下就行了，都是繁文缛节，没必要去看API，更没必要研究机理）：<br>App.js:</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+<span class="keyword">import</span> {connect} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+<span class="comment">// 引入bindActionCreators</span>
+<span class="keyword">import</span> {bindActionCreators} <span class="keyword">from</span> <span class="string">"redux"</span>;
+<span class="comment">// 引入刚刚创建的action creator 叫conter</span>
+<span class="keyword">import</span> * <span class="keyword">as</span> counter <span class="keyword">from</span> <span class="string">"./actions/counter.js"</span>;
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>{
+    <span class="keyword">constructor</span>(){
+        <span class="keyword">super</span>();
+    }
+
+    render(){
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+            &lt;h1&gt;
+                {this.props.v}
+<span class="xml">            <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>
+            &lt;button onClick={()=&gt;{
+                //这里的写法改变了，调用下边定义的counterCreators
+                // 因为你counterCreators使用bindActionCreators绑定到了counter中
+                // 如下调用里头的add就发送了({"type" : "ADD"});  看actions/counter.js：
+                this.props.counterCreators.add();
+<span class="xml">            }}&gt;点击我加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="xml"></span>
+            &lt;button onClick={()=&gt;{
+                //这里也是
+                this.props.counterCreators.minus();
+<span class="xml">            }}&gt;点击我减1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    }
+}
+<span class="keyword">export</span> <span class="keyword">default</span> connect(
+    ({counterReducer})=&gt;({
+        v : counterReducer.v
+    }),
+    (dispatch) =&gt; ({
+        <span class="comment">// 这里定义dispatch counterCreators是自己定的名字 绑定到counter中</span>
+        <span class="comment">// 固定写法，counter就是你自己定义actions下的文件counter.js 在上边引入的</span>
+        <span class="comment">//如果想使用shopping里的action creator就把counter改成shopping</span>
+        counterCreators: bindActionCreators(counter , dispatch)
+    })
+)(App);
+</code></pre>
+<h2 id="四、捋一下整个套路"><a href="#四、捋一下整个套路" class="headerlink" title="四、捋一下整个套路"></a>四、捋一下整个套路</h2><blockquote>
+<ol>
+<li>首先创建一个reducers文件夹 里边存数据 将数据分类 然后用combineReducers 在reducers/index.js下进行综合管理</li>
+<li>在main.js 中创建store通过<provider>将store传递给所有的组件</provider></li>
+<li>在组件中引入connect 并使用connect使组件与reducers里的数据产生关联 得到要用的数据</li>
+<li>state变成了一个对象，存储着所有的数据文件，结构state，通过类似counterReducers.v的方式，引入自己要用的数据</li>
+<li>通过类似this.counterReducers.props.** 使用数据 其实就像是有了一个命名空间</li>
+<li>通过自定义一个方法名字counterCreators，用bindActionCreators绑定到要使用的actions下的相应文件</li>
+<li>通过类似this.counterCreators.add()的方法发送dispatch指令</li>
+<li>指令就会找到对应的actions/count.js下去找add，并发送action({“type” : “ADD”}); </li>
+<li>在reducers通过对action.type的值判断来对数据进行修改</li>
+</ol>
+</blockquote>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/05/04/007-React-04/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 生命周期">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是redux？"><span class="toc-text">一、什么是redux？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、react结合redux"><span class="toc-text">二、react结合redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在react中使用redux要先安装两个依赖："><span class="toc-text">1. 在react中使用redux要先安装两个依赖：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建reducers文件夹，创建index-js文件，这个文件向外暴露一个纯函数："><span class="toc-text">2. 创建reducers文件夹，创建index.js文件，这个文件向外暴露一个纯函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-改变main-js-和-App-js"><span class="toc-text">3.改变main.js 和 App.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-数据的改变"><span class="toc-text">4.数据的改变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、一点小改变"><span class="toc-text">三、一点小改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、综上捋一下整个套路"><span class="toc-text">四、综上捋一下整个套路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、combineReducers和bindActionCreators"><span class="toc-text">五、combineReducers和bindActionCreators</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combineReducers拆分reducers"><span class="toc-text">combineReducers拆分reducers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-创建reducers"><span class="toc-text">1.创建reducers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-main-js同上没有改变"><span class="toc-text">2.main.js同上没有改变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-组件要改变："><span class="toc-text">3.组件要改变：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提炼aciton文件"><span class="toc-text">提炼aciton文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、捋一下整个套路"><span class="toc-text">四、捋一下整个套路</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>
