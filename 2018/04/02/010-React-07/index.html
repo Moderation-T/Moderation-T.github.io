@@ -391,32 +391,46 @@ ReactDOM.render(
 <pre><code class="javascript"><span class="keyword">yield</span> put({<span class="string">"type"</span> : <span class="string">"ADD"</span> , a})
 </code></pre>
 </li>
-<li><p>select : 得到当前的state</p>
-<pre><code class="javascript"><span class="keyword">yield</span> select(<span class="function"><span class="params">state</span>=&gt;</span>state.counterReducer)
+</ul>
+<ul>
+<li><p>call ： 调用一个函数</p>
+<pre><code class="javascript"><span class="keyword">import</span> { all, takeEvery , put , select , call} <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>
+<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadApi</span>(<span class="params"></span>)</span>{
+    <span class="comment">//做异步</span>
+    <span class="keyword">const</span> { a } = <span class="keyword">await</span> fetch(<span class="string">"/api/api"</span>).then(<span class="function"><span class="params">data</span> =&gt;</span> data.json());
+    <span class="keyword">return</span> a;
+}
+
+<span class="comment">//worker saga，工人saga。</span>
+<span class="comment">//这个saga的功能是被拦截之后做的事情。</span>
+<span class="function"><span class="keyword">function</span>* <span class="title">addServer</span>(<span class="params"></span>) </span>{
+    <span class="comment">//发出新的action</span>
+    <span class="keyword">const</span> a = <span class="keyword">yield</span> call(loadApi);
+    <span class="keyword">yield</span> put({<span class="attr">type</span> : <span class="string">"ADD"</span> , a});
+}
+……
+……
 </code></pre>
 </li>
-<li><p>call ： 调用一个函数<br><code>`</code>javascript<br>import { all, takeEvery , put , select , call} from “redux-saga/effects”<br>async function loadApi(){<br>  //做异步<br>  const { a } = await fetch(“/api/api”).then(data =&gt; data.json());<br>  return a;<br>}</p>
+<li><p>fork：也是调用函数，但是要在调用的函数中加上put，而没有return值。</p>
+<pre><code class="javascript"><span class="keyword">import</span> { all, takeEvery , put , select , call , fork} <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>
+
+<span class="function"><span class="keyword">function</span>* <span class="title">loadApi</span>(<span class="params"></span>)</span>{
+    <span class="comment">//做异步</span>
+    <span class="keyword">const</span> { a } =  <span class="keyword">yield</span> fetch(<span class="string">"/api/api"</span>).then(<span class="function"><span class="params">data</span> =&gt;</span> data.json());
+    <span class="keyword">yield</span> put({<span class="string">"type"</span> : <span class="string">"ADD"</span> , a})
+}
+
+<span class="comment">//worker saga，工人saga。</span>
+<span class="comment">//这个saga的功能是被拦截之后做的事情。</span>
+<span class="function"><span class="keyword">function</span>* <span class="title">addServer</span>(<span class="params"></span>) </span>{
+    <span class="comment">//发出新的action</span>
+    <span class="keyword">yield</span> fork(loadApi)
+}
+</code></pre>
 </li>
 </ul>
-<p>//worker saga，工人saga。<br>//这个saga的功能是被拦截之后做的事情。<br>function* addServer() {<br>    //发出新的action<br>    const a = yield call(loadApi);<br>    yield put({type : “ADD” , a});<br>}<br>……<br>……</p>
-<pre><code>
-● fork：也是调用函数，但是要在调用的函数中加上put，而没有return值。
-```javascript
-import { all, takeEvery , put , select , call , fork} from &quot;redux-saga/effects&quot;
-
-function* loadApi(){
-    //做异步
-    const { a } =  yield fetch(&quot;/api/api&quot;).then(data =&gt; data.json());
-    yield put({&quot;type&quot; : &quot;ADD&quot; , a})
-}
-
-//worker saga，工人saga。
-//这个saga的功能是被拦截之后做的事情。
-function* addServer() {
-    //发出新的action
-    yield fork(loadApi)
-}
-</code></pre><h2 id="四、saga有三个好处"><a href="#四、saga有三个好处" class="headerlink" title="四、saga有三个好处"></a>四、saga有三个好处</h2><p>1）saga写异步的地方就是saga文件，而不涉及action文件，action文件中画风都是一个（），都是非常简单的action creator。靠拦截的思路去写saga。<br>2）副作用清晰，比如做分页项目，改变排序的时候，一定会分页要到第1页，此时saga中用两个yield put()轻松解决。<br>3）数据的集结感非常强，做条件查询的业务非常适合。saga会集结当前reducer中的查询条件，包括按什么排序、排序方向、页码信息等，集结完毕，出发进行查询，返回的results经过put，当做载荷，改变reducer影响视图。</p>
+<h2 id="四、saga有三个好处"><a href="#四、saga有三个好处" class="headerlink" title="四、saga有三个好处"></a>四、saga有三个好处</h2><p>1）saga写异步的地方就是saga文件，而不涉及action文件，action文件中画风都是一个（），都是非常简单的action creator。靠拦截的思路去写saga。<br>2）副作用清晰，比如做分页项目，改变排序的时候，一定会分页要到第1页，此时saga中用两个yield put()轻松解决。<br>3）数据的集结感非常强，做条件查询的业务非常适合。saga会集结当前reducer中的查询条件，包括按什么排序、排序方向、页码信息等，集结完毕，出发进行查询，返回的results经过put，当做载荷，改变reducer影响视图。</p>
 <h2 id="五、-拆分一下"><a href="#五、-拆分一下" class="headerlink" title="五、 拆分一下"></a>五、 拆分一下</h2><p>类似reducers 和 actions 的拆分：<br>创建sagas文件夹，并创建counterSagas.js</p>
 <p><pre><br>    目录结构：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>            |-main.js<br>            |-App.js<br>            |-reducers<br>                |-index.js<br>                |-counterReducer.js<br>            |-actions<br>                |-counter.js<br>            |-sagas.js<br>            |-sagas<br>                |-counterSagas.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>将all 的部分放在sagas.js中：</p>
 <pre><code class="javascript"><span class="keyword">import</span> {all} <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>;
@@ -486,10 +500,15 @@ function* addServer() {
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2018/04/02/011-React-08/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 dva">&larr; Previous Post</a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2018/04/02/011-React-08/" data-toggle="tooltip" data-placement="top"
-                           title="011-React-08">Next Post &rarr;</a>
+                        <a href="/2018/04/01/009-React-06/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 redux-thunk">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
