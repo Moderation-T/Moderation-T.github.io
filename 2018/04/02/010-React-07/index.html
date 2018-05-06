@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        React 值 redux-saga｜yizhiyu
+        React 之 redux-saga｜yizhiyu
         
     </title>
 
@@ -171,7 +171,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>React 值 redux-saga</h1>
+                    <h1>React 之 redux-saga</h1>
                     
                     <span class="meta">
                          作者 糖一瓶
@@ -197,7 +197,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            React 值 redux-saga
+            React 之 redux-saga
         </span>
     </div>
 </header>
@@ -398,8 +398,7 @@ ReactDOM.render(
 <li><p>call ： 调用一个函数<br><code>`</code>javascript<br>import { all, takeEvery , put , select , call} from “redux-saga/effects”<br>async function loadApi(){<br>  //做异步<br>  const { a } = await fetch(“/api/api”).then(data =&gt; data.json());<br>  return a;<br>}</p>
 </li>
 </ul>
-<p>//worker saga，工人saga。<br>//这个saga的功能是被拦截之后做的事情。<br>function* addServer() {<br>    //发出新的action<br>    const a = yield call(loadApi);<br>    yield put({type : “ADD” , a});<br>}</p>
-<p>……<br>……</p>
+<p>//worker saga，工人saga。<br>//这个saga的功能是被拦截之后做的事情。<br>function* addServer() {<br>    //发出新的action<br>    const a = yield call(loadApi);<br>    yield put({type : “ADD” , a});<br>}<br>……<br>……</p>
 <pre><code>
 ● fork：也是调用函数，但是要在调用的函数中加上put，而没有return值。
 ```javascript
