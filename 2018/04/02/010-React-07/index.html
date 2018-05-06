@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        React 值 redux-saga｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/04/02/010-React-07/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/works/">works</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>React 值 redux-saga</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-04-02
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                        <a class="tag" href="/tags/#saga"
+                           title="saga">saga</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            React 值 redux-saga
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="一、什么是saga？"><a href="#一、什么是saga？" class="headerlink" title="一、什么是saga？"></a>一、什么是saga？</h2><p>saga react是官方推出的解决异步问题的库，作用类似于之前写过的thunk。可以参考看一下作用。<br><a href="https://redux-saga.js.org/" target="_blank" rel="noopener">手册</a></p>
+<h2 id="二、saga初步了解"><a href="#二、saga初步了解" class="headerlink" title="二、saga初步了解"></a>二、saga初步了解</h2><p><pre><br>    首先是了解一下目录结构：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>           |-main.js<br>           |-App.js<br>           |-reducers<br>               |-index.js<br>               |-counterReducer.js<br>           |-actions<br>                  |-counter.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>安装redux-saga</p>
+<blockquote>
+<p>npm install –save dva</p>
+</blockquote>
+<p>创建sagas.js的文件：</p>
+<p><pre><br>    目录结构：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>           |-main.js<br>           |-App.js<br>           |-reducers<br>               |-index.js<br>               |-counterReducer.js<br>           |-actions<br>                  |-counter.js<br>           |-sagas.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>这个文件现在向外暴露一个加星函数：</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">helloSaga</span>(<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="string">'你好，我是saga'</span>);
+}
+</code></pre>
+<pre><code>关于加星函数：
+ES6中有一个新的特性，叫做产生器，就是加星函数，英语叫做Generator。
+function* say(){
+    yield &quot;你好&quot;;
+    yield &quot;哈哈&quot;;
+    yield &quot;嘻嘻&quot;;
+    yield &quot;么么哒&quot;;
+}
+var h = say(); //得到产生器的实例
+console.log(h.next());       //得到第1个产生的内容。 你好
+console.log(h.next());       //得到第2个产生的内容。 哈哈
+console.log(h.next());       //得到第3个产生的内容。 嘻嘻
+console.log(h.next());       //得到第4个产生的内容。 么么哒
+
+也就是说，一个函数如果加上了*，此时就是一个产生器，里面就要有一条一条的yield语句。
+此时我们可以
+var h = say();
+得到产生器的实例。这个实例就是h.next()逐条调用yield的返回值。
+h.next();
+h.next();
+h.next();
+能够有多条return的函数，就是产生器。
+yield后面假如是一个返回Promise对象的函数，自动有async、await的能力，自动停留等待。
+箭头函数不能加*，必须是function。
+</code></pre><p>改变main.js:</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;
+<span class="keyword">import</span> {createStore , applyMiddleware} <span class="keyword">from</span> <span class="string">"redux"</span>;
+<span class="keyword">import</span> {Provider} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+<span class="comment">// 引入redux-saga</span>
+<span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">"redux-saga"</span>;
+
+<span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;
+<span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;
+
+<span class="comment">//引入默认saga</span>
+<span class="keyword">import</span> { saga } <span class="keyword">from</span> <span class="string">'./sagas.js'</span>;
+
+<span class="comment">// 创建saga的中间件</span>
+<span class="keyword">const</span> sagaMiddleware = createSagaMiddleware();
+
+<span class="comment">// 仓库</span>
+<span class="keyword">const</span> store = createStore(reducer, applyMiddleware(sagaMiddleware));
+
+<span class="comment">//运行默认saga</span>
+sagaMiddleware.run(saga);
+
+ReactDOM.render(
+    &lt;Provider store={store}&gt;
+        &lt;App/&gt;
+    &lt;<span class="regexp">/Provider&gt;</span>
+<span class="regexp">    ,</span>
+<span class="regexp">    document.getElementById("app")</span>
+<span class="regexp">);</span>
+</code></pre>
+<p>然后补充一个babel的plugin（因为加星函数需要）：</p>
+<blockquote>
+<p>npm install –save-dev babel-plugin-transform-runtime</p>
+</blockquote>
+<p>改变webpack.config.js文件：</p>
+<pre><code class="javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+
+<span class="built_in">module</span>.exports = {
+    entry: <span class="string">"./www/app/main.js"</span>, 
+    output: {
+        path: path.resolve(__dirname, <span class="string">"www/dist"</span>),  
+        filename: <span class="string">"bundle.js"</span>,
+        publicPath: <span class="string">"/xuni/"</span>
+    },
+    mode : <span class="string">"development"</span>,
+    <span class="built_in">module</span>: {
+        rules: [
+            {
+                test: <span class="regexp">/\.js$/</span>,
+                include: [
+                    path.resolve(__dirname, <span class="string">"www/app"</span>)
+                ],
+                exclude: [
+                    path.resolve(__dirname, <span class="string">"node_modules"</span>)
+                ],
+                loader: <span class="string">"babel-loader"</span>,
+                options: {
+                    presets: [<span class="string">"es2015"</span>,<span class="string">"react"</span>],
+                    plugins: [<span class="string">"transform-object-rest-spread"</span>,<span class="string">"transform-runtime"</span>] <span class="comment">// 这里引入transform-runtime</span>
+                }
+            }
+        ]
+    },
+    devServer: {
+        proxy: {
+            <span class="comment">//下面的参数从vue-cli上扒拉出来的</span>
+            <span class="string">"/api"</span>: {
+                target: <span class="string">'http://127.0.0.1:3000/'</span>,
+                changeOrigin: <span class="literal">true</span>,
+                pathRewrite: {
+                    <span class="string">'^/api'</span>: <span class="string">'/'</span>
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>此时输出项目可见：<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/redux-saga/1.png" alt="1"></p>
+<h2 id="三、异步与拦截"><a href="#三、异步与拦截" class="headerlink" title="三、异步与拦截"></a>三、异步与拦截</h2><p>我们现在给按钮“按我加服务器那么多”绑定事件，让这个按钮能够发出一个普通的action。</p>
+<pre><code class="javascript">counter.js:
+<span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"ADD"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"MINUS"</span>});
+
+注意这个，我将在sagas.js中对这个指令进行拦截
+<span class="keyword">export</span> <span class="keyword">const</span> addServer = <span class="function"><span class="params">()</span> =&gt;</span> ({<span class="string">"type"</span> : <span class="string">"ADDSERVER"</span>});
+</code></pre>
+<p>改变sagas.js文件：</p>
+<pre><code class="javascript"><span class="keyword">import</span> {all , takeEvery} <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>
+
+按照第一二三顺序查看
+
+********************************************************
+<span class="comment">//第三步：</span>
+<span class="comment">//worker saga，工人saga。</span>
+<span class="comment">//这个saga的功能是被拦截之后做的事情。</span>
+<span class="function"><span class="keyword">function</span>* <span class="title">addServer</span>(<span class="params"></span>)</span>{
+    <span class="comment">//做异步</span>
+    <span class="keyword">const</span> {a} = <span class="keyword">yield</span> fetch(<span class="string">"/api/api"</span>).then(<span class="function"><span class="params">data</span>=&gt;</span>data.json());
+    <span class="comment">//put用于发出新的action</span>
+    <span class="keyword">yield</span> put({<span class="attr">type</span> : <span class="string">"ADD"</span> , a});
+
+    <span class="comment">// if语句</span>
+    <span class="keyword">const</span> { a } = <span class="keyword">yield</span> select(<span class="function"><span class="params">state</span> =&gt;</span> state.counter); <span class="comment">//这是获取到当前的state值</span>
+    <span class="comment">//判断是不是奇数</span>
+    <span class="keyword">if</span>(a % <span class="number">2</span> == <span class="number">1</span>){
+        <span class="comment">//发出新的action</span>
+        <span class="keyword">yield</span> put({ <span class="attr">type</span>: <span class="string">"ADD"</span> });
+    }
+}
+********************************************************
+<span class="comment">// 第二步：</span>
+<span class="comment">//watcher saga，监控saga。</span>
+<span class="comment">//这个saga的名字叫做watchAddServer，暗示了我们它在拦截ADDSERVER这个action，我要在这里进行拦截了</span>
+<span class="function"><span class="keyword">function</span>* <span class="title">watchAddServer</span>(<span class="params"></span>)</span>{
+    <span class="comment">//takeEvery是英语的“拦截”的意思，这里表示拦截所有的ADDSERVER的action，一旦拦截到，做addServer函数。</span>
+    <span class="comment">// 拦截成功执行addServer就是第三步里的函数</span>
+    <span class="keyword">yield</span> takeEvery(<span class="string">'ADDSERVER'</span>, addServer);
+}
+********************************************************
+<span class="comment">//第一步：</span>
+<span class="comment">//默认暴露的函数，这个函数被main.js中的run调用了。</span>
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>{
+    <span class="comment">//all表示“并行执行”的意思，此时现在执行了watchAddServer这个函数。就是第二步里头的函数。</span>
+    <span class="keyword">yield</span> all([watchAddServer()]);
+}
+</code></pre>
+<ul>
+<li>什么是saga，一系列有监控、拦截、工作函数组成的“拦截体系”我们称为saga。</li>
+<li>小结一下：<br>就是在action中我们都以同步的形式发送dispatch 然而这个请求要进行异步操作的话<br>我们将在sagas.js中对她进行拦截 拦截成功后发出一个函数，在这个函数里进行异步操作发送新的action<br>发送的新的action才是reducer中接收到的</li>
+<li>与thunk对比<br>在thunk中我们在actions中将异步用()=&gt;()=&gt;{}的形式，而在saga中actions中都是同步形式<br>saga中所有的异步都转移到了sagas.js文件中，结构要清晰了很多</li>
+<li>sagas.js文件，大约有三部分组成：<br>  默认暴露的：all()<br>  watcher saga： takeEvery()<br>  worker saga : fecth() 、put()</li>
+<li>saga的核心思路是：类似你的项目中的一个单独的线程，单独负责副作用。</li>
+</ul>
+<h2 id="三、辅助函数"><a href="#三、辅助函数" class="headerlink" title="三、辅助函数"></a>三、辅助函数</h2><p>redux-saga提供了一些“辅助函数”来帮我们监听一些被指定的发往store的action。</p>
+<ul>
+<li><p>takeEvery：监听action，执行函数</p>
+<pre><code class="javascript"><span class="keyword">yield</span> takeEvery(<span class="string">"ADDSERVER"</span> , addServer);
+</code></pre>
+</li>
+<li><p>all：同步运行一些监听</p>
+<pre><code class="javascript"><span class="keyword">yield</span> all([watchAddServer() , watchJibianoububian()])
+</code></pre>
+</li>
+<li><p>put：发action的</p>
+<pre><code class="javascript"><span class="keyword">yield</span> put({<span class="string">"type"</span> : <span class="string">"ADD"</span> , a})
+</code></pre>
+</li>
+<li><p>select : 得到当前的state</p>
+<pre><code class="javascript"><span class="keyword">yield</span> select(<span class="function"><span class="params">state</span>=&gt;</span>state.counterReducer)
+</code></pre>
+</li>
+<li><p>call ： 调用一个函数<br><code>`</code>javascript<br>import { all, takeEvery , put , select , call} from “redux-saga/effects”<br>async function loadApi(){<br>  //做异步<br>  const { a } = await fetch(“/api/api”).then(data =&gt; data.json());<br>  return a;<br>}</p>
+</li>
+</ul>
+<p>//worker saga，工人saga。<br>//这个saga的功能是被拦截之后做的事情。<br>function* addServer() {<br>    //发出新的action<br>    const a = yield call(loadApi);<br>    yield put({type : “ADD” , a});<br>}</p>
+<p>……<br>……</p>
+<pre><code>
+● fork：也是调用函数，但是要在调用的函数中加上put，而没有return值。
+```javascript
+import { all, takeEvery , put , select , call , fork} from &quot;redux-saga/effects&quot;
+
+function* loadApi(){
+    //做异步
+    const { a } =  yield fetch(&quot;/api/api&quot;).then(data =&gt; data.json());
+    yield put({&quot;type&quot; : &quot;ADD&quot; , a})
+}
+
+//worker saga，工人saga。
+//这个saga的功能是被拦截之后做的事情。
+function* addServer() {
+    //发出新的action
+    yield fork(loadApi)
+}
+</code></pre><h2 id="四、saga有三个好处"><a href="#四、saga有三个好处" class="headerlink" title="四、saga有三个好处"></a>四、saga有三个好处</h2><p>1）saga写异步的地方就是saga文件，而不涉及action文件，action文件中画风都是一个（），都是非常简单的action creator。靠拦截的思路去写saga。<br>2）副作用清晰，比如做分页项目，改变排序的时候，一定会分页要到第1页，此时saga中用两个yield put()轻松解决。<br>3）数据的集结感非常强，做条件查询的业务非常适合。saga会集结当前reducer中的查询条件，包括按什么排序、排序方向、页码信息等，集结完毕，出发进行查询，返回的results经过put，当做载荷，改变reducer影响视图。</p>
+<h2 id="五、-拆分一下"><a href="#五、-拆分一下" class="headerlink" title="五、 拆分一下"></a>五、 拆分一下</h2><p>类似reducers 和 actions 的拆分：<br>创建sagas文件夹，并创建counterSagas.js</p>
+<p><pre><br>    目录结构：<br>    test<br>     |-node_modules<br>     |-www<br>         |-app<br>            |-main.js<br>            |-App.js<br>            |-reducers<br>                |-index.js<br>                |-counterReducer.js<br>            |-actions<br>                |-counter.js<br>            |-sagas.js<br>            |-sagas<br>                |-counterSagas.js<br>         |-index.html<br>     |-webpack.config.js<br>     |-package.json<br></pre><br>将all 的部分放在sagas.js中：</p>
+<pre><code class="javascript"><span class="keyword">import</span> {all} <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>;
+引入conterSagas.js中的watcher saga函数
+<span class="keyword">import</span> {watchAddServer, watchAddServer2, watchJibianoububian} <span class="keyword">from</span> <span class="string">"./sagas/counterSagas.js"</span>;
+
+<span class="comment">//默认暴露的函数，这个函数被main.js中的run调用了。</span>
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>{
+    <span class="comment">//all表示“并行执行”的意思，此时现在执行了watchAddServer这个函数。</span>
+    <span class="keyword">yield</span> all([
+        watchAddServer(),
+        watchAddServer2(),
+        watchJibianoububian()
+    ]);
+}
+</code></pre>
+<p>sagas/conterSagas.js如下：</p>
+<pre><code class="javascript"><span class="keyword">import</span> { all, takeEvery, put, select, call, fork } <span class="keyword">from</span> <span class="string">"redux-saga/effects"</span>
+
+
+<span class="comment">//worker saga，工人saga。</span>
+<span class="comment">//这个saga的功能是被拦截之后做的事情。</span>
+<span class="function"><span class="keyword">function</span>* <span class="title">addServer</span>(<span class="params"></span>) </span>{
+    <span class="comment">//做异步</span>
+    <span class="keyword">const</span> { a } = <span class="keyword">yield</span> fetch(<span class="string">"/api/api"</span>).then(<span class="function"><span class="params">data</span> =&gt;</span> data.json());
+    <span class="keyword">yield</span> put({ <span class="string">"type"</span>: <span class="string">"ADD"</span>, a })
+}
+
+<span class="function"><span class="keyword">function</span>* <span class="title">addServer2</span>(<span class="params"></span>) </span>{
+    <span class="comment">//做异步</span>
+    <span class="keyword">const</span> { a } = <span class="keyword">yield</span> fetch(<span class="string">"/api/api2"</span>).then(<span class="function"><span class="params">data</span> =&gt;</span> data.json());
+    <span class="comment">//发出新的action</span>
+    <span class="keyword">yield</span> put({ <span class="attr">type</span>: <span class="string">"ADD"</span>, a });
+}
+
+
+<span class="function"><span class="keyword">function</span>* <span class="title">jibianoububian</span>(<span class="params"></span>) </span>{
+    <span class="keyword">const</span> { v } = <span class="keyword">yield</span> select(<span class="function"><span class="params">state</span> =&gt;</span> state.counterReducer);
+    <span class="comment">//判断是不是奇数</span>
+    <span class="keyword">if</span> (v % <span class="number">2</span> == <span class="number">1</span>) {
+        <span class="comment">//发出新的action</span>
+        <span class="keyword">yield</span> put({ <span class="attr">type</span>: <span class="string">"ADD"</span> });
+    }
+}
+
+<span class="comment">//*************************************************************** */</span>
+<span class="comment">//watcher saga，监控saga。</span>
+<span class="comment">//这个saga的名字叫做watchAddServer，暗示了我们它在拦截ADDSERVER这个action</span>
+<span class="keyword">export</span> <span class="keyword">const</span> watchAddServer = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>{
+    <span class="comment">//takeEvery是英语的“拦截”的意思，这里表示拦截所有的ADDSERVER的action，一旦拦截到，做addServer函数。</span>
+    <span class="keyword">yield</span> takeEvery(<span class="string">'ADDSERVER'</span>, addServer);
+}
+
+<span class="keyword">export</span> <span class="keyword">const</span> watchAddServer2 = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>{
+    <span class="comment">//takeEvery是英语的“拦截”的意思，这里表示拦截所有的ADDSERVER的action，一旦拦截到，做addServer2函数。</span>
+    <span class="keyword">yield</span> takeEvery(<span class="string">'ADDSERVER2'</span>, addServer2);
+}
+
+<span class="keyword">export</span> <span class="keyword">const</span> watchJibianoububian = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>{
+    <span class="comment">//takeEvery是英语的“拦截”的意思，这里表示拦截所有的ADDSERVER的action，一旦拦截到，做jibianoububian函数。</span>
+    <span class="keyword">yield</span> takeEvery(<span class="string">'JIBIANOUBUBIAN'</span>, jibianoububian);
+}
+</code></pre>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/02/011-React-08/" data-toggle="tooltip" data-placement="top"
+                           title="011-React-08">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是saga？"><span class="toc-text">一、什么是saga？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、saga初步了解"><span class="toc-text">二、saga初步了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、异步与拦截"><span class="toc-text">三、异步与拦截</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、辅助函数"><span class="toc-text">三、辅助函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、saga有三个好处"><span class="toc-text">四、saga有三个好处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、-拆分一下"><span class="toc-text">五、 拆分一下</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                        <a class="tag" href="/tags/#saga"
+                           title="saga">saga</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>

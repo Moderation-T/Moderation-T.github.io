@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        markdown基本使用｜yizhiyu
+        React 之 redux-thunk｜yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/05/002-MARKDOWN/">
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/04/01/009-React-06/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -171,18 +171,24 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>markdown基本使用</h1>
+                    <h1>React 之 redux-thunk</h1>
                     
                     <span class="meta">
                          作者 糖一瓶
                         <span>
-                          日期 2018-01-05
+                          日期 2018-04-01
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                        <a class="tag" href="/tags/#thunk"
+                           title="thunk">thunk</a>
                         
                     </div>
                 </div>
@@ -191,7 +197,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            markdown基本使用
+            React 之 redux-thunk
         </span>
     </div>
 </header>
@@ -202,150 +208,118 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="1-Block-Code-代码分组-代码区块-："><a href="#1-Block-Code-代码分组-代码区块-：" class="headerlink" title="1.Block Code 代码分组(代码区块)："></a>1.<font color="#5F9EA0">Block Code 代码分组(代码区块)：</font></h2><pre><code>在该行开头缩进4个空格或一个制表符(tab)
-</code></pre><ul>
-<li><p>样式如下</p>
-<pre><code>就是生成这个灰色的框框区域
-你可以写很多行
-</code></pre></li>
-</ul>
-<h2 id="2-Headers-标题"><a href="#2-Headers-标题" class="headerlink" title="2.Headers 标题"></a>2.<font color="#5F9EA0">Headers 标题</font></h2><pre><code># H1（一级标题写法1）
-H1    （一级标题写法2）    
-===
-## H2（二级标题写法1）
-H2    （二级标题写法2）
----
-### H3（三级标题）
-#### H4（四级标题）
-##### H5（五级标题）
-###### H6（六级标题）
-</code></pre><h2 id="3-文本强调"><a href="#3-文本强调" class="headerlink" title="3.文本强调"></a>3.<font color="#5F9EA0">文本强调</font></h2><pre><code>*斜体* 
-**加粗** 
-***粗斜体***
-~~删除线~~
-</code></pre><p><code>注意：*与文本之间不能有空格</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p><em>斜体</em><br><strong>粗体</strong><br><strong><em>粗斜体</em></strong><br><del>删除线</del></p>
-</blockquote>
-<h2 id="4-Lists-列表"><a href="#4-Lists-列表" class="headerlink" title="4.Lists 列表"></a>4.<font color="#5F9EA0">Lists 列表</font></h2><pre><code>Unordered 无序列表：
-* 无序列表
-* 子项
-* 子项
+                <pre>
+    首先是了解一下目录结构：
+    test
+     |-node_modules
+     |-www     
+         |-app    
+           |-main.js
+           |-App.js
+           |-reducers
+               |-index.js
+               |-counterReducer.js
+           |-actions
+                  |-counter.js
+         |-index.html
+     |-webpack.config.js
+     |-package.json
+</pre>
 
-+ 无序列表
-+ 子项
-+ 子项
-
-- 无序列表
-- 子项
-- 子项
-
-Ordered 有序列表：
-1. 第一行
-2. 第二行
-3. 第三行
-</code></pre><p><code>注意：如果首行以数字文本开头例如2018.** 为避免被转化成有序列表，要在“.”前加上转义字符“\”</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<ul>
-<li>无序列表</li>
-<li>子项</li>
-<li>子项</li>
-</ul>
-<ol>
-<li>第一行</li>
-<li>第二行</li>
-<li>第三行</li>
-</ol>
-</blockquote>
-<h2 id="5-Links-连接（title为可选项）"><a href="#5-Links-连接（title为可选项）" class="headerlink" title="5.Links 连接（title为可选项）"></a>5.<font color="#5F9EA0">Links 连接（title为可选项）</font></h2><pre><code>Inline-style 内嵌方式：
-[link text](https://www.google.com &quot;title text&quot;)
-
-Reference-style 引用方式：
-[link text][id]
-[id]: https://www.mozilla.org &quot;title text&quot;
-
-Relative reference to a repository file 引用存储文件：
-[link text](../path/file/readme.text &quot;title text&quot;)
-
-还能这样使用：
-[link text][]
-[link text]: http://www.reddit.com
-</code></pre><hr>
-<pre><code>Email 邮件：
-&lt;example@example.com&gt;
-</code></pre><hr>
-<pre><code>Images 图片：
-Inline-style 内嵌方式：
-![alt text](images/icon48.png &quot;title text&quot;)
-
-Reference-style 引用方式：
-![alt text][logo]
-[logo]: images/icon48.png &quot;title text&quot;
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p><a href="https://www.google.com" title="title text" target="_blank" rel="noopener">link text</a> (网址链接样式)<br><a href="mailto:&#x65;&#x78;&#x61;&#109;&#112;&#108;&#101;&#64;&#101;&#120;&#97;&#109;&#x70;&#108;&#101;&#x2e;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x65;&#x78;&#x61;&#109;&#112;&#108;&#101;&#64;&#101;&#120;&#97;&#109;&#x70;&#108;&#101;&#x2e;&#99;&#x6f;&#x6d;</a> （邮箱链接样式）<br>图片链接样式就是张图，这里就不演示了</p>
-</blockquote>
-<h2 id="6-Blockquotes-引用-可以嵌套"><a href="#6-Blockquotes-引用-可以嵌套" class="headerlink" title="6.Blockquotes 引用(可以嵌套)"></a>6.<font color="#5F9EA0">Blockquotes 引用(可以嵌套)</font></h2><pre><code>&gt; Blockquotes 引用
-&gt; #### Headers in blockquotes
-&gt; * You can quote a list.
-&gt; * Etc.
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p>Blockquotes 引用</p>
-<h4 id="Headers-in-blockquotes"><a href="#Headers-in-blockquotes" class="headerlink" title="Headers in blockquotes"></a>Headers in blockquotes</h4><ul>
-<li>You can quote a list.</li>
-<li>Etc.</li>
-</ul>
-</blockquote>
-<h2 id="7-代码高亮"><a href="#7-代码高亮" class="headerlink" title="7.代码高亮"></a>7.<font color="#5F9EA0">代码高亮</font></h2><pre><code>标记一小段行内代码：
-本文是一篇介绍`Markdown`的语法的文章
-</code></pre><ul>
-<li>样式如下<br><code>Markdown</code></li>
-</ul>
-<h2 id="8-语法高亮"><a href="#8-语法高亮" class="headerlink" title="8.语法高亮"></a>8.<font color="#5F9EA0">语法高亮</font></h2><p><pre><br>```语法名<br>    &lt;代码内容&gt;<br>```<br>css高亮：<br>```css<br>    body{font-size:12px}<br>```<br>js高亮：<br>```javascript<br>   var s = “JavaScript syntax highlighting”;<br>   alert(s);<br>```<br>php高亮：<br>```php<br>   &lt;?php<br>     echo “hello, world!”;<br>   ?&gt;<br>```<br>Python高亮：<br>```python<br>   s = “Python syntax highlighting”<br>   print s<br>```    </pre></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">12px</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"JavaScript syntax highlighting"</span>;</span><br><span class="line">alert(s);</span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"hello, world!"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">"Python syntax highlighting"</span></span><br><span class="line"><span class="keyword">print</span> s</span><br></pre></td></tr></table></figure>
-<h2 id="9-Hard-Line-Breaks-换行"><a href="#9-Hard-Line-Breaks-换行" class="headerlink" title="9.Hard Line Breaks 换行"></a>9.<font color="#5F9EA0">Hard Line Breaks 换行</font></h2><pre><code>在一行的结尾处加上2个或2个以上的空格，也可以使用&lt;/br&gt;标签
-</code></pre><h2 id="10-Horizontal-Rules-水平分割线"><a href="#10-Horizontal-Rules-水平分割线" class="headerlink" title="10.Horizontal Rules 水平分割线"></a>10.<font color="#5F9EA0">Horizontal Rules 水平分割线</font></h2><pre><code>***
-* * *
-- - -
-</code></pre><h2 id="11-Escape-character-转义符-反斜杠"><a href="#11-Escape-character-转义符-反斜杠" class="headerlink" title="11.Escape character 转义符(反斜杠)"></a>11.<font color="#5F9EA0">Escape character 转义符(反斜杠)</font></h2><pre><code>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号
-例如：如果你想要用星号加在文字旁边的方式来做出强调效果，你可以在星号的    前面加上反斜杠：
-\*literal asterisks\*
-Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：
-\反斜杠  `反引号  *星号  _下划线  {}花括号  []方括号  ()括弧  #井字号  +加号  -减号  .英文句 !感叹号
-</code></pre><h2 id="12-Additional-补充"><a href="#12-Additional-补充" class="headerlink" title="12.Additional 补充"></a>12.<code>Additional 补充</code></h2><pre><code>Markdown也支持传统的HTML标签。
-比如一个链接，你不太喜欢Markdown的写法，也可以直接写成&lt;a href=&quot;http://www.baidu.com&quot;&gt;百度&lt;/a&gt;
+<h2 id="一、什么是redux-thunk？"><a href="#一、什么是redux-thunk？" class="headerlink" title="一、什么是redux-thunk？"></a>一、什么是redux-thunk？</h2><ul>
+<li>首先来了解一下它的用处：<br>我们想实现如图功能，点击按钮家接口那么多。<br><img src="http://p82ue350h.bkt.clouddn.com/image/react/redux-thunk/1.png" alt="1"><br>思路是：点击按钮之后，发出ajax请求，将请求回来的数据当做载荷改变reducer。<br>我们在使用redux的时候，如果想调用异步请求来的接口数据，用redux的想法，大家应该会这么写：<br>actions/counter.js：<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"ADD"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"MINUS"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> cheng = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"CHENG"</span>});
+<span class="comment">// 这里异步调用</span>
+<span class="keyword">export</span> <span class="keyword">const</span> addServer = <span class="function"><span class="params">()</span> =&gt;</span> {
+  $.get(<span class="string">"/api/api"</span> , <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+      <span class="keyword">return</span> {<span class="string">"type"</span> : <span class="string">"ADDSERVER"</span> , <span class="string">"v"</span> : data.v}
+  })   
+};
 </code></pre>
+</li>
+</ul>
+<blockquote>
+<p>   <code>但是这是错误的！！！因为你的return是返回内层的函数，并不是外层的函数！！！</code></p>
+</blockquote>
+<p>所以就有个人开发出了一个叫做redux-thunk的东西来解决异步调用数据的问题。</p>
+<h2 id="二、具体使用"><a href="#二、具体使用" class="headerlink" title="二、具体使用"></a>二、具体使用</h2><p>安装redux-thunk</p>
+<blockquote>
+<p>npm install –save redux-thunk</p>
+</blockquote>
+<p>配置极其简单，就是一个插件，所以要加入applyMiddleware：<br>改变项目的入口文件main.js:</p>
+<pre><code class="javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;
+<span class="comment">// 加入applyMiddleware</span>
+<span class="keyword">import</span> {createStore , applyMiddleware} <span class="keyword">from</span> <span class="string">"redux"</span>;
+<span class="keyword">import</span> {Provider} <span class="keyword">from</span> <span class="string">"react-redux"</span>;
+<span class="comment">// 引入redux-thunk</span>
+<span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">"redux-thunk"</span>;
+
+<span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;
+<span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;
+
+<span class="comment">// 配置插件</span>
+<span class="keyword">const</span> store = createStore(reducer, applyMiddleware(thunk));
+
+ReactDOM.render(
+    &lt;Provider store={store}&gt;
+        &lt;App /&gt;
+    &lt;<span class="regexp">/Provider&gt;</span>
+<span class="regexp">    ,</span>
+<span class="regexp">    document.getElementById("app")</span>
+<span class="regexp">);</span>
+</code></pre>
+<p>就完成了thunk的配置。</p>
+<p>我们来到actions/counter.js文件，此时所有的异步函数都依法可以写两个()=&gt;()=&gt;{}</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"ADD"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"MINUS"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> cheng = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"CHENG"</span>});
+<span class="comment">// 异步的写法</span>
+<span class="keyword">export</span> <span class="keyword">const</span> addServer = <span class="function"><span class="params">()</span> =&gt;</span> (dispatch , getState) =&gt; {
+    $.get(<span class="string">"/api/api"</span> , <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        dispatch({<span class="string">"type"</span> : <span class="string">"ADD"</span> , <span class="string">"v"</span> : data.v})
+    });
+}
+</code></pre>
+<ul>
+<li>第二个（）有dispatch与getState参数</li>
+</ul>
+<p>redux-thunk不仅仅能够解决异步问题，而且还能解决副作用问题。副作用：异步或者if语句体。</p>
+<pre><code class="javascript"><span class="keyword">export</span> <span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"ADD"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> minus = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"MINUS"</span>});
+<span class="keyword">export</span> <span class="keyword">const</span> cheng = <span class="function"><span class="params">()</span> =&gt;</span> ({ <span class="string">"type"</span>: <span class="string">"CHENG"</span>});
+
+<span class="keyword">export</span> <span class="keyword">const</span> addServer = <span class="function"><span class="params">()</span> =&gt;</span> (dispatch , getState) =&gt; {
+    $.get(<span class="string">"/api/api"</span> , <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        dispatch({<span class="string">"type"</span> : <span class="string">"ADD"</span> , <span class="string">"v"</span> : data.v})
+    });
+}
+
+<span class="keyword">export</span> <span class="keyword">const</span> addOdd = <span class="function"><span class="params">()</span> =&gt;</span> (dispatch , getState) =&gt; {
+    <span class="comment">//getState表示得到当前的state</span>
+    <span class="keyword">if</span>(getState().counter.v % <span class="number">2</span> == <span class="number">0</span>){
+        dispatch({ <span class="string">"type"</span>: <span class="string">"ADD"</span> })
+    }
+}
+
+</code></pre>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><p>redux-thunk就是redux的一个插件。帮助redux解决异步和副作用问题。</p>
+
                 <hr>
                 
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/01/07/003-LINUX/" data-toggle="tooltip" data-placement="top"
-                           title="Linux基本使用">&larr; Previous Post</a>
+                        <a href="/2018/04/02/011-React-08/" data-toggle="tooltip" data-placement="top"
+                           title="011-React-08">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/01/03/001-CONCEPTS/" data-toggle="tooltip" data-placement="top"
-                           title="概念性知识">Next Post &rarr;</a>
+                        <a href="/2018/03/30/008-React-05/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 Redux">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -380,7 +354,7 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Block-Code-代码分组-代码区块-："><span class="toc-text">1.Block Code 代码分组(代码区块)：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Headers-标题"><span class="toc-text">2.Headers 标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文本强调"><span class="toc-text">3.文本强调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Lists-列表"><span class="toc-text">4.Lists 列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Links-连接（title为可选项）"><span class="toc-text">5.Links 连接（title为可选项）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Blockquotes-引用-可以嵌套"><span class="toc-text">6.Blockquotes 引用(可以嵌套)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Headers-in-blockquotes"><span class="toc-text">Headers in blockquotes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-代码高亮"><span class="toc-text">7.代码高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-语法高亮"><span class="toc-text">8.语法高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Hard-Line-Breaks-换行"><span class="toc-text">9.Hard Line Breaks 换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Horizontal-Rules-水平分割线"><span class="toc-text">10.Horizontal Rules 水平分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Escape-character-转义符-反斜杠"><span class="toc-text">11.Escape character 转义符(反斜杠)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Additional-补充"><span class="toc-text">12.Additional 补充</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、什么是redux-thunk？"><span class="toc-text">一、什么是redux-thunk？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、具体使用"><span class="toc-text">二、具体使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -402,8 +376,14 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#react"
+                           title="react">react</a>
+                        
+                        <a class="tag" href="/tags/#redux"
+                           title="redux">redux</a>
+                        
+                        <a class="tag" href="/tags/#thunk"
+                           title="thunk">thunk</a>
                         
                     </div>
                 </section>
