@@ -79,14 +79,6 @@
                     
                         
 							
-                        <li>
-                            <a href="/catalog/">Catalog</a>
-                        </li>
-							
-						
-                    
-                        
-							
 								
 							
 						
@@ -95,6 +87,14 @@
 							
                         <li>
                             <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
                         </li>
 							
 						
@@ -201,7 +201,35 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h2 id="什么是dva？"><a href="#什么是dva？" class="headerlink" title="什么是dva？"></a>什么是dva？</h2><p>dva集成了react + redux + saga ， 让这三个东西看起来更加的“统一”，大变了语法风格和整个项目的架构。</p>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>先来一份目录结构：</p>
+<pre>
+test
+  |-www
+     |-index.html
+     |-app
+       |-App.js
+       |-main.js
+  |-package.json
+  |-webpack.config.js
+</pre>
+
+<h3 id="1-起步"><a href="#1-起步" class="headerlink" title="1.起步"></a>1.起步</h3><p>dva的起步非常简单：<br>1）要创建一个app对象，非常类似express<br>2）用app.router定义一个路由<br>3）用app.start()来上树。<br>main.js代码如下:<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">import React from "react";</span><br><span class="line">import ReactDOM from "react-dom";</span><br><span class="line">import dav from "dva"</span><br><span class="line">const app = dva();</span><br><span class="line"></span><br><span class="line">    app.router(()=&gt;&#123;</span><br><span class="line">        return <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello dva<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        &#125;);</span><br><span class="line">        app.start("app");</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-组件"><a href="#2-组件" class="headerlink" title="2.组件"></a>2.组件</h3><p>组件没有改变，所以组件的生命周期也没有改变，组件的state、props都没有任何改变。</p>
+<h3 id="3-配置store"><a href="#3-配置store" class="headerlink" title="3.配置store"></a>3.配置store</h3><p>我们知道redux就是全局的数据中心，dva全面简化了这一套东西。<br>创建models文件夹，创建counter.js文件：<br>目录结构如下：<br>    <pre><br>    test<br>      |-www<br>         |-index.html<br>         |-app<br>           |-App.js<br>           |-main.js<br>         |-models<br>           |-.counter.js<br>      |-package.json<br>      |-webpack.config.js<br>    </pre></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="comment">//必须有命名空间</span></span><br><span class="line">    namespace : <span class="string">"counter"</span> ,</span><br><span class="line">    state : &#123;</span><br><span class="line">        v : <span class="number">100</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即，我们之前的reducers里面的<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default (state= &#123;&quot;v&quot; : 100&#125; , action)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这套东西现在变为了一个纯对象，我们称为model。<br>model必须有namespace，表示命名空间，就是原来说的combineReducers的命名空间。</p>
+<p> 在main.js中引入数据<br>main.js：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> dva <span class="keyword">from</span> <span class="string">"dva"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App.js"</span>;</span><br><span class="line"><span class="comment">// 引入数据</span></span><br><span class="line"><span class="keyword">import</span> counter <span class="keyword">from</span> <span class="string">"./models/counter.js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建app</span></span><br><span class="line"><span class="keyword">const</span> app = dva();</span><br><span class="line"><span class="comment">//配置store</span></span><br><span class="line">app.model(counter);</span><br><span class="line"><span class="comment">//配置路由</span></span><br><span class="line">app.router(<span class="function"><span class="params">()</span> =&gt;</span> &lt;App /&gt;);</span><br><span class="line"><span class="comment">//上树</span></span><br><span class="line">app.start(<span class="string">"#app"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>组件几乎没有改变得到值的写法，还是需要connect，但是需要从dva中引包：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">"dva"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;this.props.v&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">    (&#123;counter&#125;) =&gt; (&#123;</span><br><span class="line">        v: counter.v</span><br><span class="line">    &#125;)</span><br><span class="line">)(App);</span><br></pre></td></tr></table></figure></p>
+<p>dva帮我们combineReducers了。</p>
+<h3 id="4-dispatch一个action"><a href="#4-dispatch一个action" class="headerlink" title="4.dispatch一个action"></a>4.dispatch一个action</h3><p>全面简化了！<br>现在组件可以直接this.props.dispatch()东西了。而不用调用一个外置的action文件了，更不用bindActionCreators了。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">"dva"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;this.props.v&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">            &lt;button onClick=&#123;()=&gt;&#123;</span><br><span class="line">                this.props.dispatch(&#123;"type" : "counter/ADD"&#125;);</span><br><span class="line"><span class="xml">            &#125;&#125;&gt;按我加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">            &lt;button onClick=&#123;()=&gt;&#123;</span><br><span class="line">                this.props.dispatch(&#123;"type" : "counter/MINUS"&#125;);</span><br><span class="line"><span class="xml">            &#125;&#125;&gt;按我减1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">    (&#123;counter&#125;) =&gt; (&#123;</span><br><span class="line">        v: counter.v</span><br><span class="line">    &#125;)</span><br><span class="line">)(App);</span><br></pre></td></tr></table></figure></p>
+<p>dva中connect()()没有第二个参数！！！<br>dispatch里面的内容是{“type” : “命名空间/大写字母” , 载荷}</p>
+<h3 id="5-异步"><a href="#5-异步" class="headerlink" title="5.异步"></a>5.异步</h3><p>dva中saga自动运行，自动拦截！<br>model文件中：</p>
+<ol>
+<li>reducers里面写没有副作用，类似之前的reducers文件。</li>
+<li>effects里面写有副作用的东西，都是加星函数，类似之前的saga文件。<br>即，saga文件现在和reducer合二为一了。<br> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    namespace : <span class="string">"counter"</span> ,</span><br><span class="line">    state : &#123;</span><br><span class="line">        v : <span class="number">100</span></span><br><span class="line">    &#125;,</span><br><span class="line">    reducers : &#123;</span><br><span class="line">        ADD(state , action)&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state ,</span><br><span class="line">                <span class="string">"v"</span> : state.v + (action.a || <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        MINUS(state , action)&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state,</span><br><span class="line">                <span class="string">"v"</span> : state.v - <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    effects : &#123;</span><br><span class="line">        *ADDSERVER(action , &#123;put&#125;)&#123;</span><br><span class="line">            <span class="keyword">const</span> &#123;a&#125; = <span class="keyword">yield</span> fetch(<span class="string">"/api/api"</span>).then(<span class="function"><span class="params">data</span>=&gt;</span>data.json());</span><br><span class="line">            <span class="keyword">yield</span> put(&#123; <span class="string">"type"</span>: <span class="string">"ADD"</span> , a&#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        *JBOBB(action , &#123;put , select&#125;)&#123;</span><br><span class="line">            <span class="keyword">const</span> &#123;v&#125; = <span class="keyword">yield</span> select(<span class="function"><span class="params">state</span> =&gt;</span> state.counter);</span><br><span class="line">            <span class="keyword">if</span>(v % <span class="number">2</span> == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">yield</span> put(&#123; <span class="string">"type"</span>: <span class="string">"ADD"</span>&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
                 <hr>
                 
 
@@ -245,7 +273,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是dva？"><span class="toc-text">什么是dva？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本使用"><span class="toc-text">基本使用</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是dva？"><span class="toc-text">什么是dva？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本使用"><span class="toc-text">基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-起步"><span class="toc-text">1.起步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-组件"><span class="toc-text">2.组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-配置store"><span class="toc-text">3.配置store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-dispatch一个action"><span class="toc-text">4.dispatch一个action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-异步"><span class="toc-text">5.异步</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
