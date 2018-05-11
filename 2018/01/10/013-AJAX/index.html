@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="前端 一只愚 博客 技术分享">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="One Fish" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        AJAX相关｜yizhiyu
+        
+    </title>
+
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/10/013-AJAX/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/img/xingkong01.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    One Fish
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+								
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/img/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/img/post-default.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>AJAX相关</h1>
+                    
+                    <span class="meta">
+                         作者 糖一瓶
+                        <span>
+                          日期 2018-01-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#AJAX"
+                           title="AJAX">AJAX</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            AJAX相关
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="一、原生AJAX"><a href="#一、原生AJAX" class="headerlink" title="一、原生AJAX"></a>一、原生AJAX</h2><p>我的代码式笔记：<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 1.首先创建xhr对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> xhr = <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 能力检测</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span></span><br><span class="line"><span class="javascript">        xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">    &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">        xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">"Mircosoft.XMLHTTP"</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 封装获取xhr的工厂</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> xhr = getXHR;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">getXHR</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">window</span>.XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                retrun <span class="keyword">new</span> ActiveXObject(<span class="string">"Mircosoft.XMLHTTP"</span>);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    * */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 4.设置回调函数（因为浏览器的兼容性问题要写在配置和发送之前）</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 回调函数就是表示收到请求后做什么</span></span></span><br><span class="line"><span class="javascript">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt;<span class="number">300</span> || xhr.status == <span class="number">304</span>)&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 获取文本信息</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> data = xhr.responseText;</span></span><br><span class="line"><span class="javascript">                     <span class="built_in">console</span>.log(data);</span></span><br><span class="line"><span class="javascript">                &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"请求发生错误"</span>);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">       <span class="comment">// 关于回调函数中的属性</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        xhr.readyState (就绪状态)</span></span><br><span class="line"><span class="undefined">        0   未初始化状态</span></span><br><span class="line"><span class="undefined">        1   xhr对象正在加载</span></span><br><span class="line"><span class="undefined">        2   xhr对象加载完成</span></span><br><span class="line"><span class="undefined">        3   正在传输数据</span></span><br><span class="line"><span class="undefined">        4   全部完成</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        只要数据值发生改变就会触发onreadystatechange</span></span><br><span class="line"><span class="undefined">        xhr.onreadystatechange 可以捕获state值改变后做的事情</span></span><br><span class="line"><span class="undefined">        当xhr.readyState == 4    对象加载数据传输完成</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        xhr.status (http状态码)</span></span><br><span class="line"><span class="undefined">        1**   消息</span></span><br><span class="line"><span class="undefined">        2**   成功</span></span><br><span class="line"><span class="undefined">        3**   重定向</span></span><br><span class="line"><span class="undefined">        4**   请求错误</span></span><br><span class="line"><span class="undefined">        5**   服务器错误</span></span><br><span class="line"><span class="undefined">        6**   其他</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        当xhr.status == 2** ||304时是成功状态</span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">        <span class="comment">//关于ajax中的缓存问题</span></span></span><br><span class="line"><span class="undefined">        ajax中缓存问题严重</span></span><br><span class="line"><span class="undefined">        解决方法：在请求后加一个时间戳或者随机数</span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 2.配置</span></span></span><br><span class="line"><span class="javascript">    xhr.open(<span class="string">"get"</span>,<span class="string">"text.php"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">     <span class="comment">// 关于三个参数</span></span></span><br><span class="line"><span class="javascript">     <span class="number">1</span>)请求类型  <span class="string">"get"</span> 或 <span class="string">"post"</span></span></span><br><span class="line"><span class="undefined">     2)文件路径</span></span><br><span class="line"><span class="javascript">     <span class="number">3</span>)是否异步  <span class="literal">true</span>为异步 没人会用<span class="literal">false</span>！</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 3.发送请求</span></span></span><br><span class="line"><span class="javascript">    xhr.send(<span class="literal">null</span>); <span class="comment">//get方法没有需要提交的内容。必须写null不能空着。</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">     <span class="comment">// 关于ajax传递post请求</span></span></span><br><span class="line"><span class="javascript">     xhr.open(<span class="string">"post"</span>,<span class="string">"text.php"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">     <span class="comment">// post程序在服务器中很难处理，但如果是表单处理，PHP中有相应的处理程序，所以我们要手动的post程序转换成表单程序。</span></span></span><br><span class="line"><span class="javascript">     <span class="comment">// ajax模拟提交表单</span></span></span><br><span class="line"><span class="javascript">     xhr.setRequestHeader(<span class="string">"content-Type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span></span><br><span class="line"><span class="undefined">     xhr.send(提交的内容);</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="二、JQuery的AJAX"><a href="#二、JQuery的AJAX" class="headerlink" title="二、JQuery的AJAX"></a>二、JQuery的AJAX</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/jquery-1.12.4.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// data 报文信息</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// data是服务器发送到浏览器端的数据【报文体】</span></span></span><br><span class="line"><span class="javascript">        $.get(<span class="string">"text.php"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">        <span class="comment">//get携带参数</span></span></span><br><span class="line"><span class="javascript">        $.get(<span class="string">"text.php?k1=v1&amp;k2=v2"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">     $.get(<span class="string">"text.php?k1=v1&amp;k2=v2"</span>,json数据,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">     &#125;);</span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">/*-------------------------------------------------------------------------*/</span></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">        <span class="comment">//post携带参数</span></span></span><br><span class="line"><span class="javascript">        $.post(<span class="string">"text.php?k1=v1&amp;k2=v2"</span>,json数据,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">        <span class="comment">//json数据格式</span></span></span><br><span class="line"><span class="undefined">        &#123;</span></span><br><span class="line"><span class="undefined">            k1:v1,</span></span><br><span class="line"><span class="undefined">            k2:v2,</span></span><br><span class="line"><span class="undefined">            k3:v3</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">   */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">/*-------------------------------------------------------------------------*/</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /*</span></span><br><span class="line"><span class="javascript">    <span class="comment">//JQ如何使用json数据格式</span></span></span><br><span class="line"><span class="javascript">    $.get(<span class="string">"system/jiekou.php"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// var dataObj = typeof data == "object" ? data : JSON.parse(data);</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// var dataObj = typeof data == "object" ? data : (new Function("return"+data))();</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> dataObj = <span class="keyword">typeof</span> data == <span class="string">"object"</span> ? data : <span class="built_in">eval</span>(<span class="string">"("</span>+data+<span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(dataObj.result)</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    */</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/01/11/012-cross-domain/" data-toggle="tooltip" data-placement="top"
+                           title="常用的跨域方法">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/07/003-LINUX/" data-toggle="tooltip" data-placement="top"
+                           title="Linux基本使用">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjE1MS8xMjY4Ng==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、原生AJAX"><span class="toc-text">一、原生AJAX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、JQuery的AJAX"><span class="toc-text">二、JQuery的AJAX</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#AJAX"
+                           title="AJAX">AJAX</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5499560762">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Moderation-T">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; One Fish 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Moderation-T.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/img/me.jpg">
+</body>
+
+</html>
