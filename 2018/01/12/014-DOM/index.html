@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        markdown基本使用｜yizhiyu
+        DOM的节点操作｜yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/05/002-MARKDOWN/">
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/12/014-DOM/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -163,18 +163,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>markdown基本使用</h1>
+                    <h1>DOM的节点操作</h1>
                     
                     <span class="meta">
                          作者 糖一瓶
                         <span>
-                          日期 2018-01-05
+                          日期 2018-01-12
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#dom"
+                           title="dom">dom</a>
                         
                     </div>
                 </div>
@@ -183,7 +183,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            markdown基本使用
+            DOM的节点操作
         </span>
     </div>
 </header>
@@ -194,150 +194,55 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="1-Block-Code-代码分组-代码区块-："><a href="#1-Block-Code-代码分组-代码区块-：" class="headerlink" title="1.Block Code 代码分组(代码区块)："></a>1.<font color="#5F9EA0">Block Code 代码分组(代码区块)：</font></h2><pre><code>在该行开头缩进4个空格或一个制表符(tab)
-</code></pre><ul>
-<li><p>样式如下</p>
-<pre><code>就是生成这个灰色的框框区域
-你可以写很多行
-</code></pre></li>
-</ul>
-<h2 id="2-Headers-标题"><a href="#2-Headers-标题" class="headerlink" title="2.Headers 标题"></a>2.<font color="#5F9EA0">Headers 标题</font></h2><pre><code># H1（一级标题写法1）
-H1    （一级标题写法2）    
-===
-## H2（二级标题写法1）
-H2    （二级标题写法2）
----
-### H3（三级标题）
-#### H4（四级标题）
-##### H5（五级标题）
-###### H6（六级标题）
-</code></pre><h2 id="3-文本强调"><a href="#3-文本强调" class="headerlink" title="3.文本强调"></a>3.<font color="#5F9EA0">文本强调</font></h2><pre><code>*斜体* 
-**加粗** 
-***粗斜体***
-~~删除线~~
-</code></pre><p><code>注意：*与文本之间不能有空格</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p><em>斜体</em><br><strong>粗体</strong><br><strong><em>粗斜体</em></strong><br><del>删除线</del></p>
-</blockquote>
-<h2 id="4-Lists-列表"><a href="#4-Lists-列表" class="headerlink" title="4.Lists 列表"></a>4.<font color="#5F9EA0">Lists 列表</font></h2><pre><code>Unordered 无序列表：
-* 无序列表
-* 子项
-* 子项
-
-+ 无序列表
-+ 子项
-+ 子项
-
-- 无序列表
-- 子项
-- 子项
-
-Ordered 有序列表：
-1. 第一行
-2. 第二行
-3. 第三行
-</code></pre><p><code>注意：如果首行以数字文本开头例如2018.** 为避免被转化成有序列表，要在“.”前加上转义字符“\”</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<ul>
-<li>无序列表</li>
-<li>子项</li>
-<li>子项</li>
-</ul>
-<ol>
-<li>第一行</li>
-<li>第二行</li>
-<li>第三行</li>
+                <h2 id="一、节点关系"><a href="#一、节点关系" class="headerlink" title="一、节点关系"></a>一、节点关系</h2><ol>
+<li>childNodes<br> 父节点.childNodes  访问父节点下的所有子节点</li>
+<li>nodeType<br> 标签节点 nodeType 返回值是  1<br> 文本节点 nodeType 返回值是  3<br> 注释（comment）节点 nodeType 返回值是  8<br> Document节点 nodeType  返回值是  9<br> DTD 节点nodeType 返回值是  12<br> <code>在IE6、7、8中他们获取的子节点没有文本节点；在高级浏览器中子节点包括所有的节点：注释节点、文本节点、标签节点。</code><br> <code>IE67会吧空白节点当做没有节点，高级浏览器会当做文本节点</code></li>
+<li>nodeValue<br> 它是专门获取或修改文本节点的属性<br> 标签节点获取或修改属性是innerHTML；</li>
+<li>parentNode<br> 子节点.parentNode 它是获取节点的亲父节点的属性<br> 文本节点和注释节没有子节点。也就是他们不能做为父节点</li>
+<li>nextSibling<br> 目标节点.nextSibling 表示下一个亲兄弟（包括注释、文本、标签）</li>
+<li>previousSibling<br> 目标节点.previousSibling  获取目标节点的上一个亲兄弟节点   </li>
 </ol>
-</blockquote>
-<h2 id="5-Links-连接（title为可选项）"><a href="#5-Links-连接（title为可选项）" class="headerlink" title="5.Links 连接（title为可选项）"></a>5.<font color="#5F9EA0">Links 连接（title为可选项）</font></h2><pre><code>Inline-style 内嵌方式：
-[link text](https://www.google.com &quot;title text&quot;)
-
-Reference-style 引用方式：
-[link text][id]
-[id]: https://www.mozilla.org &quot;title text&quot;
-
-Relative reference to a repository file 引用存储文件：
-[link text](../path/file/readme.text &quot;title text&quot;)
-
-还能这样使用：
-[link text][]
-[link text]: http://www.reddit.com
-</code></pre><hr>
-<pre><code>Email 邮件：
-&lt;example@example.com&gt;
-</code></pre><hr>
-<pre><code>Images 图片：
-Inline-style 内嵌方式：
-![alt text](images/icon48.png &quot;title text&quot;)
-
-Reference-style 引用方式：
-![alt text][logo]
-[logo]: images/icon48.png &quot;title text&quot;
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p><a href="https://www.google.com" title="title text" target="_blank" rel="noopener">link text</a> (网址链接样式)<br><a href="mailto:&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#x63;&#x6f;&#109;</a> （邮箱链接样式）<br>图片链接样式就是张图，这里就不演示了</p>
-</blockquote>
-<h2 id="6-Blockquotes-引用-可以嵌套"><a href="#6-Blockquotes-引用-可以嵌套" class="headerlink" title="6.Blockquotes 引用(可以嵌套)"></a>6.<font color="#5F9EA0">Blockquotes 引用(可以嵌套)</font></h2><pre><code>&gt; Blockquotes 引用
-&gt; #### Headers in blockquotes
-&gt; * You can quote a list.
-&gt; * Etc.
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p>Blockquotes 引用</p>
-<h4 id="Headers-in-blockquotes"><a href="#Headers-in-blockquotes" class="headerlink" title="Headers in blockquotes"></a>Headers in blockquotes</h4><ul>
-<li>You can quote a list.</li>
-<li>Etc.</li>
-</ul>
-</blockquote>
-<h2 id="7-代码高亮"><a href="#7-代码高亮" class="headerlink" title="7.代码高亮"></a>7.<font color="#5F9EA0">代码高亮</font></h2><pre><code>标记一小段行内代码：
-本文是一篇介绍`Markdown`的语法的文章
-</code></pre><ul>
-<li>样式如下<br><code>Markdown</code></li>
-</ul>
-<h2 id="8-语法高亮"><a href="#8-语法高亮" class="headerlink" title="8.语法高亮"></a>8.<font color="#5F9EA0">语法高亮</font></h2><p><pre><br>```语法名<br>    &lt;代码内容&gt;<br>```<br>css高亮：<br>```css<br>    body{font-size:12px}<br>```<br>js高亮：<br>```javascript<br>   var s = “JavaScript syntax highlighting”;<br>   alert(s);<br>```<br>php高亮：<br>```php<br>   &lt;?php<br>     echo “hello, world!”;<br>   ?&gt;<br>```<br>Python高亮：<br>```python<br>   s = “Python syntax highlighting”<br>   print s<br>```    </pre></p>
+<h2 id="二、DOM的节点操作"><a href="#二、DOM的节点操作" class="headerlink" title="二、DOM的节点操作"></a>二、DOM的节点操作</h2><ol>
+<li><p>创建节点<br>Document.createElement(“标签名”) //创建节点<br>父亲.appendChild(新儿子) //节点上树</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> oDiv = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(oDiv);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将一个已上树的节点appendChild();<br> 初始：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"father1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p0"</span>&gt;</span>son1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p1"</span>&gt;</span>son2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p2"</span>&gt;</span>son3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"father2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 执行appendChild():</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> father2 = <span class="built_in">document</span>.getElementById(<span class="string">"father2"</span>);</span><br><span class="line">    <span class="keyword">var</span> p2 = <span class="built_in">document</span>.getElementById(<span class="string">"p2"</span>);</span><br><span class="line">    father2.appendChild(p2);</span><br></pre></td></tr></table></figure>
+<p> 结果：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"father1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p0"</span>&gt;</span>son1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p1"</span>&gt;</span>son2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"father2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p2"</span>&gt;</span>son3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 动态创建节点的一个坑：<code>getElementsByTagName是动态的获取节点，而querySelectorAll是静态的获取节点。</code></p>
+</li>
+<li><p>向前插入节点 insertBefore<br>父亲.insertBefore(新儿子，已有儿子);</p>
+</li>
+<li><p>移除节点<br>原生的JS中，节点不能自杀，只能被父亲杀掉。<br>父亲.removeChild(儿子);</p>
+</li>
+<li><p>替换节点<br> 父亲.replaceChild(新儿子，老儿子);<br> 将一个DIV中的内容克隆到另一个中：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">HTML结构：</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"box1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>川贝<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>白芍<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>红花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>陈皮<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>人参<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"box2"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> JS脚本：</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> box1 = <span class="built_in">document</span>.getElementById(<span class="string">"box1"</span>);</span><br><span class="line"><span class="keyword">var</span> box2 = <span class="built_in">document</span>.getElementById(<span class="string">"box2"</span>);</span><br><span class="line"><span class="keyword">var</span> lis  = box1.querySelectorAll(<span class="string">"li"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; lis.length; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(lis[i].cloneNode(<span class="literal">true</span>));</span><br><span class="line">    box2.appendChild(lis[i].cloneNode(<span class="literal">true</span>));</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// console.log(box1.cloneNode(true));</span></span><br><span class="line"><span class="comment">// box2.appendChild(box1.cloneNode(true));</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>样式如下</li>
+<li>cloneNode(true)和cloneNode()区别：前者能克隆节点中所有的内容，后者只能克隆标签。</li>
+<li>innerHTML 也能克隆，但是字符串方式的克隆。</li>
 </ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">12px</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"JavaScript syntax highlighting"</span>;</span><br><span class="line">alert(s);</span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"hello, world!"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">"Python syntax highlighting"</span></span><br><span class="line"><span class="keyword">print</span> s</span><br></pre></td></tr></table></figure>
-<h2 id="9-Hard-Line-Breaks-换行"><a href="#9-Hard-Line-Breaks-换行" class="headerlink" title="9.Hard Line Breaks 换行"></a>9.<font color="#5F9EA0">Hard Line Breaks 换行</font></h2><pre><code>在一行的结尾处加上2个或2个以上的空格，也可以使用&lt;/br&gt;标签
-</code></pre><h2 id="10-Horizontal-Rules-水平分割线"><a href="#10-Horizontal-Rules-水平分割线" class="headerlink" title="10.Horizontal Rules 水平分割线"></a>10.<font color="#5F9EA0">Horizontal Rules 水平分割线</font></h2><pre><code>***
-* * *
-- - -
-</code></pre><h2 id="11-Escape-character-转义符-反斜杠"><a href="#11-Escape-character-转义符-反斜杠" class="headerlink" title="11.Escape character 转义符(反斜杠)"></a>11.<font color="#5F9EA0">Escape character 转义符(反斜杠)</font></h2><pre><code>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号
-例如：如果你想要用星号加在文字旁边的方式来做出强调效果，你可以在星号的    前面加上反斜杠：
-\*literal asterisks\*
-Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：
-\反斜杠  `反引号  *星号  _下划线  {}花括号  []方括号  ()括弧  #井字号  +加号  -减号  .英文句 !感叹号
-</code></pre><h2 id="12-Additional-补充"><a href="#12-Additional-补充" class="headerlink" title="12.Additional 补充"></a>12.<code>Additional 补充</code></h2><pre><code>Markdown也支持传统的HTML标签。
-比如一个链接，你不太喜欢Markdown的写法，也可以直接写成&lt;a href=&quot;http://www.baidu.com&quot;&gt;百度&lt;/a&gt;
-</code></pre>
+</li>
+</ol>
+
                 <hr>
                 
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/01/07/003-LINUX/" data-toggle="tooltip" data-placement="top"
-                           title="Linux基本使用">&larr; Previous Post</a>
+                        <a href="/2018/01/12/015-flow-of-event/" data-toggle="tooltip" data-placement="top"
+                           title="捕获与冒泡">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/01/03/001-CONCEPTS/" data-toggle="tooltip" data-placement="top"
-                           title="概念性知识">Next Post &rarr;</a>
+                        <a href="/2018/01/11/012-cross-domain/" data-toggle="tooltip" data-placement="top"
+                           title="常用的跨域方法">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -372,7 +277,7 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Block-Code-代码分组-代码区块-："><span class="toc-text">1.Block Code 代码分组(代码区块)：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Headers-标题"><span class="toc-text">2.Headers 标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文本强调"><span class="toc-text">3.文本强调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Lists-列表"><span class="toc-text">4.Lists 列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Links-连接（title为可选项）"><span class="toc-text">5.Links 连接（title为可选项）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Blockquotes-引用-可以嵌套"><span class="toc-text">6.Blockquotes 引用(可以嵌套)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Headers-in-blockquotes"><span class="toc-text">Headers in blockquotes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-代码高亮"><span class="toc-text">7.代码高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-语法高亮"><span class="toc-text">8.语法高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Hard-Line-Breaks-换行"><span class="toc-text">9.Hard Line Breaks 换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Horizontal-Rules-水平分割线"><span class="toc-text">10.Horizontal Rules 水平分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Escape-character-转义符-反斜杠"><span class="toc-text">11.Escape character 转义符(反斜杠)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Additional-补充"><span class="toc-text">12.Additional 补充</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、节点关系"><span class="toc-text">一、节点关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、DOM的节点操作"><span class="toc-text">二、DOM的节点操作</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -394,8 +299,8 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#dom"
+                           title="dom">dom</a>
                         
                     </div>
                 </section>
