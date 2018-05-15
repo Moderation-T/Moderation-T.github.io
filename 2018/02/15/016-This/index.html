@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        捕获与冒泡｜yizhiyu
+        函数上下文与构造函数｜yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/12/015-flow-of-event/">
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/02/15/016-This/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -163,21 +163,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>捕获与冒泡</h1>
+                    <h1>函数上下文与构造函数</h1>
                     
                     <span class="meta">
                          作者 糖一瓶
                         <span>
-                          日期 2018-01-12
+                          日期 2018-02-15
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#事件流"
-                           title="事件流">事件流</a>
+                        <a class="tag" href="/tags/#this指向"
+                           title="this指向">this指向</a>
                         
-                        <a class="tag" href="/tags/#捕获与冒泡"
-                           title="捕获与冒泡">捕获与冒泡</a>
+                        <a class="tag" href="/tags/#构造函数"
+                           title="构造函数">构造函数</a>
                         
                     </div>
                 </div>
@@ -186,7 +186,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            捕获与冒泡
+            函数上下文与构造函数
         </span>
     </div>
 </header>
@@ -197,42 +197,15 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="一、事件流"><a href="#一、事件流" class="headerlink" title="一、事件流"></a>一、事件流</h2><p>人们为了描述一个事件的传播，人为的规定一个事件的传播的方向，称为事件流。<br>有两个阶段： 事件的冒泡和捕获阶段。<br>事件是先捕获的，再冒泡。<br>捕获是从上到下执行的【从最外层向最内层传播】。<br>冒泡是从下向上传播的【从最内层向最外层传播】。<img src="http://p82ue350h.bkt.clouddn.com/image/flow_of_event/1.png" alt="1"></p>
-<h2 id="二、事件监听"><a href="#二、事件监听" class="headerlink" title="二、事件监听"></a>二、事件监听</h2><h3 id="1-0级事件监听"><a href="#1-0级事件监听" class="headerlink" title="1. 0级事件监听"></a>1. 0级事件监听</h3><p> on***的语法添加的监听，称为DOM0级事件。<br>Onclick、 onmouseover 、 onmouseenter 、onmouseout 、onmouseleave 等等</p>
+                <h2 id="一、函数的上下文【this的指向】"><a href="#一、函数的上下文【this的指向】" class="headerlink" title="一、函数的上下文【this的指向】"></a>一、函数的上下文【this的指向】</h2><p> 规则1：当函数直接圆括号运行的时候，上下文是window对象。<br>        当IIFE【立即执行函数】中有this的话，指向的值window对象。<br> 规则2：从对象中枚举或从数组中枚举的函数，上下文是这个对象或数组。<br> 规则3：定时器调用函数，上下文是window对象。<br> 规则4：DOM事件处理函数中的this，指的是触发的事件的这个元素。<br> 规则5：call()和apply()可以重新设置函数的上下文。</p>
+<h2 id="二、-构造函数"><a href="#二、-构造函数" class="headerlink" title="二、 构造函数"></a>二、 构造函数</h2><p>语法：</p>
 <blockquote>
-<p>DOM0级事件监听只能监听冒泡阶段。<br>事件的触发一个会按事件流的顺序执行。<br>DOM0级事件处理函数中，this指向的是触发事件的那个DOM元素。<br>DOM0级事件中，若给同一个DOM对象，绑定多个事件 ，后写的会覆盖先写的。<br>DOM0级事件监听，IE6、7、8中。事件只能冒泡到document阶段，没有window阶段。</p>
+<p>new 函数的名字();</p>
 </blockquote>
-<h3 id="2-DOM2级事件监听"><a href="#2-DOM2级事件监听" class="headerlink" title="2. DOM2级事件监听"></a>2. DOM2级事件监听</h3><p>DOM2级事件监听 用 addEventListener()函数<br>DOM元素.addEventListener(“事件名【没有on】”,”事件处理函数”,”是否监听捕获阶段”)<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">box.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"我是DOM2级事件监听的，我是box"</span>)</span><br><span class="line">&#125;,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure></p>
-<pre><code>&gt; 要记住：true表示监听捕获阶段，false能监听冒泡阶段。
-&gt; DOM2级事件监听，若给同一个元素绑定一个事件名同一个阶段添加多个监听的时候。彼此不会覆盖，先写的执行。
-&gt; `对于最内层盒子是先写先执行。 最内层盒子不区分冒泡盒捕获。`
-&gt; DOM2级事件处理函数中，this指向的是事件触发的那个DOM元素。
-&gt; DOM2级事件不会覆盖DOM0级事件，先写先执行。
-</code></pre><h3 id="3-低版本IE的监听事件"><a href="#3-低版本IE的监听事件" class="headerlink" title="3. 低版本IE的监听事件"></a>3. 低版本IE的监听事件</h3><p>低版本IE6、7、8中只支持DOM0级事件。DOM2级有自己的方法： attachEvent</p>
+<p>此时函数调用了。<br>当一个函数被new调用的时候，会发生四个事情，四步走：</p>
 <blockquote>
-<p>attachEvent只接收两个参数第一个参数是事件名有on，第二个参数是事件处理函数。<br>没有第三个参数【不能监听阶段】。在IE6、7、8中只有冒泡阶段，永远监听不到捕获阶段的。<br>对同一个DOM元素绑定多个事件的时候，会按书写顺序的倒序执行。<br>在事件处理函数中this指向的是window对象，并不是事件对象。<br>事件是传播不到Window对象的，所以是绑定不了。</p>
+<p>1)函数里面会创建一个新的空对象。<br>2)This指向这个空对象。也就是说将以这个新的对象作为上下文。<br>3)执行所有函数中语句。<br>4)返回这个新的对象。</p>
 </blockquote>
-<h3 id="4-事件监听的移除"><a href="#4-事件监听的移除" class="headerlink" title="4. 事件监听的移除"></a>4. 事件监听的移除</h3><p>DOM0级事件的移除简单，直接把onclick属性值设置为null。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">box.onclick = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure></p>
-<p>DOM2级事件移除必须指名道姓。也就是说，每一个移除的函数需要起名。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">box.addEventListener(<span class="string">"click"</span>,fun1,<span class="literal">false</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"我是DOM2级事件绑定的方法"</span>)</span><br><span class="line">&#125;   </span><br><span class="line">box.removeEventListener(<span class="string">"click"</span>,fun1,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure></p>
-<p>在低版本的IE中用 detachEvent方法，事件移除必须指名道姓。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">box.attachEvent(<span class="string">"onclick"</span>, fun2);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"低版本的IE中绑定的事件"</span>)</span><br><span class="line">&#125;</span><br><span class="line">box.detachEvent(<span class="string">"onclick"</span>, fun2);</span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>冒泡和捕获的监听<blockquote>
-<p>0级事件监听只能监听冒泡阶段。this指向的是触发事件的那个DOM元素。<br>2级监听事件当第三参数为true时监听捕获事件，为false时监听冒泡。this指向的是触发事件的那个DOM元素。</p>
-</blockquote>
-</li>
-<li>执行顺序<blockquote>
-<p>事件的执行是先冒泡再捕获，最里层的盒子不区分捕获和冒泡，先写先执行。<br>0级事件监听给同一个DOM绑定多个事件，后写的会覆盖先写的。<br>2级事件监听不会覆盖先写的先执行后写的后执行。</p>
-</blockquote>
-</li>
-<li>游览器版本<blockquote>
-<p>高版本的浏览器会冒泡得到window阶段，低版本的浏览器会冒泡得到document阶段。</p>
-</blockquote>
-</li>
-<li>关于IE678<blockquote>
-<p>IE6、7、8中是有自己的方法 attachEvent()，只能监听冒泡阶段。<br>事件名有on，this是window对象。可以设置同名的函数，但是会反复执行【事件栈】。<br>This是window对象，不是触发元素。事件只能冒泡到document阶段。</p>
-</blockquote>
-</li>
-</ol>
 
                 <hr>
                 
@@ -240,14 +213,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/02/15/016-This/" data-toggle="tooltip" data-placement="top"
-                           title="函数上下文与构造函数">&larr; Previous Post</a>
+                        <a href="/2018/03/21/004-React-01/" data-toggle="tooltip" data-placement="top"
+                           title="webpack && React 之 Hello World">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/01/12/014-DOM/" data-toggle="tooltip" data-placement="top"
-                           title="DOM的节点操作">Next Post &rarr;</a>
+                        <a href="/2018/01/12/015-flow-of-event/" data-toggle="tooltip" data-placement="top"
+                           title="捕获与冒泡">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -282,7 +255,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、事件流"><span class="toc-text">一、事件流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、事件监听"><span class="toc-text">二、事件监听</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0级事件监听"><span class="toc-text">1. 0级事件监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-DOM2级事件监听"><span class="toc-text">2. DOM2级事件监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-低版本IE的监听事件"><span class="toc-text">3. 低版本IE的监听事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-事件监听的移除"><span class="toc-text">4. 事件监听的移除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、函数的上下文【this的指向】"><span class="toc-text">一、函数的上下文【this的指向】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、-构造函数"><span class="toc-text">二、 构造函数</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -304,11 +277,11 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#事件流"
-                           title="事件流">事件流</a>
+                        <a class="tag" href="/tags/#this指向"
+                           title="this指向">this指向</a>
                         
-                        <a class="tag" href="/tags/#捕获与冒泡"
-                           title="捕获与冒泡">捕获与冒泡</a>
+                        <a class="tag" href="/tags/#构造函数"
+                           title="构造函数">构造函数</a>
                         
                     </div>
                 </section>
