@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        markdown基本使用｜yizhiyu
+        基本类型值和引用类型值｜yizhiyu
         
     </title>
 
-    <link rel="canonical" href="http://Moderation-T.github.io/2018/01/05/002-MARKDOWN/">
+    <link rel="canonical" href="http://Moderation-T.github.io/2018/05/19/017-value-type/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -163,18 +163,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>markdown基本使用</h1>
+                    <h1>基本类型值和引用类型值</h1>
                     
                     <span class="meta">
                          作者 糖一瓶
                         <span>
-                          日期 2018-01-05
+                          日期 2018-05-19
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#基本类型值"
+                           title="基本类型值">基本类型值</a>
+                        
+                        <a class="tag" href="/tags/#引用类型值"
+                           title="引用类型值">引用类型值</a>
                         
                     </div>
                 </div>
@@ -183,7 +186,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            markdown基本使用
+            基本类型值和引用类型值
         </span>
     </div>
 </header>
@@ -194,150 +197,22 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="1-Block-Code-代码分组-代码区块-："><a href="#1-Block-Code-代码分组-代码区块-：" class="headerlink" title="1.Block Code 代码分组(代码区块)："></a>1.<font color="#5F9EA0">Block Code 代码分组(代码区块)：</font></h2><pre><code>在该行开头缩进4个空格或一个制表符(tab)
-</code></pre><ul>
-<li><p>样式如下</p>
-<pre><code>就是生成这个灰色的框框区域
-你可以写很多行
-</code></pre></li>
-</ul>
-<h2 id="2-Headers-标题"><a href="#2-Headers-标题" class="headerlink" title="2.Headers 标题"></a>2.<font color="#5F9EA0">Headers 标题</font></h2><pre><code># H1（一级标题写法1）
-H1    （一级标题写法2）    
-===
-## H2（二级标题写法1）
-H2    （二级标题写法2）
----
-### H3（三级标题）
-#### H4（四级标题）
-##### H5（五级标题）
-###### H6（六级标题）
-</code></pre><h2 id="3-文本强调"><a href="#3-文本强调" class="headerlink" title="3.文本强调"></a>3.<font color="#5F9EA0">文本强调</font></h2><pre><code>*斜体* 
-**加粗** 
-***粗斜体***
-~~删除线~~
-</code></pre><p><code>注意：*与文本之间不能有空格</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
+                <h2 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h2><p>基本类型值:number、 string、 boolean、 undefined、 null<br>引用类型值:Object、 Array、 Function、 RegExp、 Math、 date</p>
+<p>它们的区别：<br>基本类型值在内存中都是”栈内存”，引用类型是”堆内存”<br>从一个变量赋值另一个变量的时候，若赋值的基本类型，会创建这个值的副本。<br>从一个变量赋值另一个变量的时候，若赋值的是引用类型值，赋值的其实是指针，因此两个变量指向的是同一个对象。</p>
+<h2 id="面试题详解"><a href="#面试题详解" class="headerlink" title="面试题详解"></a>面试题详解</h2><h3 id="面试题1"><a href="#面试题1" class="headerlink" title="面试题1"></a>面试题1</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a ;</span><br><span class="line">a.x = <span class="number">2</span></span><br><span class="line">b.x; <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line">a = &#123;<span class="attr">x</span>:<span class="number">3</span>&#125;;</span><br><span class="line">b.x ;</span><br><span class="line">a.x = <span class="number">4</span>;</span><br><span class="line">b.x; <span class="comment">//4</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><em>斜体</em><br><strong>粗体</strong><br><strong><em>粗斜体</em></strong><br><del>删除线</del></p>
+<p>详解每一个b.x的值<br>首先定义了一个对象a，有一个属性x，值为1.接着让b=a,这一步的结果就是a和b指向了同一个对象。<br>在栈里会保存两份1，分别赋值给a和b。修改a或b，对另一个变量不会有影响。<br>如下图:</p>
 </blockquote>
-<h2 id="4-Lists-列表"><a href="#4-Lists-列表" class="headerlink" title="4.Lists 列表"></a>4.<font color="#5F9EA0">Lists 列表</font></h2><pre><code>Unordered 无序列表：
-* 无序列表
-* 子项
-* 子项
 
-+ 无序列表
-+ 子项
-+ 子项
-
-- 无序列表
-- 子项
-- 子项
-
-Ordered 有序列表：
-1. 第一行
-2. 第二行
-3. 第三行
-</code></pre><p><code>注意：如果首行以数字文本开头例如2018.** 为避免被转化成有序列表，要在“.”前加上转义字符“\”</code></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<ul>
-<li>无序列表</li>
-<li>子项</li>
-<li>子项</li>
-</ul>
-<ol>
-<li>第一行</li>
-<li>第二行</li>
-<li>第三行</li>
-</ol>
-</blockquote>
-<h2 id="5-Links-连接（title为可选项）"><a href="#5-Links-连接（title为可选项）" class="headerlink" title="5.Links 连接（title为可选项）"></a>5.<font color="#5F9EA0">Links 连接（title为可选项）</font></h2><pre><code>Inline-style 内嵌方式：
-[link text](https://www.google.com &quot;title text&quot;)
-
-Reference-style 引用方式：
-[link text][id]
-[id]: https://www.mozilla.org &quot;title text&quot;
-
-Relative reference to a repository file 引用存储文件：
-[link text](../path/file/readme.text &quot;title text&quot;)
-
-还能这样使用：
-[link text][]
-[link text]: http://www.reddit.com
-</code></pre><hr>
-<pre><code>Email 邮件：
-&lt;example@example.com&gt;
-</code></pre><hr>
-<pre><code>Images 图片：
-Inline-style 内嵌方式：
-![alt text](images/icon48.png &quot;title text&quot;)
-
-Reference-style 引用方式：
-![alt text][logo]
-[logo]: images/icon48.png &quot;title text&quot;
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p><a href="https://www.google.com" title="title text" target="_blank" rel="noopener">link text</a> (网址链接样式)<br><a href="mailto:&#101;&#x78;&#97;&#109;&#112;&#x6c;&#101;&#x40;&#101;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#46;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#101;&#x78;&#97;&#109;&#112;&#x6c;&#101;&#x40;&#101;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#46;&#x63;&#111;&#109;</a> （邮箱链接样式）<br>图片链接样式就是张图，这里就不演示了</p>
-</blockquote>
-<h2 id="6-Blockquotes-引用-可以嵌套"><a href="#6-Blockquotes-引用-可以嵌套" class="headerlink" title="6.Blockquotes 引用(可以嵌套)"></a>6.<font color="#5F9EA0">Blockquotes 引用(可以嵌套)</font></h2><pre><code>&gt; Blockquotes 引用
-&gt; #### Headers in blockquotes
-&gt; * You can quote a list.
-&gt; * Etc.
-</code></pre><ul>
-<li>样式如下</li>
-</ul>
-<blockquote>
-<p>Blockquotes 引用</p>
-<h4 id="Headers-in-blockquotes"><a href="#Headers-in-blockquotes" class="headerlink" title="Headers in blockquotes"></a>Headers in blockquotes</h4><ul>
-<li>You can quote a list.</li>
-<li>Etc.</li>
-</ul>
-</blockquote>
-<h2 id="7-代码高亮"><a href="#7-代码高亮" class="headerlink" title="7.代码高亮"></a>7.<font color="#5F9EA0">代码高亮</font></h2><pre><code>标记一小段行内代码：
-本文是一篇介绍`Markdown`的语法的文章
-</code></pre><ul>
-<li>样式如下<br><code>Markdown</code></li>
-</ul>
-<h2 id="8-语法高亮"><a href="#8-语法高亮" class="headerlink" title="8.语法高亮"></a>8.<font color="#5F9EA0">语法高亮</font></h2><p><pre><br>```语法名<br>    &lt;代码内容&gt;<br>```<br>css高亮：<br>```css<br>    body{font-size:12px}<br>```<br>js高亮：<br>```javascript<br>   var s = “JavaScript syntax highlighting”;<br>   alert(s);<br>```<br>php高亮：<br>```php<br>   &lt;?php<br>     echo “hello, world!”;<br>   ?&gt;<br>```<br>Python高亮：<br>```python<br>   s = “Python syntax highlighting”<br>   print s<br>```    </pre></p>
-<ul>
-<li>样式如下</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">12px</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">"JavaScript syntax highlighting"</span>;</span><br><span class="line">alert(s);</span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"hello, world!"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">"Python syntax highlighting"</span></span><br><span class="line"><span class="keyword">print</span> s</span><br></pre></td></tr></table></figure>
-<h2 id="9-Hard-Line-Breaks-换行"><a href="#9-Hard-Line-Breaks-换行" class="headerlink" title="9.Hard Line Breaks 换行"></a>9.<font color="#5F9EA0">Hard Line Breaks 换行</font></h2><pre><code>在一行的结尾处加上2个或2个以上的空格，也可以使用&lt;/br&gt;标签
-</code></pre><h2 id="10-Horizontal-Rules-水平分割线"><a href="#10-Horizontal-Rules-水平分割线" class="headerlink" title="10.Horizontal Rules 水平分割线"></a>10.<font color="#5F9EA0">Horizontal Rules 水平分割线</font></h2><pre><code>***
-* * *
-- - -
-</code></pre><h2 id="11-Escape-character-转义符-反斜杠"><a href="#11-Escape-character-转义符-反斜杠" class="headerlink" title="11.Escape character 转义符(反斜杠)"></a>11.<font color="#5F9EA0">Escape character 转义符(反斜杠)</font></h2><pre><code>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号
-例如：如果你想要用星号加在文字旁边的方式来做出强调效果，你可以在星号的    前面加上反斜杠：
-\*literal asterisks\*
-Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：
-\反斜杠  `反引号  *星号  _下划线  {}花括号  []方括号  ()括弧  #井字号  +加号  -减号  .英文句 !感叹号
-</code></pre><h2 id="12-Additional-补充"><a href="#12-Additional-补充" class="headerlink" title="12.Additional 补充"></a>12.<code>Additional 补充</code></h2><pre><code>Markdown也支持传统的HTML标签。
-比如一个链接，你不太喜欢Markdown的写法，也可以直接写成&lt;a href=&quot;http://www.baidu.com&quot;&gt;百度&lt;/a&gt;
-</code></pre>
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/01/07/003-LINUX/" data-toggle="tooltip" data-placement="top"
-                           title="Linux基本使用">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/01/03/001-CONCEPTS/" data-toggle="tooltip" data-placement="top"
-                           title="概念性知识">Next Post &rarr;</a>
+                        <a href="/2018/04/02/011-React-08/" data-toggle="tooltip" data-placement="top"
+                           title="React 之 dva">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -372,7 +247,7 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Block-Code-代码分组-代码区块-："><span class="toc-text">1.Block Code 代码分组(代码区块)：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Headers-标题"><span class="toc-text">2.Headers 标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文本强调"><span class="toc-text">3.文本强调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Lists-列表"><span class="toc-text">4.Lists 列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Links-连接（title为可选项）"><span class="toc-text">5.Links 连接（title为可选项）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Blockquotes-引用-可以嵌套"><span class="toc-text">6.Blockquotes 引用(可以嵌套)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Headers-in-blockquotes"><span class="toc-text">Headers in blockquotes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-代码高亮"><span class="toc-text">7.代码高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-语法高亮"><span class="toc-text">8.语法高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Hard-Line-Breaks-换行"><span class="toc-text">9.Hard Line Breaks 换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Horizontal-Rules-水平分割线"><span class="toc-text">10.Horizontal Rules 水平分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Escape-character-转义符-反斜杠"><span class="toc-text">11.Escape character 转义符(反斜杠)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Additional-补充"><span class="toc-text">12.Additional 补充</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念："><span class="toc-text">基本概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试题详解"><span class="toc-text">面试题详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#面试题1"><span class="toc-text">面试题1</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -394,8 +269,11 @@ Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的�
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#markdown"
-                           title="markdown">markdown</a>
+                        <a class="tag" href="/tags/#基本类型值"
+                           title="基本类型值">基本类型值</a>
+                        
+                        <a class="tag" href="/tags/#引用类型值"
+                           title="引用类型值">引用类型值</a>
                         
                     </div>
                 </section>
