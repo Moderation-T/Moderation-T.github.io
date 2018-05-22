@@ -79,15 +79,15 @@
                     
                         
 							
-                        <li>
-                            <a href="/catalog/">Catalog</a>
-                        </li>
+								
 							
 						
                     
                         
 							
-								
+                        <li>
+                            <a href="/catalog/">Catalog</a>
+                        </li>
 							
 						
                     
@@ -201,14 +201,11 @@
 <p>它们的区别：<br>基本类型值在内存中都是”栈内存”，引用类型是”堆内存”<br>从一个变量赋值另一个变量的时候，若赋值的基本类型，会创建这个值的副本。<br>从一个变量赋值另一个变量的时候，若赋值的是引用类型值，赋值的其实是指针，因此两个变量指向的是同一个对象。</p>
 <h2 id="面试题详解"><a href="#面试题详解" class="headerlink" title="面试题详解"></a>面试题详解</h2><ul>
 <li><h3 id="面试题1"><a href="#面试题1" class="headerlink" title="面试题1"></a>面试题1</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a ;</span><br><span class="line">a.x = <span class="number">2</span></span><br><span class="line">b.x; <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line">a = &#123;<span class="attr">x</span>:<span class="number">3</span>&#125;;</span><br><span class="line">b.x ; <span class="comment">//2</span></span><br><span class="line">a.x = <span class="number">4</span>;</span><br><span class="line">b.x; <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>详解每一个b.x的值<blockquote>
-<p>首先定义了一个对象a，有一个属性x，值为1.接着让b=a,这一步的结果就是a和b指向了同一个对象。<br>在栈里会保存两份1，分别赋值给a和b。修改a或b，对另一个变量不会有影响。<br>如下图:<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/1.png" alt="1"><br>对象则不然，变量a和b如果被赋值对象，a和b实际上保存的只是对象的地址，而且a和b还是被存储在栈里，同时a和b的地址是相同的。但对象是在堆里保存，且只保存一份，对象的地址就是a和b的值，a和b都指向同一个对象。这与C里面的指针类似，修改指向同一个对象的任何一个变量，与之引用同一对象变量很快就会发生同样的变化。如下图：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/2.png" alt="2"><br>所以现在的情况就是，a和b都指向了堆中的一个对象，这个对象的属性x值是1。那么a.x = 1，b.x自然也等于1<br>1   a.x = 2<br>接下来发生一件事情，a修改了对象的x属性为2，这个变化反映到了堆中：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/3.png" alt="3"><br>看，a和b还是指向了同一个对象，只不过对象中的x属性值变成了2。这一变化b很快就发现了，所以你再去访问b.x，实际上就是访问堆中的对象的x属性，也就是2。<br>1   a = {“x”:3};<br>再后来，为a赋值了一个新的对象，虽然它也有一个属性x，但它确实是一个新对象！那么内存堆中发生了什么呢？首先，堆中原有的对象（x = 2的那个）还在那里。因为新建了一个对象（x = 3的），堆中就会出现一个新的对象，与原来的对象毫无关系。同时，b并没有变化，它还指向原有的对象（x = 2），但a指向原来的对象的地址却发生了变化，它指向了x = 3的这个新对象。堆中情况如下：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/4.png" alt="4"><br>如上图，a的地址变了，同时a和原来的对象也没有指向关系了，它指向了新的对象，这个新对象的x = 3。而b对象没有任何变化，它还坚守着自己的对象，对象的x属性是2。<br>1   a.x = 4;<br>接着修改了a的x属性为4，参考前面的描述，我们可以知道堆的变化如下：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/5.png" alt="5"><br>瞧，a的x属性变成了4，但b和a已经没有关系了，所以b的x属性还是2。</p>
+</li>
+</ul>
+<blockquote>
+<p>详解每一个b.x的值<br>首先定义了一个对象a，有一个属性x，值为1.接着让b=a,这一步的结果就是a和b指向了同一个对象。<br>在栈里会保存两份1，分别赋值给a和b。修改a或b，对另一个变量不会有影响。<br>如下图:<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/1.png" alt="1"><br>对象则不然，变量a和b如果被赋值对象，a和b实际上保存的只是对象的地址，而且a和b还是被存储在栈里，同时a和b的地址是相同的。但对象是在堆里保存，且只保存一份，对象的地址就是a和b的值，a和b都指向同一个对象。这与C里面的指针类似，修改指向同一个对象的任何一个变量，与之引用同一对象变量很快就会发生同样的变化。如下图：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/2.png" alt="2"><br>所以现在的情况就是，a和b都指向了堆中的一个对象，这个对象的属性x值是1。那么a.x = 1，b.x自然也等于1<br>1   a.x = 2<br>接下来发生一件事情，a修改了对象的x属性为2，这个变化反映到了堆中：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/3.png" alt="3"><br>看，a和b还是指向了同一个对象，只不过对象中的x属性值变成了2。这一变化b很快就发现了，所以你再去访问b.x，实际上就是访问堆中的对象的x属性，也就是2。<br>1   a = {“x”:3};<br>再后来，为a赋值了一个新的对象，虽然它也有一个属性x，但它确实是一个新对象！那么内存堆中发生了什么呢？首先，堆中原有的对象（x = 2的那个）还在那里。因为新建了一个对象（x = 3的），堆中就会出现一个新的对象，与原来的对象毫无关系。同时，b并没有变化，它还指向原有的对象（x = 2），但a指向原来的对象的地址却发生了变化，它指向了x = 3的这个新对象。堆中情况如下：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/4.png" alt="4"><br>如上图，a的地址变了，同时a和原来的对象也没有指向关系了，它指向了新的对象，这个新对象的x = 3。而b对象没有任何变化，它还坚守着自己的对象，对象的x属性是2。<br>1   a.x = 4;<br>接着修改了a的x属性为4，参考前面的描述，我们可以知道堆的变化如下：<br><img src="http://p82ue350h.bkt.clouddn.com/image/value-type/5.png" alt="5"><br>瞧，a的x属性变成了4，但b和a已经没有关系了，所以b的x属性还是2。</p>
 </blockquote>
-</li>
-</ul>
-</li>
-</ul>
 <p>PS：以上地址什么的，都是随便写的，实际内存中肯定不是这些数字。</p>
 <ul>
 <li><h3 id="面试题2"><a href="#面试题2" class="headerlink" title="面试题2"></a>面试题2</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span>:<span class="number">1</span>&#125;; </span><br><span class="line"><span class="keyword">var</span> b = a;  </span><br><span class="line">a.x = a = &#123;<span class="attr">n</span>:<span class="number">2</span>&#125;; </span><br><span class="line"><span class="built_in">console</span>.log(a.x);<span class="comment">// --&gt; undefined </span></span><br><span class="line"><span class="built_in">console</span>.log(b.x);<span class="comment">// --&gt; [object Object]</span></span><br></pre></td></tr></table></figure>
